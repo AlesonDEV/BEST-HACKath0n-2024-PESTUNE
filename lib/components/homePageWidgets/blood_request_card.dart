@@ -8,19 +8,23 @@ class BloodRequestCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: BGColor,
-        borderRadius: BorderRadius.circular(15), // Заокруглення країв
-      ),
-      width: screenSize.width * 0.9,
-      height: screenSize.width * 0.35,
-      alignment: Alignment.center,
-      child: Text(
-        'hehe',
-        style: TextStyle(fontSize: 24, color: TextColor), // Зміна кольору тексту
-        textAlign: TextAlign.center,
-      ),
-    );
+    return
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: BGColor,
+            borderRadius: BorderRadius.circular(15), // Заокруглення країв
+          ),
+          width: screenSize.width * 0.9,
+          height: screenSize.height * 0.2,
+          alignment: Alignment.center,
+          child: Text(
+            'hehe',
+            style: TextStyle(fontSize: 24, color: TextColor), // Зміна кольору тексту
+            textAlign: TextAlign.center,
+          ),
+        )
+      );
   }
 }

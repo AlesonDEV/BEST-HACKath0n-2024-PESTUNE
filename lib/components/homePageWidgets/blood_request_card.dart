@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-const BGColor = const Color(0xffF5F5F3);
-const TextColor = const Color(0xff1f2c4b);
+import '../../config/colors.dart';
+
+
 
 class BloodRequestCard extends StatelessWidget {
   @override
@@ -10,15 +11,15 @@ class BloodRequestCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: BGColor,
-        borderRadius: BorderRadius.circular(15), // Заокруглення країв
+        color: MainColor,
+        borderRadius: BorderRadius.circular(15),
       ),
       width: screenSize.width * 0.9,
       height: screenSize.width * 0.35,
       alignment: Alignment.center,
       child: Text(
         'hehe',
-        style: TextStyle(fontSize: 24, color: TextColor), // Зміна кольору тексту
+        style: TextStyle(fontSize: 24, color: SecondaryColor), // Зміна кольору тексту
         textAlign: TextAlign.center,
       ),
     );

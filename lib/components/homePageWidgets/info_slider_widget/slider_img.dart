@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-const BGColor = const Color(0xffc09880);
-const TextColor = const Color(0xffF5F5F3);
+import '../../../config/colors.dart';
+
+
 
 class SliderImg extends StatelessWidget {
   @override
@@ -10,13 +11,13 @@ class SliderImg extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: BGColor,
+        color: ElementColor,
         borderRadius: BorderRadius.circular(15), // Заокруглення країв
       ),
       alignment: Alignment.center,
       child: Text(
         'img_slider',
-        style: TextStyle(fontSize: 24, color: TextColor), // Зміна кольору тексту
+        style: TextStyle(fontSize: 24, color: MainColor), // Зміна кольору тексту
         textAlign: TextAlign.center,
       ),
     );

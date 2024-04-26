@@ -2,9 +2,8 @@ import 'package:blood_flow/components/homePageWidgets/info_slider_widget/slider_
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'; // Correct import
 
-const BGColor = const Color(0xffF5F5F3);
-const IdleDotColor = const Color(0xffd5d4d2);
-const CurentDotColor = const Color(0xff1f2c4b);
+import '../../../config/colors.dart';
+
 
 class InfoSliderWidget extends StatelessWidget {
   final _controller = PageController();
@@ -42,8 +41,8 @@ class InfoSliderWidget extends StatelessWidget {
                 controller: _controller,
                 count: 4,
                 effect: JumpingDotEffect(
-                  activeDotColor:  CurentDotColor,
-                  dotColor: IdleDotColor,
+                  activeDotColor:  SecondaryColor,
+                  dotColor: BGColor,
                   dotHeight: 10,
                   dotWidth: 10,
                   spacing: 16,

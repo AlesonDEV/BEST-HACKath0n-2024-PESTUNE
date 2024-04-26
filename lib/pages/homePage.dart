@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../components/Navigation/navigation.dart';
+import '../components/homePageWidgets/blood_request_form.dart';
 import '../mainpage.dart';
 
 class HomePageWidget extends StatefulWidget {
@@ -31,26 +32,26 @@ class _HomePageState extends State<HomePageWidget>{
               child: ElevatedButton(
                 // onPressed: () {
                 //   _key.currentState!.AddRequestCard(BloodRequestCard());
-                // }, // TODO Reimplement this
+                //   setState(() {
+                //
+                //   });
+                // },
 
                 onPressed: () {
-                  // Call function to show dialog
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      // Return the dialog widget
                       return AlertDialog(
-                        title: Text('Dialog Title'),
-                        content: Text('This is a dialog box. You can put any content here.'),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('Close'),
-                            onPressed: () {
-                              // Close the dialog
-                              Navigator.of(context).pop();
-                            },
+                        title: Text('Blood Donation Form'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              BloodDonationForm(CloseForm: (){
+                                Navigator.of(context).pop();
+                              },), // Your custom form widget
+                            ],
                           ),
-                        ],
+                        ),
                       );
                     },
                   );

@@ -1,3 +1,4 @@
+import 'package:blood_flow/model/blood_types.dart';
 import 'package:flutter/cupertino.dart';
 import 'blood_request_card.dart';
 
@@ -10,7 +11,7 @@ class BloodRequestContainer extends StatefulWidget {
 }
 
 class BloodRequestContainerState extends State<BloodRequestContainer> {
-  static List<BloodRequestCard> bloodCards = [];
+  static List<BloodRequestCard> bloodCards = [BloodRequestCard.progress(20, BloodTypes.A, 10), BloodRequestCard(30, BloodTypes.B), BloodRequestCard(5, BloodTypes.AB)];
 
   void AddRequestCard(BloodRequestCard toAdd){
     BloodRequestContainerState.bloodCards.add(toAdd);

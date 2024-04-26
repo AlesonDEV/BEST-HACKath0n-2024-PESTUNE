@@ -1,0 +1,6 @@
+@BloodFlow_HostAddress = http://localhost:5195
+
+GET {{BloodFlow_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

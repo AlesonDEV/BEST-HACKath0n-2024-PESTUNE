@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.DataLayer.Entities
 {
-    [Table("state")]
+    [Table("state_session")]
     public class StateSession : BaseEntity
     {
         [Column("name")]

@@ -11,7 +11,7 @@ namespace BloodFlow.DataLayer.Interfaces.RepositoryInterfaces
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
 
-        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity?> GetByIdAsync(int id);
 
         Task AddAsync(TEntity entity);
 

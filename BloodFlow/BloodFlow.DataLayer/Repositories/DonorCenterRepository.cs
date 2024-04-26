@@ -1,42 +1,42 @@
-﻿using System;
+﻿using BloodFlow.DataLayer.Entities;
+using BloodFlow.DataLayer.Interfaces.RepositoryInterfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BloodFlow.DataLayer.Entities;
-using BloodFlow.DataLayer.Interfaces.RepositoryInterfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace BloodFlow.DataLayer.Repositories
 {
-    public class StreetRepository : IStreetRepository
+    internal class DonorCenterRepository : IDonorCenterRepository
     {
         private readonly DbContext _context;
-        private readonly DbSet<Street> _dbSet;
+        private readonly DbSet<DonorCenter> _dbSet;
 
-        public StreetRepository(DbContext context)
+        public DonorCenterRepository(DbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _dbSet = context.Set<Street>();
+            _dbSet = context.Set<DonorCenter>();
         }
 
-        public async Task<IEnumerable<Street>> GetAllAsync()
+        public async Task<IEnumerable<DonorCenter>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<Street?> GetByIdAsync(int id)
+        public async Task<DonorCenter?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task AddAsync(Street entity)
+        public async Task AddAsync(DonorCenter entity)
         {
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public void Delete(Street entity)
+        public void Delete(DonorCenter entity)
         {
             _dbSet.Remove(entity);
             _context.SaveChanges();
@@ -52,7 +52,7 @@ namespace BloodFlow.DataLayer.Repositories
             }
         }
 
-        public void Update(Street entity)
+        public void Update(DonorCenter entity)
         {
             _dbSet.Update(entity);
             _context.SaveChanges();

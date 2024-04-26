@@ -9,34 +9,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BloodFlow.DataLayer.Repositories
 {
-    public class StreetRepository : IStreetRepository
+    internal class StateSessionRepository : IStateSessionRepository
     {
         private readonly DbContext _context;
-        private readonly DbSet<Street> _dbSet;
+        private readonly DbSet<StateSession> _dbSet;
 
-        public StreetRepository(DbContext context)
+        public StateSessionRepository(DbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _dbSet = context.Set<Street>();
+            _dbSet = context.Set<StateSession>();
         }
 
-        public async Task<IEnumerable<Street>> GetAllAsync()
+        public async Task<IEnumerable<StateSession>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<Street?> GetByIdAsync(int id)
+        public async Task<StateSession?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task AddAsync(Street entity)
+        public async Task AddAsync(StateSession entity)
         {
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public void Delete(Street entity)
+        public void Delete(StateSession entity)
         {
             _dbSet.Remove(entity);
             _context.SaveChanges();
@@ -52,7 +52,7 @@ namespace BloodFlow.DataLayer.Repositories
             }
         }
 
-        public void Update(Street entity)
+        public void Update(StateSession entity)
         {
             _dbSet.Update(entity);
             _context.SaveChanges();

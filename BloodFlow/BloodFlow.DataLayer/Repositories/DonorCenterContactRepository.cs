@@ -9,34 +9,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BloodFlow.DataLayer.Repositories
 {
-    public class StreetRepository : IStreetRepository
+    internal class DonorCenterContactRepository : IDonorCenterContactRepository
     {
         private readonly DbContext _context;
-        private readonly DbSet<Street> _dbSet;
+        private readonly DbSet<DonorCenterContact> _dbSet;
 
-        public StreetRepository(DbContext context)
+        public DonorCenterContactRepository(DbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _dbSet = context.Set<Street>();
+            _dbSet = context.Set<DonorCenterContact>();
         }
 
-        public async Task<IEnumerable<Street>> GetAllAsync()
+        public async Task<IEnumerable<DonorCenterContact>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<Street?> GetByIdAsync(int id)
+        public async Task<DonorCenterContact?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task AddAsync(Street entity)
+        public async Task AddAsync(DonorCenterContact entity)
         {
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public void Delete(Street entity)
+        public void Delete(DonorCenterContact entity)
         {
             _dbSet.Remove(entity);
             _context.SaveChanges();
@@ -52,7 +52,7 @@ namespace BloodFlow.DataLayer.Repositories
             }
         }
 
-        public void Update(Street entity)
+        public void Update(DonorCenterContact entity)
         {
             _dbSet.Update(entity);
             _context.SaveChanges();

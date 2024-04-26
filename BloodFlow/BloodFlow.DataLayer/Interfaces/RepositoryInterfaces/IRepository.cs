@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BloodFlow.DataLayer.Interfaces
+namespace BloodFlow.DataLayer.Interfaces.RepositoryInterfaces
 {
-    public interface IRepository<TEntity> where TEntity : BaseEntity
+    internal interface IRepository<TEntity> where TEntity : BaseEntity
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
 
@@ -16,7 +16,7 @@ namespace BloodFlow.DataLayer.Interfaces
         Task AddAsync(TEntity entity);
 
         void Delete(TEntity entity);
-          
+
         Task DeleteByIdAsync(int id);
 
         void Update(TEntity entity);

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace BloodFlow.DataLayer.Entities
 {
     [Table("state")]
-    public class State : BaseEntity
+    public class StateSession : BaseEntity
     {
         [Column("name")]
         public string Name { get; set; }
 
         public ICollection<Session>? Sessions { get; set; }
 
-        public State(long id,
+        public StateSession(long id,
             string name) : base(id)
         {
             Name = name;

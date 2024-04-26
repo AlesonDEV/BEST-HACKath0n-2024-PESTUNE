@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
             IndexedStack(
               index: _selectedIndex,
               children: [
-                const HomePageWidget(),
+                HomePageWidget(),
                 Container(
                   // Your Map content here
                   child: Center(

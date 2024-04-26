@@ -7,22 +7,26 @@ import '../components/Navigation/navigation.dart';
 import '../mainpage.dart';
 
 class HomePageWidget extends StatelessWidget {
-  const HomePageWidget({
+  final GlobalKey<BloodRequestContainerState> _key = GlobalKey();
+
+  HomePageWidget({
     super.key,
   });
+
+  final List<BloodRequestCard> cards = const <BloodRequestCard>[];
 
   @override
   Widget build(BuildContext context) {
     return(
       Stack(
         children: [
-          BloodRequestContainer(),
+          BloodRequestContainer(key: _key),
           Positioned(
             bottom: 100,
             right: 20,
             child: ElevatedButton(
               onPressed: () {
-
+                _key.currentState!.AddRequestCard(BloodRequestCard());
               },
               child: Icon(Icons.add), // Replace with your desired icon
               style: ElevatedButton.styleFrom(

@@ -1,16 +1,22 @@
 import 'package:flutter/cupertino.dart';
-
 import 'blood_request_card.dart';
 
-class BloodRequestContainer extends StatefulWidget{
-  const BloodRequestContainer({Key? key}): super(key: key);
+class BloodRequestContainer extends StatefulWidget {
+
+  const BloodRequestContainer({Key? key}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => _BloodRequestContainerState();
+  State<StatefulWidget> createState() => BloodRequestContainerState();
 }
 
-class _BloodRequestContainerState extends State<BloodRequestContainer>{
+class BloodRequestContainerState extends State<BloodRequestContainer> {
+  List<BloodRequestCard> bloodCards = [];
+
+  void AddRequestCard(BloodRequestCard toAdd){
+    bloodCards.add(toAdd);
+  }
   @override
-  Widget build(BuildContext buildContext){
+  Widget build(BuildContext buildContext) {
     return Container(
       child: Center(
         child: Column(
@@ -18,16 +24,7 @@ class _BloodRequestContainerState extends State<BloodRequestContainer>{
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    BloodRequestCard(),
-                    BloodRequestCard(),
-                    BloodRequestCard(),
-                    BloodRequestCard(),
-                    BloodRequestCard(),
-                    BloodRequestCard(),
-                    BloodRequestCard(),
-                    BloodRequestCard()
-                 ],
+                  children: bloodCards,
                 ),
               ),
             ),
@@ -37,4 +34,3 @@ class _BloodRequestContainerState extends State<BloodRequestContainer>{
     );
   }
 }
-

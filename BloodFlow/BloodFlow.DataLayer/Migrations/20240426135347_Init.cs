@@ -51,22 +51,6 @@ namespace BloodFlow.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "person",
-                columns: table => new
-                {
-                    id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    date_of_birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    photo_link = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_person", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "state",
                 columns: table => new
                 {
@@ -119,31 +103,6 @@ namespace BloodFlow.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "person_contact",
-                columns: table => new
-                {
-                    peson_id = table.Column<long>(type: "bigint", nullable: false),
-                    contact_type_id = table.Column<long>(type: "bigint", nullable: false),
-                    contact_value = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_person_contact", x => new { x.peson_id, x.contact_type_id });
-                    table.ForeignKey(
-                        name: "FK_person_contact_contact_type_contact_type_id",
-                        column: x => x.contact_type_id,
-                        principalTable: "contact_type",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_person_contact_person_peson_id",
-                        column: x => x.peson_id,
-                        principalTable: "person",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "session",
                 columns: table => new
                 {
@@ -181,6 +140,30 @@ namespace BloodFlow.DataLayer.Migrations
                     table.PrimaryKey("PK_donor_center", x => x.id);
                     table.ForeignKey(
                         name: "FK_donor_center_street_street_id",
+                        column: x => x.street_id,
+                        principalTable: "street",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "person",
+                columns: table => new
+                {
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    date_of_birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    photo_link = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    house_number = table.Column<int>(type: "int", nullable: false),
+                    street_id = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_person", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_person_street_street_id",
                         column: x => x.street_id,
                         principalTable: "street",
                         principalColumn: "id",
@@ -284,6 +267,31 @@ namespace BloodFlow.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "person_contact",
+                columns: table => new
+                {
+                    peson_id = table.Column<long>(type: "bigint", nullable: false),
+                    contact_type_id = table.Column<long>(type: "bigint", nullable: false),
+                    contact_value = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_person_contact", x => new { x.peson_id, x.contact_type_id });
+                    table.ForeignKey(
+                        name: "FK_person_contact_contact_type_contact_type_id",
+                        column: x => x.contact_type_id,
+                        principalTable: "contact_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_person_contact_person_peson_id",
+                        column: x => x.peson_id,
+                        principalTable: "person",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "donor_order",
                 columns: table => new
                 {
@@ -336,6 +344,11 @@ namespace BloodFlow.DataLayer.Migrations
                 name: "IX_order_donor_center_id",
                 table: "order",
                 column: "donor_center_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_person_street_id",
+                table: "person",
+                column: "street_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_person_contact_contact_type_id",

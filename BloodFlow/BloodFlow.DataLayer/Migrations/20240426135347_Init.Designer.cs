@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodFlow.DataLayer.Migrations
 {
     [DbContext(typeof(BloodFlowDbContext))]
-    [Migration("20240426130932_Init")]
+    [Migration("20240426135347_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -239,6 +239,10 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("date_of_birthday");
 
+                    b.Property<int>("HouseNumber")
+                        .HasColumnType("int")
+                        .HasColumnName("house_number");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -249,12 +253,18 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("photo_link");
 
+                    b.Property<long>("StreetId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("street_id");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("surname");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StreetId");
 
                     b.ToTable("person");
                 });
@@ -466,6 +476,17 @@ namespace BloodFlow.DataLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("DonorCenter");
+                });
+
+            modelBuilder.Entity("BloodFlow.DataLayer.Entities.Person", b =>
+                {
+                    b.HasOne("BloodFlow.DataLayer.Entities.Street", "Street")
+                        .WithMany()
+                        .HasForeignKey("StreetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Street");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.PersonContact", b =>

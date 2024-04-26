@@ -37,7 +37,7 @@ namespace BloodFlow.DataLayer.Data
 
         public DbSet<Session> Sessions { get; set; }
 
-        public DbSet<State> States { get; set; }
+        public DbSet<StateSession> States { get; set; }
 
         public DbSet<Street> Streets { get; set; }
 

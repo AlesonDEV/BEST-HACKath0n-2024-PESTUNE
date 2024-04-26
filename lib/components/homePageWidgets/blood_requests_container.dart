@@ -10,10 +10,10 @@ class BloodRequestContainer extends StatefulWidget {
 }
 
 class BloodRequestContainerState extends State<BloodRequestContainer> {
-  List<BloodRequestCard> bloodCards = [];
+  static List<BloodRequestCard> bloodCards = [];
 
   void AddRequestCard(BloodRequestCard toAdd){
-    bloodCards.add(toAdd);
+    BloodRequestContainerState.bloodCards.add(toAdd);
   }
   @override
   Widget build(BuildContext buildContext) {
@@ -24,7 +24,7 @@ class BloodRequestContainerState extends State<BloodRequestContainer> {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: bloodCards,
+                  children: BloodRequestContainerState.bloodCards,
                 ),
               ),
             ),

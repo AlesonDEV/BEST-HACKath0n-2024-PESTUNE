@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.DataLayer.Entities
 {
-    [Table("state")]
-    public class State : BaseEntity
+    [Table("importance")]
+    public class Importance : BaseEntity
     {
         [Column("name")]
         public string Name { get; set; }
 
-        public ICollection<Session>? Sessions { get; set; }
+        ICollection<Order> Orders { get; set; } = null!;
 
-        public State(long id,
+        public Importance(long id,
             string name) : base(id)
         {
             Name = name;

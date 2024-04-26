@@ -7,7 +7,7 @@ using BloodFlow.DataLayer.Entities;
 
 namespace BloodFlow.DataLayer.Interfaces.RepositoryInterfaces
 {
-    internal interface IBloodTypeRepository : IRepository<BloodType>
+    public interface IBloodTypeRepository : IRepository<BloodType>
     {
 
     }

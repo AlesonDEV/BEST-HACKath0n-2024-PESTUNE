@@ -35,18 +35,20 @@ class InfoSliderWidget extends StatelessWidget {
           ),
           Positioned(
             bottom: 5,
-            left: screenSize.width * 0.37,
+            left: 0,
             right: 0,
-            child: SmoothPageIndicator(
-              controller: _controller,
-              count: 4,
-              effect: JumpingDotEffect(
-                activeDotColor:  CurentDotColor,
-                dotColor: IdleDotColor,
-                dotHeight: 10,
-                dotWidth: 10,
-                spacing: 16,
-                jumpScale: 3,
+            child: Center(
+              child: SmoothPageIndicator(
+                controller: _controller,
+                count: 4,
+                effect: JumpingDotEffect(
+                  activeDotColor:  CurentDotColor,
+                  dotColor: IdleDotColor,
+                  dotHeight: 10,
+                  dotWidth: 10,
+                  spacing: 16,
+                  jumpScale: 3,
+                ),
               ),
             ),
           ),

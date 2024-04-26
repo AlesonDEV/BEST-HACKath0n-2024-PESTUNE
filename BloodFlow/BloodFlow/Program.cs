@@ -1,4 +1,7 @@
 
+using BloodFlow.DataLayer.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace BloodFlow
 {
     public class Program
@@ -7,16 +10,15 @@ namespace BloodFlow
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<BloodFlowDbContext>(options =>
+              options.UseSqlServer(builder.Configuration.GetConnectionString("BloodFlow")));
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

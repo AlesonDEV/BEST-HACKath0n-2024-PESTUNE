@@ -49,7 +49,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               ],
             ),
-            Navigation(this._onItemTapped)
+            Navigation(this._onItemTapped),
           ],
         ),
       ),

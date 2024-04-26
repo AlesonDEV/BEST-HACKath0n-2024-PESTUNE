@@ -21,7 +21,7 @@ class Navigation extends StatelessWidget{
           bottom: 15,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(40.0),
                 topRight: Radius.circular(40.0),
                 bottomLeft: Radius.circular(40.0),
@@ -37,7 +37,7 @@ class Navigation extends StatelessWidget{
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(40.0),
                 topRight: Radius.circular(40.0),
                 bottomLeft: Radius.circular(40.0),
@@ -58,7 +58,7 @@ class Navigation extends StatelessWidget{
                     gap: 3,
                     onTabChange: onItemTapped,
                     padding: EdgeInsets.only(left: 100.0, top: 10.0, right: 100.0, bottom: 10.0),
-                    tabs: [
+                    tabs: const [
                       GButton(
                         icon: Icons.home,
                         text: 'Home',

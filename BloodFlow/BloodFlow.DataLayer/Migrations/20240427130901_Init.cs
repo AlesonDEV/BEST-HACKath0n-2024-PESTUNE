@@ -38,7 +38,7 @@ namespace BloodFlow.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "contact_type",
+                name: "contact",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -47,7 +47,7 @@ namespace BloodFlow.DataLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_contact_type", x => x.id);
+                    table.PrimaryKey("PK_contact", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,11 +146,18 @@ namespace BloodFlow.DataLayer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     street_id = table.Column<int>(type: "int", nullable: false),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    house_number = table.Column<int>(type: "int", nullable: false)
+                    house_number = table.Column<int>(type: "int", nullable: false),
+                    contact_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_donor_center", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_donor_center_contact_contact_id",
+                        column: x => x.contact_id,
+                        principalTable: "contact",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_donor_center_street_street_id",
                         column: x => x.street_id,
@@ -163,18 +170,30 @@ namespace BloodFlow.DataLayer.Migrations
                 name: "person",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    id = table.Column<int>(type: "int", nullable: false),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     date_of_birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     photo_link = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     house_number = table.Column<int>(type: "int", nullable: false),
-                    street_id = table.Column<int>(type: "int", nullable: false)
+                    street_id = table.Column<int>(type: "int", nullable: false),
+                    contact_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_person", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_person_contact_contact_id",
+                        column: x => x.contact_id,
+                        principalTable: "contact",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_person_donor_id",
+                        column: x => x.id,
+                        principalTable: "donor",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_person_street_street_id",
                         column: x => x.street_id,
@@ -203,31 +222,6 @@ namespace BloodFlow.DataLayer.Migrations
                         name: "FK_donor_session_session_session_id",
                         column: x => x.session_id,
                         principalTable: "session",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "donor_center_contact",
-                columns: table => new
-                {
-                    donor_center_id = table.Column<int>(type: "int", nullable: false),
-                    contact_type_id = table.Column<int>(type: "int", nullable: false),
-                    contact_value = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_donor_center_contact", x => new { x.donor_center_id, x.contact_type_id });
-                    table.ForeignKey(
-                        name: "FK_donor_center_contact_contact_type_contact_type_id",
-                        column: x => x.contact_type_id,
-                        principalTable: "contact_type",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_donor_center_contact_donor_center_donor_center_id",
-                        column: x => x.donor_center_id,
-                        principalTable: "donor_center",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -286,31 +280,6 @@ namespace BloodFlow.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "person_contact",
-                columns: table => new
-                {
-                    peson_id = table.Column<int>(type: "int", nullable: false),
-                    contact_type_id = table.Column<int>(type: "int", nullable: false),
-                    contact_value = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_person_contact", x => new { x.peson_id, x.contact_type_id });
-                    table.ForeignKey(
-                        name: "FK_person_contact_contact_type_contact_type_id",
-                        column: x => x.contact_type_id,
-                        principalTable: "contact_type",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_person_contact_person_peson_id",
-                        column: x => x.peson_id,
-                        principalTable: "person",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "donor_order",
                 columns: table => new
                 {
@@ -340,14 +309,14 @@ namespace BloodFlow.DataLayer.Migrations
                 column: "blood_type_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_donor_center_contact_id",
+                table: "donor_center",
+                column: "contact_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_donor_center_street_id",
                 table: "donor_center",
                 column: "street_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_donor_center_contact_contact_type_id",
-                table: "donor_center_contact",
-                column: "contact_type_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_donor_order_order_id",
@@ -370,14 +339,14 @@ namespace BloodFlow.DataLayer.Migrations
                 column: "importance_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_person_contact_id",
+                table: "person",
+                column: "contact_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_person_street_id",
                 table: "person",
                 column: "street_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_person_contact_contact_type_id",
-                table: "person_contact",
-                column: "contact_type_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_session_StateSessionId",
@@ -399,16 +368,13 @@ namespace BloodFlow.DataLayer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "donor_center_contact");
-
-            migrationBuilder.DropTable(
                 name: "donor_order");
 
             migrationBuilder.DropTable(
                 name: "donor_session");
 
             migrationBuilder.DropTable(
-                name: "person_contact");
+                name: "person");
 
             migrationBuilder.DropTable(
                 name: "session_donor_center");
@@ -418,12 +384,6 @@ namespace BloodFlow.DataLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "donor");
-
-            migrationBuilder.DropTable(
-                name: "contact_type");
-
-            migrationBuilder.DropTable(
-                name: "person");
 
             migrationBuilder.DropTable(
                 name: "session");
@@ -439,6 +399,9 @@ namespace BloodFlow.DataLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "state_session");
+
+            migrationBuilder.DropTable(
+                name: "contact");
 
             migrationBuilder.DropTable(
                 name: "street");

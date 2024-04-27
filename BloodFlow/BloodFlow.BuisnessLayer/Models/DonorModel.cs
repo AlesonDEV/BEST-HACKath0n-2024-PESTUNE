@@ -18,6 +18,12 @@ namespace BloodFlow.BuisnessLayer.Models
 
         public string PhotoLink { get; set; }
 
-        public ICollection<int> ContactIds { get; set; }
+        public int BloodTypeId { get; set; }
+
+        public string BloodTypeName { get; set; }
+
+        public int ContactId { get; set; }
+
+        public string ContactName { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BloodFlow.BuisnessLayer.Interfaces;
 using BloodFlow.BuisnessLayer.Models;
+using BloodFlow.BuisnessLayer.Validation;
 using BloodFlow.DataLayer.Entities;
 using BloodFlow.DataLayer.Interfaces;
 using BloodFlow.DataLayer.Interfaces.RepositoryInterfaces;
@@ -30,6 +31,8 @@ namespace BloodFlow.BuisnessLayer.Services
 
         public async Task AddAsync(OrderModel model)
         {
+            OrderValidation.ValidateOrder(model);
+
             var orderEntity = _mapper.Map<Order>(model);
 
             await _orderRepository.AddAsync(orderEntity);
@@ -40,12 +43,16 @@ namespace BloodFlow.BuisnessLayer.Services
         {
             var orderEntity = await _orderRepository.GetByIdWithDetailsAsync(orderId);         
 
+            BaseValidation.IsObjectNull(orderEntity, nameof(orderEntity));
+
             var existDonor = orderEntity!.DonorOrders?
                 .FirstOrDefault(x => x.OrderId == orderId && x.DonorId == donorId);
 
             if (existDonor == null) 
             {
                 var donorEntity = await _donorRepository.GetByIdAsync(donorId);
+
+                BaseValidation.IsObjectNull(donorEntity, nameof(donorEntity));
 
                 orderEntity.DonorOrders!.Add(new DonorOrder() 
                 { 
@@ -75,12 +82,15 @@ namespace BloodFlow.BuisnessLayer.Services
         public async Task<OrderModel> GetByIdAsync(int id)
         {
             var orderEntity = await _orderRepository.GetByIdWithDetailsAsync(id);
+            BaseValidation.IsObjectNull(orderEntity, nameof(orderEntity));
             return _mapper.Map<OrderModel>(orderEntity);
         }
 
         public async Task RemoveDonorAsync(int donorId, int orderId)
         {
             var orderEntity = await _orderRepository.GetByIdWithDetailsAsync(orderId);
+
+            BaseValidation.IsObjectNull(orderEntity, nameof(orderEntity));
 
             var existDonor = orderEntity!.DonorOrders?
                .FirstOrDefault(x => x.OrderId == orderId && x.DonorId == donorId);

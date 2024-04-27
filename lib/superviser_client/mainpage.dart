@@ -1,5 +1,5 @@
-import 'package:blood_flow/pages/homePage.dart';
-import 'package:blood_flow/pages/profile/profile_page.dart';
+import 'package:blood_flow/superviser_client/pages/homePage.dart';
+import 'package:blood_flow/superviser_client/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 

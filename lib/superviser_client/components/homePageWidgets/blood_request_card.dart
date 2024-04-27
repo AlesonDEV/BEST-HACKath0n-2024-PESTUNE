@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:blood_flow/components/homePageWidgets/blood_request_form.dart';
-import 'package:blood_flow/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 
+import '../../mainpage.dart';
 import '../../model/blood_types.dart';
+import 'blood_request_form.dart';
 
 const BGColor = const Color(0xffF5F5F3);
 const TextColor = const Color(0xff1f2c4b);

@@ -1,11 +1,11 @@
-import 'package:blood_flow/components/homePageWidgets/blood_request_card.dart';
-import 'package:blood_flow/components/homePageWidgets/blood_requests_container.dart';
-import 'package:blood_flow/pages/requestInfo.dart';
+import 'package:blood_flow/superviser_client/pages/requestInfo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../components/Navigation/navigation.dart';
+import '../components/homePageWidgets/blood_request_card.dart';
 import '../components/homePageWidgets/blood_request_form.dart';
+import '../components/homePageWidgets/blood_requests_container.dart';
 import '../mainpage.dart';
 import '../model/Donor.dart';
 import '../model/blood_types.dart';

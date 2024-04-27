@@ -1,4 +1,3 @@
-import 'package:blood_flow/model/blood_types.dart';
 import 'package:flutter/cupertino.dart';
 import 'blood_request_card.dart';
 

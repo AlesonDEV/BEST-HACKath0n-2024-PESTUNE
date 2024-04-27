@@ -1,4 +1,4 @@
-import 'package:blood_flow/pages/profile/settings_component.dart';
+import 'package:blood_flow/superviser_client/pages/profile/settings_component.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {

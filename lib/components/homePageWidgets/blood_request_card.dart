@@ -1,4 +1,8 @@
+import 'dart:math';
+
+import 'package:blood_flow/mainpage.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 
 import '../../model/blood_types.dart';
 
@@ -16,93 +20,62 @@ class BloodRequestCard extends StatefulWidget {
   State<StatefulWidget> createState() => _BloodRequestState();
 }
 
-class _BloodRequestState extends State<BloodRequestCard>{
+class _BloodRequestState extends State<BloodRequestCard> {
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery
-        .of(context)
-        .size;
+    var screenSize = MediaQuery.of(context).size;
 
-    return
-      Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: BGColor,
-              borderRadius: BorderRadius.circular(15), // Заокруглення країв
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: BGColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        width: screenSize.width * 0.9,
+        height: screenSize.height * 0.2,
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 10),
+            Text(
+              'Blood Type: ${widget.bloodType}', // Assuming BloodTypes is a string enum or similar
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            width: screenSize.width * 0.9,
-            height: screenSize.height * 0.2,
-            alignment: Alignment.center,
-            child: LinearProgressIndicator(
-              value: widget.progress/widget.goal, // 70% progress
-              backgroundColor: Colors.grey,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-            ),
-          )
-      );
-  }
-}
-
-class AnimatedLinearProgressBar extends StatefulWidget {
-  final double value;
-  final Color backgroundColor;
-  final Color color;
-
-  const AnimatedLinearProgressBar({
-    Key? key,
-    required this.value,
-    required this.backgroundColor,
-    required this.color,
-  }) : super(key: key);
-
-  @override
-  State<AnimatedLinearProgressBar> createState() => _AnimatedLinearProgressBarState();
-}
-
-class _AnimatedLinearProgressBarState extends State<AnimatedLinearProgressBar>
-    with SingleTickerProviderStateMixin {
-  late Animation<double> _animation;
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this, duration: Duration(seconds: 2));
-    _animation = Tween<double>(begin: 0.0, end: widget.value).animate(_controller);
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 10,
-            color: widget.backgroundColor,
-          ),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return AnimatedBuilder(
-                animation: _animation,
-                builder: (context, child) => Container(
-                  width: constraints.maxWidth * _animation.value,
-                  height: 10,
-                  color: widget.color,
+            SizedBox(height: 10),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: LiquidLinearProgressIndicator(
+                  value: widget.progress < 0.06 ? 0.06 : widget.progress / widget.goal,
+                  valueColor: AlwaysStoppedAnimation(choosenButtonColor),
+                  backgroundColor: Colors.white,
+                  borderRadius: 12.0,
+                  direction: Axis.horizontal,
                 ),
-              );
-            },
-          ),
-        ],
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    // Implement edit action
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    // Implement delete action
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

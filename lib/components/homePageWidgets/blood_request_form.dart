@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
-
+import 'package:blood_flow/model/blood_types.dart';
 import 'package:flutter/material.dart';
 
 class BloodDonationForm extends StatefulWidget {
-  final Function CloseForm;
+  final Function() CloseForm;
+  final Function(double goal, BloodTypes types) AddRequest;
 
-  const BloodDonationForm({super.key, required this.CloseForm});
+  const BloodDonationForm({Key? key, required this.CloseForm, required this.AddRequest}) : super(key: key);
+
   @override
   _BloodDonationFormState createState() => _BloodDonationFormState();
 }
@@ -18,12 +19,43 @@ class _BloodDonationFormState extends State<BloodDonationForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
-      child: Column(
+        key: _formKey,
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-
-
+        DropdownButtonFormField<String>(
+        value: _selectedBloodType,
+        onChanged: (String? newValue) {
+      setState(() {
+        _selectedBloodType = newValue!;
+      });
+    },
+    items: <String>['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-']
+        .map
+      ((String value) {
+      return DropdownMenuItem<String>(
+        value: value,
+        child: Text(value),
+      );
+    }).toList(),
+          decoration: InputDecoration(
+            labelText: 'Blood Type',
+          ),
+        ),
+          SizedBox(height: 20),
+          Slider(
+            value: _selectedAmount,
+            min: 0.5,
+            max: 2.0,
+            divisions: 3,
+            onChanged: (value) {
+              setState(() {
+                _selectedAmount = value;
+              });
+            },
+            label: 'Amount: ${_selectedAmount.toStringAsFixed(1)} liters',
+          ),
+          SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Row(
@@ -31,9 +63,7 @@ class _BloodDonationFormState extends State<BloodDonationForm> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Process data
-                    }
+                    widget.AddRequest(_selectedAmount, bloodTypeFromString(_selectedBloodType));
                   },
                   child: Text('Submit'),
                 ),
@@ -47,28 +77,7 @@ class _BloodDonationFormState extends State<BloodDonationForm> {
             ),
           ),
         ],
-      ),
+        ),
     );
   }
-}
-class SliderFormField extends FormField<double> {
-  SliderFormField({
-    double value = 1.0,
-    required FormFieldSetter<double> onChanged,
-    double min = 0.5,
-    double max = 2.0,
-    int divisions = 3,
-    String label = '',
-  }) : super(
-    builder: (FormFieldState<double> state) {
-      return Slider(
-        value: value,
-        onChanged: onChanged,
-        min: min,
-        max: max,
-        divisions: divisions,
-        label: label,
-      );
-    },
-  );
 }

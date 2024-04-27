@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../components/Navigation/navigation.dart';
 import '../components/homePageWidgets/blood_request_form.dart';
 import '../mainpage.dart';
+import '../model/blood_types.dart';
 
 class HomePageWidget extends StatefulWidget {
   HomePageWidget({
@@ -47,6 +48,11 @@ class _HomePageState extends State<HomePageWidget>{
                           child: ListBody(
                             children: <Widget>[
                               BloodDonationForm(CloseForm: (){
+                                Navigator.of(context).pop();
+                              }, AddRequest: (double goal, BloodTypes type){
+                                _key.currentState!.AddRequestCard(BloodRequestCard(goal, type));
+                                setState(() {
+                                });
                                 Navigator.of(context).pop();
                               },), // Your custom form widget
                             ],

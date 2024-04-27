@@ -10,8 +10,8 @@ const BGColor = const Color(0xffF5F5F3);
 const TextColor = const Color(0xff1f2c4b);
 
 class BloodRequestCard extends StatefulWidget {
-  int progress = 0;
-  int goal;
+  double progress = 0;
+  double goal;
   BloodTypes bloodType;
   BloodRequestCard(this.goal, this.bloodType);
   BloodRequestCard.progress(this.goal, this.bloodType, this.progress);
@@ -40,7 +40,7 @@ class _BloodRequestState extends State<BloodRequestCard> {
           children: [
             SizedBox(height: 10),
             Text(
-              'Blood Type: ${widget.bloodType}', // Assuming BloodTypes is a string enum or similar
+              'Blood Type: ${widget.bloodType.toShortString()}', // Assuming BloodTypes is a string enum or similar
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),

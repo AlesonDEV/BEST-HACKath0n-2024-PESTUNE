@@ -14,4 +14,9 @@ namespace BloodFlow.BuisnessLayer.Validation
 
         public ValidationException(string message, Exception exception) : base(message, exception) { }
     }
+
+    public class InvalidAddressException : ValidationException
+    {
+        public InvalidAddressException(string message) : base(message) { }
+    }
 }

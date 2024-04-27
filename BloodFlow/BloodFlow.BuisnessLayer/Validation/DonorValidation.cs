@@ -34,12 +34,14 @@ namespace BloodFlow.BuisnessLayer.Validation
         {
             if (string.IsNullOrWhiteSpace(photoLink) || !Uri.IsWellFormedUriString(photoLink, UriKind.Absolute))
             {
-                throw new ValidationException("Invalid photo URL.");
+                throw new ValidationException("Invalid input value.",
+                      new UriFormatException("Invalid photo URL."));
             }
 
             if (!Regex.IsMatch(photoLink, @"^https?://", RegexOptions.IgnoreCase))
             {
-                throw new ValidationException("Invalid photo URL: URL must start with http or https.");
+                throw new ValidationException("Invalid input value.",
+                      new UriFormatException("Invalid photo URL: URL must start with http or https."));
             }
         }
 

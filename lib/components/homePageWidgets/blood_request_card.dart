@@ -12,9 +12,15 @@ const TextColor = const Color(0xff1f2c4b);
 class BloodRequestCard extends StatefulWidget {
   double progress = 0;
   double goal;
-  BloodTypes bloodType;
-  BloodRequestCard(this.goal, this.bloodType);
-  BloodRequestCard.progress(this.goal, this.bloodType, this.progress);
+  BloodType bloodType;
+  Function(BloodType type, double progress, double goal, int?) onTap;
+
+  void handleTap(){
+    onTap(this.bloodType, this.progress, this.goal, 0);
+  }
+
+  BloodRequestCard(this.goal, this.bloodType, {required this.onTap});
+  BloodRequestCard.progress(this.goal, this.bloodType, this.progress, {required this.onTap});
 
   @override
   State<StatefulWidget> createState() => _BloodRequestState();
@@ -27,54 +33,57 @@ class _BloodRequestState extends State<BloodRequestCard> {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: BGColor,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        width: screenSize.width * 0.9,
-        height: screenSize.height * 0.2,
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 10),
-            Text(
-              'Blood Type: ${widget.bloodType.toShortString()}', // Assuming BloodTypes is a string enum or similar
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: LiquidLinearProgressIndicator(
-                  value: widget.progress < 0.06 ? 0.06 : widget.progress / widget.goal,
-                  valueColor: AlwaysStoppedAnimation(choosenButtonColor),
-                  backgroundColor: Colors.white,
-                  borderRadius: 12.0,
-                  direction: Axis.horizontal,
+      child: GestureDetector(
+        onTap: widget.handleTap,
+        child: Container(
+          decoration: BoxDecoration(
+            color: BGColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          width: screenSize.width * 0.9,
+          height: screenSize.height * 0.2,
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 10),
+              Text(
+                'Blood Type: ${widget.bloodType.toShortString()}', // Assuming BloodTypes is a string enum or similar
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: LiquidLinearProgressIndicator(
+                    value: widget.progress < 0.06 ? 0.06 : widget.progress / widget.goal,
+                    valueColor: AlwaysStoppedAnimation(choosenButtonColor),
+                    backgroundColor: Colors.white,
+                    borderRadius: 12.0,
+                    direction: Axis.horizontal,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () {
-                    // Implement edit action
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    // Implement delete action
-                  },
-                ),
-              ],
-            ),
-          ],
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () {
+                      // Implement edit action
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      // Implement delete action
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

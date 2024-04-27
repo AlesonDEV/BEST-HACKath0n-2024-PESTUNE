@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class BloodDonationForm extends StatefulWidget {
   final Function() CloseForm;
-  final Function(double goal, BloodTypes types) AddRequest;
+  final Function(double goal, BloodType types) AddRequest;
 
   const BloodDonationForm({Key? key, required this.CloseForm, required this.AddRequest}) : super(key: key);
 

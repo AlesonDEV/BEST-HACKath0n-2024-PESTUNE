@@ -1,4 +1,4 @@
-enum BloodTypes {
+enum BloodType {
   O0,
   O1,
   A0,
@@ -9,52 +9,52 @@ enum BloodTypes {
   AB1
 }
 
-extension BloodTypesExtension on BloodTypes {
+extension BloodTypesExtension on BloodType {
   String toShortString() {
     return _stringFromBloodType(this);
   }
 }
 
-BloodTypes bloodTypeFromString(String value) {
+BloodType bloodTypeFromString(String value) {
   switch (value) {
     case 'O-':
-      return BloodTypes.O0;
+      return BloodType.O0;
     case 'O+':
-      return BloodTypes.O1;
+      return BloodType.O1;
     case 'A-':
-      return BloodTypes.A0;
+      return BloodType.A0;
     case 'A+':
-      return BloodTypes.A1;
+      return BloodType.A1;
     case 'B-':
-      return BloodTypes.B0;
+      return BloodType.B0;
     case 'B+':
-      return BloodTypes.B1;
+      return BloodType.B1;
     case 'AB-':
-      return BloodTypes.AB0;
+      return BloodType.AB0;
     case 'AB+':
-      return BloodTypes.AB1;
+      return BloodType.AB1;
     default:
       throw ArgumentError('Unknown blood type: $value');
   }
 }
 
-String _stringFromBloodType(BloodTypes bloodType) {
+String _stringFromBloodType(BloodType bloodType) {
   switch(bloodType){
-    case BloodTypes.A0:
+    case BloodType.A0:
       return "A-";
-    case BloodTypes.O0:
+    case BloodType.O0:
       return "O-";
-    case BloodTypes.O1:
+    case BloodType.O1:
       return "O+";
-    case BloodTypes.A1:
+    case BloodType.A1:
       return "A+";
-    case BloodTypes.B0:
+    case BloodType.B0:
       return "B-";
-    case BloodTypes.B1:
+    case BloodType.B1:
       return "B+";
-    case BloodTypes.AB0:
+    case BloodType.AB0:
       return "AB-";
-    case BloodTypes.AB1:
+    case BloodType.AB1:
       return "AB+";
   }
 }

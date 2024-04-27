@@ -13,15 +13,15 @@ namespace BloodFlow.DataLayer.Entities
         // Overhiding the name of the variable from base entity and
         // set not mapped to not create this column in the database
         [NotMapped]
-        public new long Id { get; set; }
+        public new int Id { get; set; }
 
         [Column("donor_center_id")]
         [ForeignKey(nameof(DonorCenter))]
-        public long DonorCenterId { get; set; }
+        public int DonorCenterId { get; set; }
 
         [Column("contact_type_id")]
         [ForeignKey(nameof(ContactType))]
-        public long ContactTypeId { get; set; }
+        public int ContactTypeId { get; set; }
 
         [Column("contact_value")]
         public string ContactValue { get; set; } = null!;
@@ -32,9 +32,9 @@ namespace BloodFlow.DataLayer.Entities
 
         public DonorCenterContact() : base(0) { }
 
-        public DonorCenterContact(long id,
-            long donorCenterId,
-            long contactTypeId,
+        public DonorCenterContact(int id,
+            int donorCenterId,
+            int contactTypeId,
             string contactValue) : base(id)
         {
             DonorCenterId = donorCenterId;

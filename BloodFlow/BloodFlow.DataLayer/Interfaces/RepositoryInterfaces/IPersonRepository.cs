@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.DataLayer.Interfaces.RepositoryInterfaces
 {
-    internal interface IPersonRepository : IRepository<Person>
+    public interface IPersonRepository : IRepository<Person>
     {
 
     }

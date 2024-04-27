@@ -15,7 +15,7 @@ namespace BloodFlow.DataLayer.Entities
 
         public ICollection<Street>? Streets { get; set; }
 
-        public City(long id,
+        public City(int id,
             string name) : base(id)
         {
             Name = name;

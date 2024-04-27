@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.DataLayer.Interfaces.RepositoryInterfaces
 {
-    internal interface IRepository<TEntity> where TEntity : BaseEntity
+    public interface IRepository<TEntity> where TEntity : BaseEntity
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
 
-        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity?> GetByIdAsync(int id);
 
         Task AddAsync(TEntity entity);
 

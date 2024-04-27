@@ -1,4 +1,5 @@
 ﻿using BloodFlow.DataLayer.Entities;
+using BloodFlow.DataLayer.Interfaces.RepositoryInterfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.DataLayer.Repositories
 {
-    internal class CityRepository
+    public class CityRepository : ICityRepository
     {
         private readonly DbContext _context;
         private readonly DbSet<City> _dbSet;
@@ -24,7 +25,7 @@ namespace BloodFlow.DataLayer.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<City> GetByIdAsync(int id)
+        public async Task<City?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }

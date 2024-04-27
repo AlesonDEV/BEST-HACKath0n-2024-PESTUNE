@@ -25,7 +25,7 @@ namespace BloodFlow.DataLayer.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<Donor> GetByIdAsync(int id)
+        public async Task<Donor?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }

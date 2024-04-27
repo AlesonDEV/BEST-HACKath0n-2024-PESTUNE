@@ -13,15 +13,15 @@ namespace BloodFlow.DataLayer.Entities
         // Overhiding the name of the variable from base entity and
         // set not mapped to not create this column in the database
         [NotMapped]
-        public new long Id { get; set; }
+        public new int Id { get; set; }
 
         [Column("session_id")]
         [ForeignKey(nameof(Session))]
-        public long SessionId { get; set; }
+        public int SessionId { get; set; }
 
         [Column("donor_id")]
         [ForeignKey(nameof(Donor))]
-        public long DonorId { get; set; }
+        public int DonorId { get; set; }
 
         public Session Session { get; set; } = null!;
         
@@ -29,9 +29,9 @@ namespace BloodFlow.DataLayer.Entities
 
         public DonorSession() : base(0) { }
 
-        public DonorSession(long id,
-            long sessionId,
-            long donorId) : base(id)
+        public DonorSession(int id,
+            int sessionId,
+            int donorId) : base(id)
         {
             SessionId = sessionId;
             DonorId = donorId;

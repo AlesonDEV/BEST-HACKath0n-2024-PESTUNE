@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.DataLayer.Entities
 {
-    [Table("contact_type")]
-    public class ContactType : BaseEntity
+    [Table("state_session")]
+    public class StateSession : BaseEntity
     {
         [Column("name")]
         public string Name { get; set; }
 
-        public ICollection<DonorCenterContact>? DonorCenterContacts { get; set; }
+        public ICollection<Session>? Sessions { get; set; }
 
-        public ICollection<PersonContact>? PersonContacts { get; set; }
-
-        public ContactType(int id, string name) : base(id)
+        public StateSession(int id,
+            string name) : base(id)
         {
             Name = name;
         }

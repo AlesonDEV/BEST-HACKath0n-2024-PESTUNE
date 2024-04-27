@@ -24,12 +24,12 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.BloodType", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -43,12 +43,12 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.City", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -62,12 +62,12 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.ContactType", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -81,15 +81,15 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Donor", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("person_id");
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("BloodTypeId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("BloodTypeId")
+                        .HasColumnType("int")
                         .HasColumnName("blood_type_id");
 
                     b.HasKey("Id");
@@ -101,12 +101,12 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.DonorCenter", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("HouseNumber")
                         .HasColumnType("int")
@@ -117,8 +117,8 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("name");
 
-                    b.Property<long>("StreetId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("StreetId")
+                        .HasColumnType("int")
                         .HasColumnName("street_id");
 
                     b.HasKey("Id");
@@ -130,12 +130,12 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.DonorCenterContact", b =>
                 {
-                    b.Property<long>("DonorCenterId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("DonorCenterId")
+                        .HasColumnType("int")
                         .HasColumnName("donor_center_id");
 
-                    b.Property<long>("ContactTypeId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("ContactTypeId")
+                        .HasColumnType("int")
                         .HasColumnName("contact_type_id");
 
                     b.Property<string>("ContactValue")
@@ -152,12 +152,12 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.DonorOrder", b =>
                 {
-                    b.Property<long>("DonorId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("DonorId")
+                        .HasColumnType("int")
                         .HasColumnName("donor_id");
 
-                    b.Property<long>("OrderId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int")
                         .HasColumnName("order_id");
 
                     b.HasKey("DonorId", "OrderId");
@@ -169,12 +169,12 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.DonorSession", b =>
                 {
-                    b.Property<long>("DonorId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("DonorId")
+                        .HasColumnType("int")
                         .HasColumnName("donor_id");
 
-                    b.Property<long>("SessionId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int")
                         .HasColumnName("session_id");
 
                     b.HasKey("DonorId", "SessionId");
@@ -184,14 +184,33 @@ namespace BloodFlow.DataLayer.Migrations
                     b.ToTable("donor_session");
                 });
 
-            modelBuilder.Entity("BloodFlow.DataLayer.Entities.Order", b =>
+            modelBuilder.Entity("BloodFlow.DataLayer.Entities.Importance", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("importance");
+                });
+
+            modelBuilder.Entity("BloodFlow.DataLayer.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BloodVolume")
                         .HasColumnType("int")
@@ -202,14 +221,13 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("description");
 
-                    b.Property<long>("DonorCenterId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("DonorCenterId")
+                        .HasColumnType("int")
                         .HasColumnName("donor_center_id");
 
-                    b.Property<string>("Importance")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("importance");
+                    b.Property<int>("ImportanceId")
+                        .HasColumnType("int")
+                        .HasColumnName("importance_id");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -220,21 +238,27 @@ namespace BloodFlow.DataLayer.Migrations
 
                     b.HasIndex("DonorCenterId");
 
+                    b.HasIndex("ImportanceId");
+
                     b.ToTable("order");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Person", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateOfBirthday")
                         .HasColumnType("datetime2")
                         .HasColumnName("date_of_birthday");
+
+                    b.Property<int>("HouseNumber")
+                        .HasColumnType("int")
+                        .HasColumnName("house_number");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -246,6 +270,10 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("photo_link");
 
+                    b.Property<int>("StreetId")
+                        .HasColumnType("int")
+                        .HasColumnName("street_id");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -253,17 +281,19 @@ namespace BloodFlow.DataLayer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("StreetId");
+
                     b.ToTable("person");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.PersonContact", b =>
                 {
-                    b.Property<long>("PersonId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int")
                         .HasColumnName("peson_id");
 
-                    b.Property<long>("ContactTypeId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("ContactTypeId")
+                        .HasColumnType("int")
                         .HasColumnName("contact_type_id");
 
                     b.Property<string>("ContactValue")
@@ -280,15 +310,15 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Session", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("BloodTypeId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("BloodTypeId")
+                        .HasColumnType("int")
                         .HasColumnName("blood_type_id");
 
                     b.Property<int>("BloodVolume")
@@ -299,29 +329,32 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("date");
 
-                    b.Property<long>("DonorCenterId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("DonorCenterId")
+                        .HasColumnType("int")
                         .HasColumnName("donor_center_id");
 
-                    b.Property<long>("StateId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("StateId")
+                        .HasColumnType("int")
                         .HasColumnName("state_id");
+
+                    b.Property<int?>("StateSessionId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StateId");
+                    b.HasIndex("StateSessionId");
 
                     b.ToTable("session");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.SessionDonorCenter", b =>
                 {
-                    b.Property<long>("SessionId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int")
                         .HasColumnName("session_id");
 
-                    b.Property<long>("DonorCenterId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("DonorCenterId")
+                        .HasColumnType("int")
                         .HasColumnName("donor_center_id");
 
                     b.HasKey("SessionId", "DonorCenterId");
@@ -331,14 +364,14 @@ namespace BloodFlow.DataLayer.Migrations
                     b.ToTable("session_donor_center");
                 });
 
-            modelBuilder.Entity("BloodFlow.DataLayer.Entities.State", b =>
+            modelBuilder.Entity("BloodFlow.DataLayer.Entities.StateSession", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -347,20 +380,20 @@ namespace BloodFlow.DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("state");
+                    b.ToTable("state_session");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Street", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("CityId")
-                        .HasColumnType("bigint")
+                    b.Property<int>("CityId")
+                        .HasColumnType("int")
                         .HasColumnName("city_id");
 
                     b.Property<string>("Name")
@@ -462,7 +495,26 @@ namespace BloodFlow.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BloodFlow.DataLayer.Entities.Importance", "Importance")
+                        .WithMany("Orders")
+                        .HasForeignKey("ImportanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("DonorCenter");
+
+                    b.Navigation("Importance");
+                });
+
+            modelBuilder.Entity("BloodFlow.DataLayer.Entities.Person", b =>
+                {
+                    b.HasOne("BloodFlow.DataLayer.Entities.Street", "Street")
+                        .WithMany()
+                        .HasForeignKey("StreetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Street");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.PersonContact", b =>
@@ -486,11 +538,9 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Session", b =>
                 {
-                    b.HasOne("BloodFlow.DataLayer.Entities.State", null)
+                    b.HasOne("BloodFlow.DataLayer.Entities.StateSession", null)
                         .WithMany("Sessions")
-                        .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StateSessionId");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.SessionDonorCenter", b =>
@@ -556,6 +606,11 @@ namespace BloodFlow.DataLayer.Migrations
                     b.Navigation("SessionDonorCenters");
                 });
 
+            modelBuilder.Entity("BloodFlow.DataLayer.Entities.Importance", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Order", b =>
                 {
                     b.Navigation("DonorOrders");
@@ -573,7 +628,7 @@ namespace BloodFlow.DataLayer.Migrations
                     b.Navigation("SessionDonorCenters");
                 });
 
-            modelBuilder.Entity("BloodFlow.DataLayer.Entities.State", b =>
+            modelBuilder.Entity("BloodFlow.DataLayer.Entities.StateSession", b =>
                 {
                     b.Navigation("Sessions");
                 });

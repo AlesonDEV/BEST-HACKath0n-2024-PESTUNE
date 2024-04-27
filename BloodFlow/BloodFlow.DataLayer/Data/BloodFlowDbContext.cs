@@ -37,7 +37,7 @@ namespace BloodFlow.DataLayer.Data
 
         public DbSet<Session> Sessions { get; set; }
 
-        public DbSet<State> States { get; set; }
+        public DbSet<StateSession> States { get; set; }
 
         public DbSet<Street> Streets { get; set; }
 
@@ -114,7 +114,12 @@ namespace BloodFlow.DataLayer.Data
                 .WithMany(c => c.DonorCenterContacts)
                 .HasForeignKey(dcc => dcc.ContactTypeId);
 
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.DonorCenter)
+                .WithMany(dc => dc.Orders)
+                .HasForeignKey(o => o.DonorCenterId);
+
+            modelBuilder.UseIdentityColumns();
         }
     }
 }

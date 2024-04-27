@@ -10,6 +10,7 @@ namespace BloodFlow.DataLayer.Entities
     [Table("person")]
     public class Person : BaseEntity
     {
+        // Add relationship with FluentApi
         [Column("name")]
         public string Name { get; set; }
 
@@ -29,9 +30,15 @@ namespace BloodFlow.DataLayer.Entities
         [ForeignKey(nameof(Street))]
         public int StreetId { get; set; }
 
+        [Column("contact_id")]
+        [ForeignKey(nameof(Contact))]
+        public int ContactId { get; set; }
+
         public Street Street { get; set; } = null!;
 
-        public ICollection<PersonContact> PersonContacts { get; set; } = null!;
+        public Contact Contact { get; set; } = null!;
+
+        public Donor Donor { get; set; } = null!;
 
         public Person(int id,
             string name,

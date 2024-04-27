@@ -21,6 +21,8 @@ namespace BloodFlow.DataLayer.Entities
 
         public ICollection<DonorSession>? DonorSessions { get; set; }
 
+        public Person Person { get; set; } = null!;
+
         public Donor(int id,
             int bloodTypeId) : base(id)
         {

@@ -14,11 +14,9 @@ namespace BloodFlow.DataLayer.Data
         private readonly BloodFlowDbContext _context;
         private IBloodTypeRepository _bloodTypeRepository;
         private ICityRepository _cityRepository;
-        private IDonorCenterContactRepository _donorCenterContactRepository;
         private IDonorCenterRepository _donorCenterRepository;
         private IDonorRepository _donorRepository;
         private IOrderRepository _orderRepository;
-        private IPersonContactRepository _personContactRepository;
         private IPersonRepository _personRepository;
         private ISessionRepository _sessionRepository;
         private IStateSessionRepository _stateSessionRepository;
@@ -47,15 +45,6 @@ namespace BloodFlow.DataLayer.Data
             }
         }
 
-        public IDonorCenterContactRepository DonorCenterContactRepository
-        {
-            get
-            {
-                this._donorCenterContactRepository ??= new DonorCenterContactRepository(_context);
-                return this._donorCenterContactRepository;
-            }
-        }
-
         public IDonorCenterRepository DonorCenterRepository
         {
             get
@@ -81,15 +70,6 @@ namespace BloodFlow.DataLayer.Data
             {
                 this._orderRepository ??= new OrderRepository(_context);
                 return this._orderRepository;
-            }
-        }
-
-        public IPersonContactRepository PersonContactRepository
-        {
-            get
-            {
-                this._personContactRepository ??= new PersonContactRepository(_context);
-                return this._personContactRepository;
             }
         }
 

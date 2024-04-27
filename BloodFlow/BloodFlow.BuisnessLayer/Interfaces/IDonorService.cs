@@ -9,6 +9,6 @@ namespace BloodFlow.BuisnessLayer.Interfaces
 {
     public interface IDonorService : ICrud<DonorModel>
     {
-
+        Task<IEnumerable<DonorModel>> GetDonorsByOrderIdAsync(int orderId);
     }
 }

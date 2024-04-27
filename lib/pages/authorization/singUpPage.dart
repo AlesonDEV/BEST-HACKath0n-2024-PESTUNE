@@ -98,25 +98,38 @@ class _HomeScreenState extends State<SingUpPage> {
         currentStep: currentStep, //0, 1, 2
         steps: [
           Step(
-              title: const Text('Account'),
-              content: Column(
-                children: const [
-                  Text('This is the First step.'),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Email',
+            title: const Text('Account'),
+            content: Column(
+              children: const [
+                Text('This is the First step.'),
+                SizedBox(height: 20),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30.0), // Заокруглення кутиків
+                      ),
                     ),
                   ),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Password',
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30.0), // Заокруглення кутиків
+                      ),
                     ),
                   ),
-                ],
-              ),
-              isActive: currentStep >= 0,
-              state:
-              currentStep >= 0 ? StepState.complete : StepState.disabled),
+                ),
+              ],
+            ),
+            isActive: currentStep >= 0,
+            state: currentStep >= 0 ? StepState.complete : StepState.disabled,
+          ),
+
           Step(
             title: const Text('Address'),
             content: const Text('This is the Second step.'),

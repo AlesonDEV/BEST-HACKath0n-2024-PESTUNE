@@ -39,6 +39,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   metaballs: ^1.4.2
   flutter_svg: ^2.0.10+1
+  liquid_progress_indicator_v2: ^0.5.0
 
 dev_dependencies:
   flutter_test:

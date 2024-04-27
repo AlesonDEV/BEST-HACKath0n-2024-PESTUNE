@@ -30,7 +30,8 @@ namespace BloodFlow.BuisnessLayer.Validation
         {
             if (date > DateTime.Now)
             {
-                throw new ValidationException("Date cannot be in the future.");
+                throw new ValidationException("Invalid input value.",
+                      new InvalidDataException("Date cannot be in the future."));
             }
         }
     }

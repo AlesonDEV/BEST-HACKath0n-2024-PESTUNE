@@ -8,9 +8,9 @@ namespace BloodFlow.BuisnessLayer.Models
 {
     public class FilterSearchModel
     {
-        public long? BloodTypeId { get; set; }
+        public int? BloodTypeId { get; set; }
 
-        public long? ImportanceId { get; set; }
+        public int? ImportanceId { get; set; }
 
         public DateTime? EndTime { get; set; }
 

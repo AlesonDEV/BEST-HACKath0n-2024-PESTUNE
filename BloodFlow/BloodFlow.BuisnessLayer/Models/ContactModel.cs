@@ -8,9 +8,9 @@ namespace BloodFlow.BuisnessLayer.Models
 {
     public class ContactModel
     {
-        public long PersonId { get; set; }
+        public int PersonId { get; set; }
 
-        public long ContactTypeId { get; set; }
+        public int ContactTypeId { get; set; }
 
         public string ContactValue { get; set; }
     }

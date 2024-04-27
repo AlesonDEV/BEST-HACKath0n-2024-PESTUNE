@@ -8,7 +8,7 @@ namespace BloodFlow.BuisnessLayer.Models
 {
     public class OrderModel
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 
@@ -16,14 +16,12 @@ namespace BloodFlow.BuisnessLayer.Models
 
         public int BloodVolume { get; set; }
 
-        public long ImportanceId { get; set; }
+        public int ImportanceId { get; set; }
 
         public string ImportanceName { get; set; }
 
-        public long DonorCenterId { get; set; }
+        public int DonorCenterId { get; set; }
         
         public string DonorCenterName { get; set; }
-
-        public ICollection<int> DonorIds { get; set; }
     }
 }

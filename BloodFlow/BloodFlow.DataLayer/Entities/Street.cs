@@ -15,15 +15,15 @@ namespace BloodFlow.DataLayer.Entities
 
         [Column("city_id")]
         [ForeignKey(nameof(City))]
-        public long CityId { get; set; }
+        public int CityId { get; set; }
 
         public City City { get; set; } = null!;
 
         public ICollection<DonorCenter>? DonorCenters { get; set; }
 
-        public Street(long id,
+        public Street(int id,
             string name,
-            long cityId) : base(id)
+            int cityId) : base(id)
         {
             Name = name;
             CityId = cityId;

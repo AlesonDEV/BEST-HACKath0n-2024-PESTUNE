@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.DataLayer.Repositories
 {
-    internal class OrderRepository : IOrderRepository
+    public class OrderRepository : IOrderRepository
     {
         private readonly DbContext _context;
         private readonly DbSet<Order> _dbSet;
@@ -56,6 +56,26 @@ namespace BloodFlow.DataLayer.Repositories
         {
             _dbSet.Update(entity);
             _context.SaveChanges();
+        }
+
+        public async Task<Order?> GetByIdWithDetailsAsync(int orderId)
+        {
+            return await _dbSet.Include(order => order.DonorOrders)
+                    .ThenInclude(dor => dor.Donor)
+                .Include(order => order.DonorCenter)
+                .Include(order => order.Importance)
+                .FirstOrDefaultAsync(order => order.Id == orderId);
+        }
+
+        public async Task<IEnumerable<Order>> GetAllWithDetailsAsync()
+        {
+            var ee =  await _dbSet.Include(order => order.DonorOrders)
+                    .ThenInclude(dor => dor.Donor)
+                .Include(order => order.DonorCenter)
+                .Include(order => order.Importance)
+                .ToListAsync();
+
+            return ee;
         }
     }
 }

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.DataLayer.Entities
 {
-    public abstract class BaseEntity
+    public class BaseEntity
     {
         [Key]
         [Column("id")]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        protected BaseEntity(long id) => Id = id;
+        protected BaseEntity(int id) => Id = id;
     }
 }

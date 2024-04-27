@@ -3,15 +3,15 @@ using BloodFlow.BuisnessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace BloodFlow.WebApi.Controllers
+namespace BloodFlow.PresentaionLayer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SessionController : ControllerBase
+    public class SessionsController : ControllerBase
     {
         private readonly ISessionService _sessionService;
 
-        public SessionController(ISessionService sessionService)
+        public SessionsController(ISessionService sessionService)
         {
             _sessionService = sessionService;
         }

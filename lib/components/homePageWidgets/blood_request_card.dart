@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:blood_flow/components/homePageWidgets/blood_request_form.dart';
 import 'package:blood_flow/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
@@ -52,6 +53,11 @@ class _BloodRequestState extends State<BloodRequestCard> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
+              Row(
+                children: [
+
+                ],
+              ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -71,13 +77,59 @@ class _BloodRequestState extends State<BloodRequestCard> {
                   IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
-                      // Implement edit action
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Apply donation'),
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                  children: <Widget>[BloodDonationForm(
+                                    CloseForm: () {
+                                      // Implement the logic to close the form
+                                      Navigator.of(context).pop();
+                                    },
+                                    AddRequest: (double donation, BloodType type) {
+                                      // Implement the logic to handle the donation request
+                                      // For example, you might want to update the state or send the data to a server
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  ]
+                              ),
+                            ),
+                          );
+                        },
+                      );
                     },
                   ),
                   IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
-                      // Implement delete action
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Confirm'),
+                            content: Text('Are you sure you want to delete request?'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(); // Dismiss the dialog
+                                },
+                                child: Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  // TODO: Implement delete functionality
+                                  Navigator.of(context).pop(); // Dismiss the dialog after performing the action
+                                },
+                                child: Text('Delete'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                   ),
                 ],

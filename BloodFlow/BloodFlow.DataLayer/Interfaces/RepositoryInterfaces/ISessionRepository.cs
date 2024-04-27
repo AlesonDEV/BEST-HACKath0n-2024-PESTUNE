@@ -9,6 +9,6 @@ namespace BloodFlow.DataLayer.Interfaces.RepositoryInterfaces
 {
     public interface ISessionRepository : IRepository<Session>
     {
-
+        Task<IEnumerable<Session>> GetByDonorIdAsync(int donorId);
     }
 }

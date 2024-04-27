@@ -57,5 +57,13 @@ namespace BloodFlow.DataLayer.Repositories
             _dbSet.Update(entity);
             _context.SaveChanges();
         }
+
+        public async Task<IEnumerable<Session>> GetByDonorIdAsync(int donorId)
+        {
+            return await _context.Set<DonorSession>()
+                .Where(ds => ds.DonorId == donorId)
+                .Select(ds => ds.Session)
+                .ToListAsync();
+        }
     }
 }

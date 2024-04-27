@@ -30,8 +30,8 @@ namespace BloodFlow.DataLayer.Entities
         public SessionDonorCenter() : base(0) { }
 
         public SessionDonorCenter(int id,
-            int sessionId,
-            int donorCenterId) : base (id)
+                                  int sessionId,
+                                  int donorCenterId) : base (id)
         {
             SessionId = sessionId;
             DonorCenterId = donorCenterId;

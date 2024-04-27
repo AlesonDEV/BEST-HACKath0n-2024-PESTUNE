@@ -9,6 +9,6 @@ namespace BloodFlow.BuisnessLayer.Interfaces
 {
     public interface ISessionService : ICrud<SessionModel>
     {
-
+        Task<IEnumerable<SessionModel>> GetSessionByDonorIdAsync(int donorId);
     }
 }

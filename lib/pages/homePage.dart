@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../components/Navigation/navigation.dart';
 import '../components/homePageWidgets/blood_request_form.dart';
 import '../mainpage.dart';
+import '../model/Donor.dart';
 import '../model/blood_types.dart';
 
 class HomePageWidget extends StatefulWidget {
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePageWidget>{
         builder: (context) => BloodRequestInfoScreen(
           bloodType: bloodType.toShortString(),
           progress: progress,
-          goal: goal,
+          goal: goal, donors: [Donor("Yura", "Debeluak", 0.3)],
         ),
       ),
     );

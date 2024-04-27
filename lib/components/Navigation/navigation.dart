@@ -57,6 +57,7 @@ class Navigation extends StatelessWidget{
                     tabBackgroundColor: choosenButtonColor,
                     gap: 3,
                     onTabChange: onItemTapped,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     padding: EdgeInsets.only(left: 40.0, top: 10.0, right: 40.0, bottom: 10.0),
                     tabs: const [
                       GButton(

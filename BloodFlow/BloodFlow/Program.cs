@@ -1,5 +1,10 @@
 
+using AutoMapper;
+using BloodFlow.BuisnessLayer.Interfaces;
+using BloodFlow.BuisnessLayer.Services;
 using BloodFlow.DataLayer.Data;
+using BloodFlow.DataLayer.Interfaces;
+using BloodFlow.Infrastructure.Mapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace BloodFlow
@@ -16,6 +21,18 @@ namespace BloodFlow
 
             builder.Services.AddDbContext<BloodFlowDbContext>(options =>
               options.UseSqlServer(builder.Configuration.GetConnectionString("BloodFlow")));
+
+            builder.Services.AddScoped<IMapper>(sp =>
+            {
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.AddProfile<AutomapperProfile>();
+                });
+                return config.CreateMapper();
+            });
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
 
             var app = builder.Build();
 

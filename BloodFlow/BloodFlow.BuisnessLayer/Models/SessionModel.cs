@@ -8,7 +8,7 @@ namespace BloodFlow.BuisnessLayer.Models
 {
     public class SessionModel
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string DonorCenterName { get; set; }
 
@@ -16,7 +16,7 @@ namespace BloodFlow.BuisnessLayer.Models
 
         public DateTime Date { get; set; }
 
-        public long StateId { get; set; }
+        public int StateId { get; set; }
 
         public string StateName { get; set; }
     }

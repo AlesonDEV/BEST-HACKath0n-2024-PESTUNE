@@ -9,6 +9,8 @@ namespace BloodFlow.DataLayer.Interfaces.RepositoryInterfaces
 {
     public interface IOrderRepository : IRepository<Order>
     {
+        Task<Order?> GetByIdWithDetailsAsync(int orderId);
 
+        Task<IEnumerable<Order>> GetAllWithDetailsAsync();
     }
 }

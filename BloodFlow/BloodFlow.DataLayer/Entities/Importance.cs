@@ -13,9 +13,11 @@ namespace BloodFlow.DataLayer.Entities
         [Column("name")]
         public string Name { get; set; }
 
-        ICollection<Order> Orders { get; set; } = null!;
+        public ICollection<Order> Orders { get; set; } = null!;
 
-        public Importance(long id,
+        public Importance() : base(0) { }
+
+        public Importance(int id,
             string name) : base(id)
         {
             Name = name;

@@ -114,7 +114,12 @@ namespace BloodFlow.DataLayer.Data
                 .WithMany(c => c.DonorCenterContacts)
                 .HasForeignKey(dcc => dcc.ContactTypeId);
 
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.DonorCenter)
+                .WithMany(dc => dc.Orders)
+                .HasForeignKey(o => o.DonorCenterId);
+
+            modelBuilder.UseIdentityColumns();
         }
     }
 }

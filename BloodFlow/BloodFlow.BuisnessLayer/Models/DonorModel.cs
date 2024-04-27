@@ -8,7 +8,7 @@ namespace BloodFlow.BuisnessLayer.Models
 {
     public class DonorModel
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

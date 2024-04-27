@@ -9,6 +9,8 @@ namespace BloodFlow.BuisnessLayer.Interfaces
 {
     public interface IOrderService : ICrud<OrderModel>
     {
+        Task AddDonorAsync(int donorId, int orderId, int bloodVolume);
 
+        Task RemoveDonorAsync(int donorId, int orderId);
     }
 }

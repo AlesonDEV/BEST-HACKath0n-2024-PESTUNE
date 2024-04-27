@@ -10,4 +10,9 @@
     <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BloodFlow.BuisnessLayer\BloodFlow.BuisnessLayer.csproj" />
+    <ProjectReference Include="..\BloodFlow.DataLayer\BloodFlow.DataLayer.csproj" />
+  </ItemGroup>
+
 </Project>

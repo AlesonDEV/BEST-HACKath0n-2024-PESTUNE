@@ -15,7 +15,7 @@ namespace BloodFlow.DataLayer.Entities
 
         public ICollection<Session>? Sessions { get; set; }
 
-        public StateSession(long id,
+        public StateSession(int id,
             string name) : base(id)
         {
             Name = name;

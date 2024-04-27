@@ -8,11 +8,11 @@ namespace BloodFlow.BuisnessLayer.Models
 {
     public class AddressModel
     {
-        public long CityId { get; set; }
+        public int CityId { get; set; }
 
         public string CityName { get; set; }
 
-        public long StreetId { get; set; }
+        public int StreetId { get; set; }
 
         public string StreetName { get; set; }
 

@@ -17,7 +17,7 @@ namespace BloodFlow.DataLayer.Entities
 
         public ICollection<PersonContact>? PersonContacts { get; set; }
 
-        public ContactType(long id, string name) : base(id)
+        public ContactType(int id, string name) : base(id)
         {
             Name = name;
         }

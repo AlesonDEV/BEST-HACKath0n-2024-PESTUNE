@@ -27,19 +27,19 @@ namespace BloodFlow.DataLayer.Entities
 
         [Column("street_id")]
         [ForeignKey(nameof(Street))]
-        public long StreetId { get; set; }
+        public int StreetId { get; set; }
 
         public Street Street { get; set; } = null!;
 
         public ICollection<PersonContact> PersonContacts { get; set; } = null!;
 
-        public Person(long id,
+        public Person(int id,
             string name,
             string surname,
             DateTime dateOfBirthday,
             string photoLink,
             int houseNumber,
-            long streetId) : base(id)
+            int streetId) : base(id)
         {
             Name = name;
             Surname = surname;

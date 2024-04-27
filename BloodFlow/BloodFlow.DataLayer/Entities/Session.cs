@@ -11,10 +11,10 @@ namespace BloodFlow.DataLayer.Entities
     public class Session : BaseEntity
     {
         [Column("donor_center_id")]
-        public long DonorCenterId { get; set; }
+        public int DonorCenterId { get; set; }
 
         [Column("blood_type_id")]
-        public long BloodTypeId { get; set; }
+        public int BloodTypeId { get; set; }
 
         [Column("blood_volume")]
         public int BloodVolume { get; set; }
@@ -23,18 +23,18 @@ namespace BloodFlow.DataLayer.Entities
         public DateTime Date { get; set; }
 
         [Column("state_id")]
-        public long StateId { get; set; }
+        public int StateId { get; set; }
 
         public ICollection<DonorSession>? DonorSessions { get; set; } 
 
         public ICollection<SessionDonorCenter>? SessionDonorCenters { get; set; }
 
-        public Session(long id,
-            long donorCenterId,
-            long bloodTypeId,
+        public Session(int id,
+            int donorCenterId,
+            int bloodTypeId,
             int bloodVolume,
             DateTime date,
-            long stateId) : base(id)
+            int stateId) : base(id)
         {
             DonorCenterId = donorCenterId;
             BloodTypeId = bloodTypeId;

@@ -17,6 +17,7 @@ namespace BloodFlow.BuisnessLayer.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDonorRepository _donorRepository;
+        private readonly IContactRepository _contactRepository;
         private readonly IMapper _mapper;
 
         public DonorService(IUnitOfWork unitOfWork, IMapper mapper)
@@ -24,6 +25,7 @@ namespace BloodFlow.BuisnessLayer.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _donorRepository = _unitOfWork.DonorRepository;
+            _contactRepository = _unitOfWork.ContactRepository;
         }
 
         public async Task AddAsync(DonorModel model)
@@ -55,13 +57,26 @@ namespace BloodFlow.BuisnessLayer.Services
             return _mapper.Map<DonorModel>(donorEntity);
         }
 
-        public async Task<IEnumerable<DonorModel>> GetDonorsByOrderIdAsync(int orderId)
+        public async Task<ContactModel> GetContactByDonorId(int donorId)
+        {
+            var donorEntity = await _donorRepository.GetByIdWithDetailsAsync(donorId);
+            BaseValidation.IsObjectNull(donorEntity, nameof(donorEntity));
+
+            var contactEntity = (await _contactRepository.GetAllAsync())
+                .FirstOrDefault(contact => contact.Id == donorEntity.Person.ContactId);
+
+            BaseValidation.IsObjectNull(contactEntity, nameof(contactEntity));
+
+            return _mapper.Map<ContactModel>(contactEntity);
+        }
+
+        public async Task<IEnumerable<DonorModel>> GetDonorsByOrderIdAsync(int donorId)
         {
             var donorEntities = await _donorRepository.GetAllWithDetailsAsync();
 
             var donorsByOrderId = donorEntities
                 .Where(c => c.DonorOrders!
-                    .Any(r => r.OrderId == orderId))
+                    .Any(r => r.OrderId == donorId))
                 .ToList();
 
             return _mapper.Map<IEnumerable<DonorModel>>(donorsByOrderId);

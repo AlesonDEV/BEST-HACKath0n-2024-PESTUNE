@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodFlow.DataLayer.Migrations
 {
     [DbContext(typeof(BloodFlowDbContext))]
-    [Migration("20240427130901_Init")]
+    [Migration("20240427151309_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -236,7 +236,7 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    b.Property<int>("ContactId")
+                    b.Property<int?>("ContactId")
                         .HasColumnType("int")
                         .HasColumnName("contact_id");
 
@@ -258,7 +258,7 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("photo_link");
 
-                    b.Property<int>("StreetId")
+                    b.Property<int?>("StreetId")
                         .HasColumnType("int")
                         .HasColumnName("street_id");
 
@@ -467,9 +467,7 @@ namespace BloodFlow.DataLayer.Migrations
                 {
                     b.HasOne("BloodFlow.DataLayer.Entities.Contact", "Contact")
                         .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ContactId");
 
                     b.HasOne("BloodFlow.DataLayer.Entities.Donor", "Donor")
                         .WithOne("Person")
@@ -479,9 +477,7 @@ namespace BloodFlow.DataLayer.Migrations
 
                     b.HasOne("BloodFlow.DataLayer.Entities.Street", "Street")
                         .WithMany()
-                        .HasForeignKey("StreetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StreetId");
 
                     b.Navigation("Contact");
 

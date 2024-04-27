@@ -21,6 +21,8 @@ namespace BloodFlow.DataLayer.Entities
 
         public ICollection<DonorCenter>? DonorCenters { get; set; }
 
+        public Street() : base(0) { }
+
         public Street(int id,
             string name,
             int cityId) : base(id)

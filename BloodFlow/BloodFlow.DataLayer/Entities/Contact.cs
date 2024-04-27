@@ -13,6 +13,8 @@ namespace BloodFlow.DataLayer.Entities
         [Column("name")]
         public string Name { get; set; }
 
+        public Contact() : base(0) { }
+
         public Contact(int id, string name) : base(id)
         {
             Name = name;

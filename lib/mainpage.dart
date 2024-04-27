@@ -1,4 +1,5 @@
 import 'package:blood_flow/pages/homePage.dart';
+import 'package:blood_flow/pages/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -40,12 +41,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
                 HomePageWidget(),
-                Container(
-                  // Your Map content here
-                  child: Center(
-                    child: Text('Map Content'),
-                  ),
-                ),
+                ProfilePage(),
               ],
             ),
             Navigation(_onItemTapped),

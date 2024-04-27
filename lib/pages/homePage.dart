@@ -22,6 +22,7 @@ class HomePageWidget extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: BloodRequestCard(),
@@ -38,6 +39,7 @@ class HomePageWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: BloodRequestCard(),
                     ),
+                    SizedBox(height: 100),
                   ],
                 ),
               ),

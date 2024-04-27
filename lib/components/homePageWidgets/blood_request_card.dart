@@ -19,7 +19,7 @@ class BloodRequestCard extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         'hehe',
-        style: TextStyle(fontSize: 24, color: SecondaryColor), // Зміна кольору тексту
+        style: TextStyle(fontSize: 24, color: MainTextColor), // Зміна кольору тексту
         textAlign: TextAlign.center,
       ),
     );

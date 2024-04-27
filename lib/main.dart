@@ -1,3 +1,4 @@
+import 'package:blood_flow/pages/authorization/singUpPage.dart';
 import 'package:flutter/material.dart';
 
 import 'mainpage.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainPage(),
+      home: SingUpPage(),
     );
   }
 }

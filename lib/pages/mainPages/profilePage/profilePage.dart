@@ -1,6 +1,7 @@
-import 'package:blood_flow/pages/historyPage.dart';
-import 'package:blood_flow/pages/medicalIdPage.dart';
-import 'package:blood_flow/pages/settingsPage.dart';
+import 'package:blood_flow/pages/mainPages/profilePage/historyPage.dart';
+import 'package:blood_flow/pages/mainPages/profilePage/medicalIdPage.dart';
+import 'package:blood_flow/pages/mainPages/profilePage/settingsPage.dart';
+import 'package:blood_flow/pages/mainPages/profilePage/supportPage.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -93,6 +94,23 @@ class ProfilePage extends StatelessWidget {
                 minimumSize: Size(double.infinity, 0),
               ),
               child: Text('Settings'),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SupportPage()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 16.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                minimumSize: Size(double.infinity, 0),
+              ),
+              child: Text('Support'),
             ),
             SizedBox(height: 20),
             ElevatedButton(

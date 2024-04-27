@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/colors.dart';
 

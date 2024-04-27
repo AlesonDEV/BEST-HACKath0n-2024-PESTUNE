@@ -33,6 +33,7 @@ namespace BloodFlow
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IDonorService, DonorService>();
 
             var app = builder.Build();
 

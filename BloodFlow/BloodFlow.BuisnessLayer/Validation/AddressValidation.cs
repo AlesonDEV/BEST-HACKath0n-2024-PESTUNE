@@ -15,15 +15,16 @@ namespace BloodFlow.BuisnessLayer.Validation
 
         public static async Task ValidateAddress(AddressModel address)
         {
-            if (string.IsNullOrWhiteSpace(address.CityName) || string.IsNullOrWhiteSpace(address.StreetName) || address.HouseNumber <= 0)
+            if (string.IsNullOrWhiteSpace(address.CityName) || string.IsNullOrWhiteSpace(address.StreetName)
+                || string.IsNullOrWhiteSpace(address.HouseNumber))
             {
                 throw new Exception("Address fields cannot be null, empty, or negative (house number).");
             }
 
-            await IsAddressExists(address.CityName, address.StreetName, address.HouseNumber);
+            await IsAddressExists(address.CityName.Trim(), address.StreetName.Trim(), address.HouseNumber.Trim());
         }
 
-        private static async Task IsAddressExists(string cityName, string streetName, int houseNumber)
+        private static async Task IsAddressExists(string cityName, string streetName, string houseNumber)
         {
             string apiKey = "d54f116a499649478e2dfa51bda2291a";
             string fullAddress = $"{streetName} {houseNumber}, {cityName}";

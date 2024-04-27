@@ -6,11 +6,11 @@ namespace BloodFlow.PresentaionLayer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
 
-        public OrderController(IOrderService orderService) 
+        public OrdersController(IOrderService orderService) 
         {
             _orderService = orderService;
         }
@@ -31,7 +31,7 @@ namespace BloodFlow.PresentaionLayer.Controllers
 
         // GET: api/orders/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<OrderModel>>> GetById(int id)
+        public async Task<ActionResult<OrderModel>> GetById(int id)
         {
             OrderModel orderModel = await _orderService.GetByIdAsync(id);
 

@@ -27,6 +27,8 @@ namespace BloodFlow.DataLayer.Interfaces
 
         IStreetRepository StreetRepository { get; }
 
+        IContactRepository ContactRepository { get; }
+
         Task SaveAsync();
     }
 }

@@ -31,12 +31,26 @@ namespace BloodFlow.Infrastructure.Mapper
                 .ForMember(dm => dm.Surname, d => d.MapFrom(x => x.Person.Surname))
                 .ForMember(dm => dm.DateOfBirthday, d => d.MapFrom(x => x.Person.DateOfBirthday))
                 .ForMember(dm => dm.PhotoLink, d => d.MapFrom(x => x.Person.PhotoLink))
-                .ForMember(dm => dm.BloodTypeId, d => d.MapFrom(x => x.BloodType.Id))
-                .ForMember(dm => dm.BloodTypeName, d => d.MapFrom(x => x.BloodType.Name))
-                .ForMember(dm => dm.ContactId, d => d.MapFrom(x => x.Person.Contact.Id))
-                .ForMember(dm => dm.ContactName, d => d.MapFrom(x => x.Person.Contact.Name));
+                .ForMember(dm => dm.BloodTypeId, d => d.MapFrom(x => x.BloodTypeId))
+                .ReverseMap();
 
-            CreateMap<DonorModel, Donor>();
+            // Contact map profiles
+            CreateMap<Contact, ContactModel>()
+                .ForMember(cm => cm.ContactId, c => c.MapFrom(x => x.Id))
+                .ForMember(cm => cm.ContactValue, c => c.MapFrom(x => x.Name))
+                .ReverseMap();
+
+            //CreateMap<DonorModel, Donor>()
+            //    .ForPath(dm => dm.Person.Name, d => d.MapFrom(source => source.Name))
+            //    .ForPath(dm => dm.Person.Surname, d => d.MapFrom(source => source.Surname))
+            //    .ForPath(dm => dm.Person.PhotoLink, d => d.MapFrom(source => source.PhotoLink))
+            //    .ForPath(dm => dm.Person.Contact.Id, d => d.MapFrom(source => source.ContactId))
+            //    .ForPath(dm => dm.Person.Contact.Name, d => d.MapFrom(source => source.ContactName))
+            //    .ForPath(dm => dm.Person.Street.Id, d => d.MapFrom(source => source.Id));
+
+            // Others profiles
+            //CreateMap<DonorModel, Person>()
+            //    .ReverseMap();
         }
     }
 }

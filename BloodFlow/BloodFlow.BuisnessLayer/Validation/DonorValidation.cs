@@ -15,8 +15,8 @@ namespace BloodFlow.BuisnessLayer.Validation
             BaseValidation.IsObjectNull(donor, nameof(donor));
             BaseValidation.IsWhiteSpaceOrNullOrEmpty(donor.Name);
             BaseValidation.IsWhiteSpaceOrNullOrEmpty(donor.Surname);
-            ValidateBirthDate(donor.DateOfBirthday);
-            ValidatePhotoLink(donor.PhotoLink);
+            //ValidateBirthDate(donor.DateOfBirthday);
+            //ValidatePhotoLink(donor.PhotoLink);
         }
 
         private static void ValidateBirthDate(DateTime birthDate)

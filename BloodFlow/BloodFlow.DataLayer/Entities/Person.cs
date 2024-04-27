@@ -24,28 +24,30 @@ namespace BloodFlow.DataLayer.Entities
         public string PhotoLink { get; set; }
 
         [Column("house_number")]
-        public int HouseNumber { get; set; }
+        public string HouseNumber { get; set; }
 
         [Column("street_id")]
         [ForeignKey(nameof(Street))]
-        public int StreetId { get; set; }
+        public int? StreetId { get; set; }
 
         [Column("contact_id")]
         [ForeignKey(nameof(Contact))]
-        public int ContactId { get; set; }
+        public int? ContactId { get; set; }
 
-        public Street Street { get; set; } = null!;
+        public Street? Street { get; set; }
 
-        public Contact Contact { get; set; } = null!;
+        public Contact? Contact { get; set; }
 
         public Donor Donor { get; set; } = null!;
+
+        public Person() : base(0) { }
 
         public Person(int id,
             string name,
             string surname,
             DateTime dateOfBirthday,
             string photoLink,
-            int houseNumber,
+            string houseNumber,
             int streetId) : base(id)
         {
             Name = name;

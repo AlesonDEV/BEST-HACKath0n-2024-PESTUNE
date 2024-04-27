@@ -21,10 +21,20 @@ namespace BloodFlow.DataLayer.Data
         private ISessionRepository _sessionRepository;
         private IStateSessionRepository _stateSessionRepository;
         private IStreetRepository _streetRepository;
+        private IContactRepository _contactRepository;
 
         public UnitOfWork(BloodFlowDbContext context)
         {
             _context = context;
+        }
+
+        public IContactRepository ContactRepository
+        {
+            get
+            {
+                this._contactRepository ??= new ContactRepository(_context);
+                return this._contactRepository;
+            }
         }
 
         public IBloodTypeRepository BloodTypeRepository

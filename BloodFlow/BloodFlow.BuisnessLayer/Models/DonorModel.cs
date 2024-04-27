@@ -21,9 +21,5 @@ namespace BloodFlow.BuisnessLayer.Models
         public int BloodTypeId { get; set; }
 
         public string BloodTypeName { get; set; }
-
-        public int ContactId { get; set; }
-
-        public string ContactName { get; set; }
     }
 }

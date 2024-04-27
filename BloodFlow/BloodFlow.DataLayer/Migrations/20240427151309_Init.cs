@@ -176,8 +176,8 @@ namespace BloodFlow.DataLayer.Migrations
                     date_of_birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     photo_link = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     house_number = table.Column<int>(type: "int", nullable: false),
-                    street_id = table.Column<int>(type: "int", nullable: false),
-                    contact_id = table.Column<int>(type: "int", nullable: false)
+                    street_id = table.Column<int>(type: "int", nullable: true),
+                    contact_id = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -186,8 +186,7 @@ namespace BloodFlow.DataLayer.Migrations
                         name: "FK_person_contact_contact_id",
                         column: x => x.contact_id,
                         principalTable: "contact",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_person_donor_id",
                         column: x => x.id,
@@ -198,8 +197,7 @@ namespace BloodFlow.DataLayer.Migrations
                         name: "FK_person_street_street_id",
                         column: x => x.street_id,
                         principalTable: "street",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(

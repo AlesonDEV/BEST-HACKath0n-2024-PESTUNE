@@ -1,10 +1,10 @@
-import 'package:blood_flow/pages/mainPages/homePage/homePage.dart';
-import 'package:blood_flow/pages/mainPages/profilePage/profilePage.dart';
+import 'package:blood_flow/client/pages/mainPages/homePage/homePage.dart';
+import 'package:blood_flow/client/pages/mainPages/profilePage/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import 'components/Navigations/navigation.dart';
-import 'config/colors.dart';
+import '../client/components/Navigations/navigation.dart';
+import '../client/config/colors.dart';
 
 
 class MainPage extends StatefulWidget {

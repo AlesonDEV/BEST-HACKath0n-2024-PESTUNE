@@ -14,7 +14,7 @@ class MetaballsBackgroundWidget extends StatelessWidget {
 
         gradient: LinearGradient(
             colors: [
-              const Color(0xffdc2626),
+              const Color(0xffa94748),
               const Color(0xffdc2626),
             ],
             begin: Alignment.bottomRight,

@@ -1,7 +1,7 @@
-import 'package:blood_flow/pages/mainPages/profilePage/historyPage.dart';
-import 'package:blood_flow/pages/mainPages/profilePage/medicalIdPage.dart';
-import 'package:blood_flow/pages/mainPages/profilePage/settingsPage.dart';
-import 'package:blood_flow/pages/mainPages/profilePage/supportPage.dart';
+import 'package:blood_flow/client/pages/mainPages/profilePage/historyPage.dart';
+import 'package:blood_flow/client/pages/mainPages/profilePage/medicalIdPage.dart';
+import 'package:blood_flow/client/pages/mainPages/profilePage/settingsPage.dart';
+import 'package:blood_flow/client/pages/mainPages/profilePage/supportPage.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {

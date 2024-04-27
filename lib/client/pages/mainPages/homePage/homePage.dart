@@ -1,5 +1,5 @@
-import 'package:blood_flow/components/homePageWidgets/blood_request_card.dart';
-import 'package:blood_flow/components/homePageWidgets/info_slider_widget/info_slider_widget.dart';
+import 'package:blood_flow/client/components/homePageWidgets/blood_request_card.dart';
+import 'package:blood_flow/client/components/homePageWidgets/info_slider_widget/info_slider_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

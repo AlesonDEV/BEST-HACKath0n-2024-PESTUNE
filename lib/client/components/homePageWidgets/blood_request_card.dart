@@ -1,4 +1,4 @@
-import 'package:blood_flow/components/homePageWidgets/blood_request_details.dart';
+import 'package:blood_flow/client/components/homePageWidgets/blood_request_details.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import '../../config/colors.dart';

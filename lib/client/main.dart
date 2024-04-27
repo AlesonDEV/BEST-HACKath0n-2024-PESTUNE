@@ -1,4 +1,4 @@
-import 'package:blood_flow/pages/authorization/singUpPage.dart';
+import 'package:blood_flow/client/pages/authorization/singUpPage.dart';
 import 'package:flutter/material.dart';
 
 import 'mainpage.dart';

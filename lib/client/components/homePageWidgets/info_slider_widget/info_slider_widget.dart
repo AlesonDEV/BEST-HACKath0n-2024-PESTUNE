@@ -1,4 +1,4 @@
-import 'package:blood_flow/components/homePageWidgets/info_slider_widget/slider_img.dart';
+import 'package:blood_flow/client/components/homePageWidgets/info_slider_widget/slider_img.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'; // Correct import
 

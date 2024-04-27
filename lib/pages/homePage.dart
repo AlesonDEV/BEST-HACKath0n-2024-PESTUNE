@@ -46,13 +46,6 @@ class _HomePageState extends State<HomePageWidget>{
               bottom: 100,
               right: 20,
               child: ElevatedButton(
-                // onPressed: () {
-                //   _key.currentState!.AddRequestCard(BloodRequestCard());
-                //   setState(() {
-                //
-                //   });
-                // },
-
                 onPressed: () {
                   showDialog(
                     context: context,

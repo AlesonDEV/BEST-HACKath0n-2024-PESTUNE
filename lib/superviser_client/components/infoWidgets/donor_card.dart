@@ -17,7 +17,7 @@ class DonorCard extends StatelessWidget {
         color: Colors.grey[300], // Changed IdleIconColor to a placeholder color
         borderRadius: BorderRadius.circular(15),
       ),
-      width: screenSize.width * 0.9,
+      width: screenSize.width * 0.8,
       padding: EdgeInsets.all(10), // Added padding for better spacing
       child: Row(
         children: [

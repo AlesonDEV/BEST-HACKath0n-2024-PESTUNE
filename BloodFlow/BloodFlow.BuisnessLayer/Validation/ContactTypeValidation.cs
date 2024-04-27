@@ -23,19 +23,10 @@ namespace BloodFlow.BuisnessLayer.Validation
             }
             catch (FormatException)
             {
-                throw new ValidationException("Email format is invalid.");
+                throw new ValidationException("Email format is invalid.",
+                      new FormatException("Please provide a valid email address."));
             }
         }
 
-        public static void ValidatePhoneNumber(string phoneNumber)
-        {
-            BaseValidation.IsWhiteSpaceOrNullOrEmpty(phoneNumber);
-
-
-            if (!phoneRegex.IsMatch(phoneNumber))
-            {
-                throw new ValidationException("Phone number format is invalid.");
-            }
-        }
     }
 }

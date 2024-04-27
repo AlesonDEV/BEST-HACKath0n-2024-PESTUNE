@@ -15,11 +15,16 @@ namespace BloodFlow.BuisnessLayer.Validation
 
         public static async Task ValidateAddress(AddressModel address)
         {
-            if (string.IsNullOrWhiteSpace(address.CityName) || string.IsNullOrWhiteSpace(address.StreetName)
-                || string.IsNullOrWhiteSpace(address.HouseNumber))
+
+            if (string.IsNullOrWhiteSpace(address.CityName) || string.IsNullOrWhiteSpace(address.StreetName) || string.IsNullOrWhiteSpace(address.HouseNumber))
             {
                 throw new Exception("Address fields cannot be null, empty, or negative (house number).");
             }
+          
+            BaseValidation.IsObjectNull(address, nameof(address));
+            BaseValidation.IsWhiteSpaceOrNullOrEmpty(address.CityName);
+            BaseValidation.IsWhiteSpaceOrNullOrEmpty(address.StreetName);
+            BaseValidation.IsObjectNull(address.HouseNumber, nameof(address.HouseNumber));
 
             await IsAddressExists(address.CityName.Trim(), address.StreetName.Trim(), address.HouseNumber.Trim());
         }
@@ -33,14 +38,14 @@ namespace BloodFlow.BuisnessLayer.Validation
             HttpResponseMessage response = await client.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Failed to reach geocoding service.");
+                throw new HttpRequestException("Failed to reach geocoding service.");
             }
 
             string responseBody = await response.Content.ReadAsStringAsync();
             JObject data = JObject.Parse(responseBody);
             if (data["total_results"] == null || (int)data["total_results"] == 0)
             {
-                throw new Exception("The specified full address does not exist.");
+                throw new InvalidAddressException("The specified full address does not exist.");
             }
         }
     }

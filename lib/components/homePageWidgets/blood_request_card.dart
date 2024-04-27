@@ -1,3 +1,4 @@
+import 'package:blood_flow/components/homePageWidgets/blood_request_details.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import '../../config/colors.dart';
@@ -18,11 +19,6 @@ class BloodRequestCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          /*CircleAvatar(
-            radius: 55,
-            backgroundImage: NetworkImage(
-                'https://example.com/user-profile-image.jpg'),
-          ),*/
           Container(
             width: 110.0,
             height: 110.0,
@@ -40,27 +36,35 @@ class BloodRequestCard extends StatelessWidget {
             children: [
               SizedBox(height: 10),
               Text(
-                'Запит на кров',
+                'Blood request',
                 style: TextStyle(fontSize: 24, color: MainTextColor),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 5),
               Text(
-                'вул. Перша, 1',
+                'bebe bebe, 1',
                 style: TextStyle(fontSize: 16, color: MainTextColor),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 5),
               Text(
-                '1 літр',
+                '1 liter',
                 style: TextStyle(fontSize: 16, color: MainTextColor),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {},
-                child: Text('Допомогти'),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return DetailedBloodRequestCard();
+                    },
+                  );
+                },
+                child: Text('Відкрити віджет'),
               ),
+
             ],
           ),
         ],

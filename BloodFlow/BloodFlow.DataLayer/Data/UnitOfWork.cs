@@ -14,19 +14,27 @@ namespace BloodFlow.DataLayer.Data
         private readonly BloodFlowDbContext _context;
         private IBloodTypeRepository _bloodTypeRepository;
         private ICityRepository _cityRepository;
-        private IDonorCenterContactRepository _donorCenterContactRepository;
         private IDonorCenterRepository _donorCenterRepository;
         private IDonorRepository _donorRepository;
         private IOrderRepository _orderRepository;
-        private IPersonContactRepository _personContactRepository;
         private IPersonRepository _personRepository;
         private ISessionRepository _sessionRepository;
         private IStateSessionRepository _stateSessionRepository;
         private IStreetRepository _streetRepository;
+        private IContactRepository _contactRepository;
 
         public UnitOfWork(BloodFlowDbContext context)
         {
             _context = context;
+        }
+
+        public IContactRepository ContactRepository
+        {
+            get
+            {
+                this._contactRepository ??= new ContactRepository(_context);
+                return this._contactRepository;
+            }
         }
 
         public IBloodTypeRepository BloodTypeRepository
@@ -44,15 +52,6 @@ namespace BloodFlow.DataLayer.Data
             {
                 this._cityRepository ??= new CityRepository(_context);
                 return this._cityRepository;
-            }
-        }
-
-        public IDonorCenterContactRepository DonorCenterContactRepository
-        {
-            get
-            {
-                this._donorCenterContactRepository ??= new DonorCenterContactRepository(_context);
-                return this._donorCenterContactRepository;
             }
         }
 
@@ -81,15 +80,6 @@ namespace BloodFlow.DataLayer.Data
             {
                 this._orderRepository ??= new OrderRepository(_context);
                 return this._orderRepository;
-            }
-        }
-
-        public IPersonContactRepository PersonContactRepository
-        {
-            get
-            {
-                this._personContactRepository ??= new PersonContactRepository(_context);
-                return this._personContactRepository;
             }
         }
 

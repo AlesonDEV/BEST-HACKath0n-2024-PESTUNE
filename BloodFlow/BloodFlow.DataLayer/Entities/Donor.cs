@@ -13,13 +13,17 @@ namespace BloodFlow.DataLayer.Entities
     {
         [Column("blood_type_id")]
         [ForeignKey(nameof(BloodType))]
-        public int BloodTypeId { get; set; }
+        public int? BloodTypeId { get; set; }
 
         public BloodType BloodType { get; set; } = null!;
 
         public ICollection<DonorOrder>? DonorOrders { get; set; }
 
         public ICollection<DonorSession>? DonorSessions { get; set; }
+
+        public Person Person { get; set; } = null!;
+
+        public Donor() : base(0) { }
 
         public Donor(int id,
             int bloodTypeId) : base(id)

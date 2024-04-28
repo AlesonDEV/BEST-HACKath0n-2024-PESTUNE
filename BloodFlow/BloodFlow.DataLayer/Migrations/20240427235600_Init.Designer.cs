@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodFlow.DataLayer.Migrations
 {
     [DbContext(typeof(BloodFlowDbContext))]
-    [Migration("20240427082503_Init")]
+    [Migration("20240427235600_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -63,7 +63,7 @@ namespace BloodFlow.DataLayer.Migrations
                     b.ToTable("city");
                 });
 
-            modelBuilder.Entity("BloodFlow.DataLayer.Entities.ContactType", b =>
+            modelBuilder.Entity("BloodFlow.DataLayer.Entities.Contact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,7 +79,7 @@ namespace BloodFlow.DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("contact_type");
+                    b.ToTable("contact");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Donor", b =>
@@ -91,7 +91,7 @@ namespace BloodFlow.DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BloodTypeId")
+                    b.Property<int?>("BloodTypeId")
                         .HasColumnType("int")
                         .HasColumnName("blood_type_id");
 
@@ -111,6 +111,10 @@ namespace BloodFlow.DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ContactId")
+                        .HasColumnType("int")
+                        .HasColumnName("contact_id");
+
                     b.Property<int>("HouseNumber")
                         .HasColumnType("int")
                         .HasColumnName("house_number");
@@ -126,31 +130,11 @@ namespace BloodFlow.DataLayer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ContactId");
+
                     b.HasIndex("StreetId");
 
                     b.ToTable("donor_center");
-                });
-
-            modelBuilder.Entity("BloodFlow.DataLayer.Entities.DonorCenterContact", b =>
-                {
-                    b.Property<int>("DonorCenterId")
-                        .HasColumnType("int")
-                        .HasColumnName("donor_center_id");
-
-                    b.Property<int>("ContactTypeId")
-                        .HasColumnType("int")
-                        .HasColumnName("contact_type_id");
-
-                    b.Property<string>("ContactValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("contact_value");
-
-                    b.HasKey("DonorCenterId", "ContactTypeId");
-
-                    b.HasIndex("ContactTypeId");
-
-                    b.ToTable("donor_center_contact");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.DonorOrder", b =>
@@ -215,6 +199,10 @@ namespace BloodFlow.DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("BloodTypeId")
+                        .HasColumnType("int")
+                        .HasColumnName("blood_type_id");
+
                     b.Property<int>("BloodVolume")
                         .HasColumnType("int")
                         .HasColumnName("blood_volume");
@@ -239,6 +227,8 @@ namespace BloodFlow.DataLayer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BloodTypeId");
+
                     b.HasIndex("DonorCenterId");
 
                     b.HasIndex("ImportanceId");
@@ -249,18 +239,19 @@ namespace BloodFlow.DataLayer.Migrations
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Person", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int?>("ContactId")
+                        .HasColumnType("int")
+                        .HasColumnName("contact_id");
 
                     b.Property<DateTime>("DateOfBirthday")
                         .HasColumnType("datetime2")
                         .HasColumnName("date_of_birthday");
 
-                    b.Property<int>("HouseNumber")
-                        .HasColumnType("int")
+                    b.Property<string>("HouseNumber")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("house_number");
 
                     b.Property<string>("Name")
@@ -273,7 +264,7 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("photo_link");
 
-                    b.Property<int>("StreetId")
+                    b.Property<int?>("StreetId")
                         .HasColumnType("int")
                         .HasColumnName("street_id");
 
@@ -284,31 +275,11 @@ namespace BloodFlow.DataLayer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ContactId");
+
                     b.HasIndex("StreetId");
 
                     b.ToTable("person");
-                });
-
-            modelBuilder.Entity("BloodFlow.DataLayer.Entities.PersonContact", b =>
-                {
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int")
-                        .HasColumnName("peson_id");
-
-                    b.Property<int>("ContactTypeId")
-                        .HasColumnType("int")
-                        .HasColumnName("contact_type_id");
-
-                    b.Property<string>("ContactValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("contact_value");
-
-                    b.HasKey("PersonId", "ContactTypeId");
-
-                    b.HasIndex("ContactTypeId");
-
-                    b.ToTable("person_contact");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Session", b =>
@@ -415,41 +386,28 @@ namespace BloodFlow.DataLayer.Migrations
                 {
                     b.HasOne("BloodFlow.DataLayer.Entities.BloodType", "BloodType")
                         .WithMany("Donors")
-                        .HasForeignKey("BloodTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BloodTypeId");
 
                     b.Navigation("BloodType");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.DonorCenter", b =>
                 {
+                    b.HasOne("BloodFlow.DataLayer.Entities.Contact", "Contact")
+                        .WithMany()
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BloodFlow.DataLayer.Entities.Street", "Street")
                         .WithMany("DonorCenters")
                         .HasForeignKey("StreetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Contact");
+
                     b.Navigation("Street");
-                });
-
-            modelBuilder.Entity("BloodFlow.DataLayer.Entities.DonorCenterContact", b =>
-                {
-                    b.HasOne("BloodFlow.DataLayer.Entities.ContactType", "ContactType")
-                        .WithMany("DonorCenterContacts")
-                        .HasForeignKey("ContactTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BloodFlow.DataLayer.Entities.DonorCenter", "DonorCenter")
-                        .WithMany("DonorCenterContacts")
-                        .HasForeignKey("DonorCenterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ContactType");
-
-                    b.Navigation("DonorCenter");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.DonorOrder", b =>
@@ -492,6 +450,10 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Order", b =>
                 {
+                    b.HasOne("BloodFlow.DataLayer.Entities.BloodType", "BloodType")
+                        .WithMany("Orders")
+                        .HasForeignKey("BloodTypeId");
+
                     b.HasOne("BloodFlow.DataLayer.Entities.DonorCenter", "DonorCenter")
                         .WithMany("Orders")
                         .HasForeignKey("DonorCenterId")
@@ -504,6 +466,8 @@ namespace BloodFlow.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("BloodType");
+
                     b.Navigation("DonorCenter");
 
                     b.Navigation("Importance");
@@ -511,32 +475,25 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Person", b =>
                 {
-                    b.HasOne("BloodFlow.DataLayer.Entities.Street", "Street")
+                    b.HasOne("BloodFlow.DataLayer.Entities.Contact", "Contact")
                         .WithMany()
-                        .HasForeignKey("StreetId")
+                        .HasForeignKey("ContactId");
+
+                    b.HasOne("BloodFlow.DataLayer.Entities.Donor", "Donor")
+                        .WithOne("Person")
+                        .HasForeignKey("BloodFlow.DataLayer.Entities.Person", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BloodFlow.DataLayer.Entities.Street", "Street")
+                        .WithMany("People")
+                        .HasForeignKey("StreetId");
+
+                    b.Navigation("Contact");
+
+                    b.Navigation("Donor");
 
                     b.Navigation("Street");
-                });
-
-            modelBuilder.Entity("BloodFlow.DataLayer.Entities.PersonContact", b =>
-                {
-                    b.HasOne("BloodFlow.DataLayer.Entities.ContactType", "ContactType")
-                        .WithMany("PersonContacts")
-                        .HasForeignKey("ContactTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BloodFlow.DataLayer.Entities.Person", "Person")
-                        .WithMany("PersonContacts")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ContactType");
-
-                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Session", b =>
@@ -579,6 +536,8 @@ namespace BloodFlow.DataLayer.Migrations
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.BloodType", b =>
                 {
                     b.Navigation("Donors");
+
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.City", b =>
@@ -586,24 +545,18 @@ namespace BloodFlow.DataLayer.Migrations
                     b.Navigation("Streets");
                 });
 
-            modelBuilder.Entity("BloodFlow.DataLayer.Entities.ContactType", b =>
-                {
-                    b.Navigation("DonorCenterContacts");
-
-                    b.Navigation("PersonContacts");
-                });
-
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Donor", b =>
                 {
                     b.Navigation("DonorOrders");
 
                     b.Navigation("DonorSessions");
+
+                    b.Navigation("Person")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.DonorCenter", b =>
                 {
-                    b.Navigation("DonorCenterContacts");
-
                     b.Navigation("Orders");
 
                     b.Navigation("SessionDonorCenters");
@@ -617,11 +570,6 @@ namespace BloodFlow.DataLayer.Migrations
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Order", b =>
                 {
                     b.Navigation("DonorOrders");
-                });
-
-            modelBuilder.Entity("BloodFlow.DataLayer.Entities.Person", b =>
-                {
-                    b.Navigation("PersonContacts");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Session", b =>
@@ -639,6 +587,8 @@ namespace BloodFlow.DataLayer.Migrations
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Street", b =>
                 {
                     b.Navigation("DonorCenters");
+
+                    b.Navigation("People");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using BloodFlow.DataLayer.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BloodFlow.DataLayer.Entities;
 
 namespace BloodFlow.DataLayer.Interfaces.RepositoryInterfaces
 {
-    public interface IDonorCenterContactRepository : IRepository<DonorCenterContact>
+    public interface IContactRepository : IRepository<Contact>
     {
 
     }

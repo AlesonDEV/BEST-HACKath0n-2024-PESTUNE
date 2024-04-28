@@ -21,13 +21,17 @@ namespace BloodFlow.DataLayer.Entities
         [Column("house_number")]
         public int HouseNumber { get; set; }
 
+        [Column("contact_id")]
+        [ForeignKey(nameof(Contact))]
+        public int ContactId { get; set; }
+
         public Street Street { get; set; } = null!;
+
+        public Contact Contact { get; set; } = null!;
 
         public ICollection<Order>? Orders { get; set; }
 
         public ICollection<SessionDonorCenter>? SessionDonorCenters { get; set; }
-
-        public ICollection<DonorCenterContact> DonorCenterContacts { get; set; } = null!;
 
         public DonorCenter() : base(0) { }
 

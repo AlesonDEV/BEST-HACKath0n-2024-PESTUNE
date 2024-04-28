@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.BuisnessLayer.Models
 {
-    public class ContactModel
+    public class CityModel
     {
-        public int ContactId { get; set; }
+        public int CityId { get; set; }
 
-        public string ContactValue { get; set; }
+        public string CityName { get; set; }
     }
 }

@@ -11,9 +11,5 @@ namespace BloodFlow.BuisnessLayer.Models
         public int? BloodTypeId { get; set; }
 
         public int? ImportanceId { get; set; }
-
-        public DateTime? EndTime { get; set; }
-
-        public int? Distance { get; set; }
     }
 }

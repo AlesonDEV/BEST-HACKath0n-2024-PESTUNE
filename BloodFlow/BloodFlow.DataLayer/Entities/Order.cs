@@ -27,11 +27,17 @@ namespace BloodFlow.DataLayer.Entities
         [ForeignKey(nameof(Importance))]
         public int ImportanceId { get; set; }
 
+        [Column("blood_type_id")]
+        [ForeignKey(nameof(BloodType))]
+        public int? BloodTypeId { get; set; }
+
+        public BloodType BloodType { get; set; } = null!;
+
         public Importance Importance { get; set; } = null!;
 
         public DonorCenter DonorCenter { get; set; } = null!;
 
-        public ICollection<DonorOrder> DonorOrders { get; set; } = null!;
+        public ICollection<DonorOrder>? DonorOrders { get; set; }
 
         public Order() : base(0) { }
 
@@ -40,13 +46,15 @@ namespace BloodFlow.DataLayer.Entities
             string description,
             int bloodVolume,
             int donorCenterId,
-            int importanceId) : base(id)
+            int importanceId,
+            int bloodTypeId) : base(id)
         {
             Title = title;
             Description = description;
             BloodVolume = bloodVolume;
             DonorCenterId = donorCenterId;
             ImportanceId = importanceId;
+            BloodTypeId = bloodTypeId;
         }
     }
 }

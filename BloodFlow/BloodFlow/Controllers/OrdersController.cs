@@ -6,32 +6,18 @@ namespace BloodFlow.PresentaionLayer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
 
-        public OrderController(IOrderService orderService) 
+        public OrdersController(IOrderService orderService)
         {
             _orderService = orderService;
         }
 
-        // GET: api/orders
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderModel>>> Get()
-        {
-            IEnumerable<OrderModel> orderModels = await _orderService.GetAllAsync();
-
-            if (orderModels == null)
-            {
-                return NotFound();
-            }
-            
-            return Ok(orderModels); 
-        }
-
         // GET: api/orders/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<OrderModel>>> GetById(int id)
+        public async Task<ActionResult<OrderModel>> GetById(int id)
         {
             OrderModel orderModel = await _orderService.GetByIdAsync(id);
 
@@ -67,6 +53,39 @@ namespace BloodFlow.PresentaionLayer.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             await _orderService.DeleteAsync(id);
+
+            return NoContent();
+        }
+
+        // GET: api/orders?BloodTypeId=1&ImportanceId=2
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<OrderModel>>> GetOrdersByFilter(
+            [FromQuery] FilterSearchModel filterSearchModel)
+        {
+            var orderModels = await _orderService.GetByFilterAsync(filterSearchModel);
+
+            if (orderModels == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(orderModels);
+        }
+
+        // PUT: api/orders/{id}/donors/add/{donorId}
+        [HttpPut("{id}/donors/add/{donorId}")]
+        public async Task<ActionResult> UpdateDonors(int id, int donorId, int bloodVolume)
+        {
+            await _orderService.AddDonorAsync(donorId, id, bloodVolume);
+
+            return NoContent();
+        }
+
+        // PUT: api/orders/{id}/donors/remove/{donorId}
+        [HttpPut("{id}/donors/remove/{donorId}")]
+        public async Task<ActionResult> RemoveDonor(int id, int donorId)
+        {
+            await _orderService.RemoveDonorAsync(donorId, id);
 
             return NoContent();
         }

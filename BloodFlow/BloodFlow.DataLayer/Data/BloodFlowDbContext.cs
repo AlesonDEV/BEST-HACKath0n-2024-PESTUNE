@@ -19,21 +19,17 @@ namespace BloodFlow.DataLayer.Data
 
         public DbSet<BloodType> BloodTypes { get; set; }
 
-        public DbSet<ContactType> ContactTypes { get; set; }
+        public DbSet<Contact> ContactTypes { get; set; }
 
         public DbSet<Donor> Donors { get; set; }
 
         public DbSet<DonorCenter> DonorsCenter { get; set;}
-
-        public DbSet<DonorCenterContact> DonorCenterContacts { get; set; }
 
         public DbSet<DonorOrder> DonorOrders { get; set; }
 
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Person> People { get; set; }
-
-        public DbSet<PersonContact> PeopleContacts { get; set; }
 
         public DbSet<Session> Sessions { get; set; }
 
@@ -86,38 +82,16 @@ namespace BloodFlow.DataLayer.Data
                 .WithMany(dc => dc.SessionDonorCenters)
                 .HasForeignKey(sdc => sdc.DonorCenterId);
 
-            // person_contact - ManyToMany
-            modelBuilder.Entity<PersonContact>()
-                .HasKey(pc => new { pc.PersonId, pc.ContactTypeId });
+            // person - OneToOne
+            modelBuilder.Entity<Person>()
+                .HasOne(p => p.Donor)
+                .WithOne(d => d.Person)
+                .HasForeignKey<Donor>(d => d.Id);
 
-            modelBuilder.Entity<PersonContact>()
-                .HasOne(pc => pc.Person)
-                .WithMany(p => p.PersonContacts)
-                .HasForeignKey(pc => pc.PersonId);
-
-            modelBuilder.Entity<PersonContact>()
-                .HasOne(pc => pc.ContactType)
-                .WithMany(ct => ct.PersonContacts)
-                .HasForeignKey(pc => pc.ContactTypeId);
-
-            // donor_center_contact - ManyToMany
-            modelBuilder.Entity<DonorCenterContact>()
-                .HasKey(dcc => new { dcc.DonorCenterId, dcc.ContactTypeId });
-
-            modelBuilder.Entity<DonorCenterContact>()
-                .HasOne(dcc => dcc.DonorCenter)
-                .WithMany(dc => dc.DonorCenterContacts)
-                .HasForeignKey(dcc => dcc.DonorCenterId);
-
-            modelBuilder.Entity<DonorCenterContact>()
-                .HasOne(dcc => dcc.ContactType)
-                .WithMany(c => c.DonorCenterContacts)
-                .HasForeignKey(dcc => dcc.ContactTypeId);
-
-            modelBuilder.Entity<Order>()
-                .HasOne(o => o.DonorCenter)
-                .WithMany(dc => dc.Orders)
-                .HasForeignKey(o => o.DonorCenterId);
+            modelBuilder.Entity<Donor>()
+               .HasOne(d => d.Person)
+               .WithOne(p => p.Donor)
+               .HasForeignKey<Person>(p => p.Id);
 
             modelBuilder.UseIdentityColumns();
         }

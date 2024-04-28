@@ -15,6 +15,10 @@ namespace BloodFlow.DataLayer.Entities
 
         public ICollection<Donor>? Donors { get; set; }
 
+        public ICollection<Order>? Orders { get; set; }
+
+        public BloodType() : base(0) { }
+
         public BloodType(int id,
             string name) : base(id)
         {

@@ -1,42 +1,32 @@
-﻿using System;
+﻿using BloodFlow.DataLayer.Entities;
+using BloodFlow.DataLayer.Interfaces.RepositoryInterfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BloodFlow.DataLayer.Entities;
-using BloodFlow.DataLayer.Interfaces.RepositoryInterfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace BloodFlow.DataLayer.Repositories
 {
-    internal class DonorCenterContactRepository : IDonorCenterContactRepository
+    public class ContactRepository : IContactRepository
     {
         private readonly DbContext _context;
-        private readonly DbSet<DonorCenterContact> _dbSet;
+        private readonly DbSet<Contact> _dbSet;
 
-        public DonorCenterContactRepository(DbContext context)
+        public ContactRepository(DbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _dbSet = context.Set<DonorCenterContact>();
+            _dbSet = context.Set<Contact>();
         }
 
-        public async Task<IEnumerable<DonorCenterContact>> GetAllAsync()
-        {
-            return await _dbSet.ToListAsync();
-        }
-
-        public async Task<DonorCenterContact?> GetByIdAsync(int id)
-        {
-            return await _dbSet.FindAsync(id);
-        }
-
-        public async Task AddAsync(DonorCenterContact entity)
+        public async Task AddAsync(Contact entity)
         {
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public void Delete(DonorCenterContact entity)
+        public void Delete(Contact entity)
         {
             _dbSet.Remove(entity);
             _context.SaveChanges();
@@ -52,7 +42,17 @@ namespace BloodFlow.DataLayer.Repositories
             }
         }
 
-        public void Update(DonorCenterContact entity)
+        public async Task<IEnumerable<Contact>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
+        }
+
+        public async Task<Contact?> GetByIdAsync(int id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+        public void Update(Contact entity)
         {
             _dbSet.Update(entity);
             _context.SaveChanges();

@@ -82,7 +82,7 @@ namespace BloodFlow.DataLayer.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    blood_type_id = table.Column<int>(type: "int", nullable: false)
+                    blood_type_id = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -91,8 +91,7 @@ namespace BloodFlow.DataLayer.Migrations
                         name: "FK_donor_blood_type_blood_type_id",
                         column: x => x.blood_type_id,
                         principalTable: "blood_type",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -175,7 +174,7 @@ namespace BloodFlow.DataLayer.Migrations
                     surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     date_of_birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     photo_link = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    house_number = table.Column<int>(type: "int", nullable: false),
+                    house_number = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     street_id = table.Column<int>(type: "int", nullable: true),
                     contact_id = table.Column<int>(type: "int", nullable: true)
                 },
@@ -234,11 +233,17 @@ namespace BloodFlow.DataLayer.Migrations
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     blood_volume = table.Column<int>(type: "int", nullable: false),
                     donor_center_id = table.Column<int>(type: "int", nullable: false),
-                    importance_id = table.Column<int>(type: "int", nullable: false)
+                    importance_id = table.Column<int>(type: "int", nullable: false),
+                    blood_type_id = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_order", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_order_blood_type_blood_type_id",
+                        column: x => x.blood_type_id,
+                        principalTable: "blood_type",
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_order_donor_center_donor_center_id",
                         column: x => x.donor_center_id,
@@ -325,6 +330,11 @@ namespace BloodFlow.DataLayer.Migrations
                 name: "IX_donor_session_session_id",
                 table: "donor_session",
                 column: "session_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_order_blood_type_id",
+                table: "order",
+                column: "blood_type_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_order_donor_center_id",

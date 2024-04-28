@@ -5,6 +5,7 @@ using BloodFlow.BuisnessLayer.Services;
 using BloodFlow.DataLayer.Data;
 using BloodFlow.DataLayer.Interfaces;
 using BloodFlow.Infrastructure.Mapper;
+using BloodFlow.PresentaionLayer.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 namespace BloodFlow
@@ -34,6 +35,8 @@ namespace BloodFlow
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IDonorService, DonorService>();
+            builder.Services.AddScoped<ISessionService, SessionService>();
+            builder.Services.AddScoped<ICityService, CityService>();
 
             var app = builder.Build();
 
@@ -47,6 +50,7 @@ namespace BloodFlow
 
             app.UseAuthorization();
 
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.MapControllers();
 

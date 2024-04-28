@@ -18,12 +18,14 @@ namespace BloodFlow.BuisnessLayer.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ISessionRepository _sessionRepository;
+        private readonly IDonorRepository _donorRepository;
 
         public SessionService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _sessionRepository = _unitOfWork.SessionRepository;
+            _donorRepository = _unitOfWork.DonorRepository;
         }
 
         public async Task AddAsync(SessionModel model)
@@ -54,11 +56,16 @@ namespace BloodFlow.BuisnessLayer.Services
             return _mapper.Map<SessionModel>(sessionEntity);
         }
 
-        public async Task<IEnumerable<SessionModel>> GetSessionByDonorIdAsync(int donorId)
+        public async Task<IEnumerable<SessionModel>> GetSessionsByDonorIdAsync(int donorId)
         {
-            var sessionEntities = await _sessionRepository.GetByDonorIdAsync(donorId);
+            var sessionsEntities = await _sessionRepository.GetAllWithDetailsAsync();
 
-            return _mapper.Map<IEnumerable<SessionModel>>(sessionEntities);
+            var sessionsByDonorId = sessionsEntities
+                .Where(c => c.DonorSessions!
+                    .Any(r => r.DonorId == donorId))
+                .ToList();
+
+            return _mapper.Map<IEnumerable<SessionModel>>(sessionsByDonorId);
         }
 
         public async Task UpdateAsync(SessionModel model)

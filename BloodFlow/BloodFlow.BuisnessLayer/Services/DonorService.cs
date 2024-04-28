@@ -18,6 +18,7 @@ namespace BloodFlow.BuisnessLayer.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDonorRepository _donorRepository;
         private readonly IContactRepository _contactRepository;
+        private readonly IStreetRepository _streetRepository;
         private readonly IMapper _mapper;
 
         public DonorService(IUnitOfWork unitOfWork, IMapper mapper)
@@ -26,6 +27,25 @@ namespace BloodFlow.BuisnessLayer.Services
             _mapper = mapper;
             _donorRepository = _unitOfWork.DonorRepository;
             _contactRepository = _unitOfWork.ContactRepository;
+            _streetRepository = _unitOfWork.StreetRepository;
+        }
+
+        public async Task AddAddressByDonorIdAsync(int donorId, AddressModel addressModel)
+        {
+            BaseValidation.IsObjectNull(addressModel, nameof(addressModel));
+            await AddressValidation.ValidateAddress(addressModel);
+
+            var addressEntity = _mapper.Map<Street>(addressModel);
+            BaseValidation.IsObjectNull(addressEntity, nameof(addressEntity));
+
+            var donorEntity = await _donorRepository.GetByIdWithDetailsAsync(donorId);
+            BaseValidation.IsObjectNull(donorEntity, nameof(donorEntity));
+
+            donorEntity.Person.StreetId = addressModel.StreetId;
+            donorEntity.Person.HouseNumber = addressModel.HouseNumber;
+
+            _donorRepository.Update(donorEntity);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task AddAsync(DonorModel model)
@@ -38,10 +58,38 @@ namespace BloodFlow.BuisnessLayer.Services
             await _unitOfWork.SaveAsync();
         }
 
+        public async Task AddContactByDonorIdAsync(int donorId, ContactModel contactModel)
+        {
+            BaseValidation.IsObjectNull(contactModel, nameof(contactModel));
+            ContactValidation.ValidateEmail(contactModel.ContactValue);
+
+            var contactEntity = _mapper.Map<Contact>(contactModel);
+            BaseValidation.IsObjectNull(contactEntity, nameof(contactEntity));
+
+            var donorEntity = await _donorRepository.GetByIdWithDetailsAsync(donorId);
+            BaseValidation.IsObjectNull(donorEntity, nameof(donorEntity));
+
+            donorEntity.Person.Contact = contactEntity;
+
+            await _contactRepository.AddAsync(contactEntity);
+            await _unitOfWork.SaveAsync();
+        }
+
         public async Task DeleteAsync(int modelId)
         {
             await _donorRepository.DeleteByIdAsync(modelId);
             await _unitOfWork.SaveAsync();
+        }
+
+        public async Task<AddressModel> GetAddressModelByDonorIdAsync(int donorId)
+        {
+            var donorEntity = await _donorRepository.GetByIdWithDetailsAsync(donorId);
+            BaseValidation.IsObjectNull(donorEntity, nameof(donorEntity));
+
+            var streetEntity = await _streetRepository.GetByIdWithDetailsAsync(donorEntity.Person.StreetId ?? 0);
+            BaseValidation.IsObjectNull(streetEntity, nameof(streetEntity));
+
+            return _mapper.Map<AddressModel>(streetEntity);
         }
 
         public async Task<IEnumerable<DonorModel>> GetAllAsync()
@@ -57,7 +105,7 @@ namespace BloodFlow.BuisnessLayer.Services
             return _mapper.Map<DonorModel>(donorEntity);
         }
 
-        public async Task<ContactModel> GetContactByDonorId(int donorId)
+        public async Task<ContactModel> GetContactByDonorIdAsync(int donorId)
         {
             var donorEntity = await _donorRepository.GetByIdWithDetailsAsync(donorId);
             BaseValidation.IsObjectNull(donorEntity, nameof(donorEntity));

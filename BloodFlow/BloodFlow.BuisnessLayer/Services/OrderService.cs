@@ -79,6 +79,18 @@ namespace BloodFlow.BuisnessLayer.Services
                 (await _orderRepository.GetAllWithDetailsAsync());
         }
 
+        public async Task<IEnumerable<OrderModel>> GetByFilterAsync(FilterSearchModel filterSearch)
+        {
+            var orderEntities = await _orderRepository.GetAllWithDetailsAsync();
+
+            var filteredModels = orderEntities
+                .Where(oe =>
+                (filterSearch.ImportanceId == null || oe.ImportanceId == filterSearch.ImportanceId) &&
+                (filterSearch.BloodTypeId == null || oe.BloodTypeId == filterSearch.BloodTypeId));
+
+            return _mapper.Map<IEnumerable<OrderModel>>(filteredModels);
+        }
+
         public async Task<OrderModel> GetByIdAsync(int id)
         {
             var orderEntity = await _orderRepository.GetByIdWithDetailsAsync(id);

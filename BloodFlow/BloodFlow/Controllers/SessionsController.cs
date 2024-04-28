@@ -16,10 +16,36 @@ namespace BloodFlow.PresentaionLayer.Controllers
             _sessionService = sessionService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll()
+        //{
+        //    var sessions = await _sessionService.GetAllAsync();
+
+        //    if (sessions == null || !sessions.Any())
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(sessions);
+        //}
+
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetById(int id)
+        //{
+        //    var session = await _sessionService.GetByIdAsync(id);
+
+        //    if (session == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(session);
+        //}
+
+        [HttpGet("donors/{id}")]
+        public async Task<IActionResult> GetByDonorId(int id)
         {
-            var sessions = await _sessionService.GetAllAsync();
+            var sessions = await _sessionService.GetSessionsByDonorIdAsync(id);
 
             if (sessions == null || !sessions.Any())
             {
@@ -29,54 +55,28 @@ namespace BloodFlow.PresentaionLayer.Controllers
             return Ok(sessions);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var session = await _sessionService.GetByIdAsync(id);
+        //[HttpPost]
+        //public async Task<IActionResult> Add(SessionModel model)
+        //{
+        //    await _sessionService.AddAsync(model);
 
-            if (session == null)
-            {
-                return NotFound();
-            }
+        //    return Ok();
+        //}
 
-            return Ok(session);
-        }
+        //[HttpPut]
+        //public async Task<IActionResult> Update(SessionModel model)
+        //{
+        //    await _sessionService.UpdateAsync(model);
 
-        [HttpGet("donor/{donorId}")]
-        public async Task<IActionResult> GetByDonorId(int donorId)
-        {
-            var sessions = await _sessionService.GetSessionByDonorIdAsync(donorId);
+        //    return Ok();
+        //}
 
-            if (sessions == null || !sessions.Any())
-            {
-                return NotFound();
-            }
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    await _sessionService.DeleteAsync(id);
 
-            return Ok(sessions);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add(SessionModel model)
-        {
-            await _sessionService.AddAsync(model);
-
-            return Ok();
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> Update(SessionModel model)
-        {
-            await _sessionService.UpdateAsync(model);
-
-            return Ok();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            await _sessionService.DeleteAsync(id);
-
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }

@@ -69,13 +69,11 @@ namespace BloodFlow.DataLayer.Repositories
 
         public async Task<IEnumerable<Order>> GetAllWithDetailsAsync()
         {
-            var ee =  await _dbSet.Include(order => order.DonorOrders)
+            return await _dbSet.Include(order => order.DonorOrders)
                     .ThenInclude(dor => dor.Donor)
                 .Include(order => order.DonorCenter)
                 .Include(order => order.Importance)
                 .ToListAsync();
-
-            return ee;
         }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodFlow.DataLayer.Migrations
 {
     [DbContext(typeof(BloodFlowDbContext))]
-    [Migration("20240427151309_Init")]
+    [Migration("20240427235600_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -91,7 +91,7 @@ namespace BloodFlow.DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BloodTypeId")
+                    b.Property<int?>("BloodTypeId")
                         .HasColumnType("int")
                         .HasColumnName("blood_type_id");
 
@@ -199,6 +199,10 @@ namespace BloodFlow.DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("BloodTypeId")
+                        .HasColumnType("int")
+                        .HasColumnName("blood_type_id");
+
                     b.Property<int>("BloodVolume")
                         .HasColumnType("int")
                         .HasColumnName("blood_volume");
@@ -223,6 +227,8 @@ namespace BloodFlow.DataLayer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BloodTypeId");
+
                     b.HasIndex("DonorCenterId");
 
                     b.HasIndex("ImportanceId");
@@ -244,8 +250,8 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("date_of_birthday");
 
-                    b.Property<int>("HouseNumber")
-                        .HasColumnType("int")
+                    b.Property<string>("HouseNumber")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("house_number");
 
                     b.Property<string>("Name")
@@ -380,9 +386,7 @@ namespace BloodFlow.DataLayer.Migrations
                 {
                     b.HasOne("BloodFlow.DataLayer.Entities.BloodType", "BloodType")
                         .WithMany("Donors")
-                        .HasForeignKey("BloodTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BloodTypeId");
 
                     b.Navigation("BloodType");
                 });
@@ -446,6 +450,10 @@ namespace BloodFlow.DataLayer.Migrations
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Order", b =>
                 {
+                    b.HasOne("BloodFlow.DataLayer.Entities.BloodType", "BloodType")
+                        .WithMany("Orders")
+                        .HasForeignKey("BloodTypeId");
+
                     b.HasOne("BloodFlow.DataLayer.Entities.DonorCenter", "DonorCenter")
                         .WithMany("Orders")
                         .HasForeignKey("DonorCenterId")
@@ -457,6 +465,8 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasForeignKey("ImportanceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("BloodType");
 
                     b.Navigation("DonorCenter");
 
@@ -476,7 +486,7 @@ namespace BloodFlow.DataLayer.Migrations
                         .IsRequired();
 
                     b.HasOne("BloodFlow.DataLayer.Entities.Street", "Street")
-                        .WithMany()
+                        .WithMany("People")
                         .HasForeignKey("StreetId");
 
                     b.Navigation("Contact");
@@ -526,6 +536,8 @@ namespace BloodFlow.DataLayer.Migrations
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.BloodType", b =>
                 {
                     b.Navigation("Donors");
+
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.City", b =>
@@ -575,6 +587,8 @@ namespace BloodFlow.DataLayer.Migrations
             modelBuilder.Entity("BloodFlow.DataLayer.Entities.Street", b =>
                 {
                     b.Navigation("DonorCenters");
+
+                    b.Navigation("People");
                 });
 #pragma warning restore 612, 618
         }

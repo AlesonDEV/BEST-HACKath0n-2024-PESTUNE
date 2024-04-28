@@ -54,9 +54,9 @@ namespace BloodFlow.PresentaionLayer.Controllers
             return Created($"/api/donorcenters/{id}/contacts", value);
         }
 
-        // GET: api/donorcenters/1/addressesx
+        // GET: api/donorcenters/1/addresses
         [HttpGet("{id}/addresses")]
-        public async Task<ActionResult<DonorModel>> GetAddressById(int id)
+        public async Task<ActionResult<AddressWithCoordinatesModel>> GetAddressById(int id)
         {
             AddressModel addressModel = await _donorCenterService.GetAddressModelByDonorCenterIdAsync(id);
 

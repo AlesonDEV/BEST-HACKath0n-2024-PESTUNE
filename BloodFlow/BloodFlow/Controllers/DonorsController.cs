@@ -2,6 +2,7 @@
 using BloodFlow.BuisnessLayer.Models;
 using BloodFlow.BuisnessLayer.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace BloodFlow.PresentaionLayer.Controllers
 {
@@ -10,10 +11,12 @@ namespace BloodFlow.PresentaionLayer.Controllers
     public class DonorsController : ControllerBase
     {
         private readonly IDonorService _donorService;
+        private readonly ILoginService _loginService;
 
-        public DonorsController(IDonorService donorService)
+        public DonorsController(IDonorService donorService, ILoginService loginService)
         {
             _donorService = donorService;
+            _loginService = loginService;
         }
 
         // GET: api/donors/1
@@ -50,7 +53,7 @@ namespace BloodFlow.PresentaionLayer.Controllers
         {
             await _donorService.AddAsync(donorModel);
 
-            return NoContent();
+            return Created($"/api/donors/{donorModel.Id}/", donorModel);
         }
 
         // GET: api/donors/1/contacts
@@ -73,7 +76,7 @@ namespace BloodFlow.PresentaionLayer.Controllers
         {
             await _donorService.AddContactByDonorIdAsync(id, value);
 
-            return NoContent();
+            return Created($"/api/donors/{id}/contacts", value);
         }
 
         // GET: api/donors/1/address
@@ -96,7 +99,15 @@ namespace BloodFlow.PresentaionLayer.Controllers
         {
             await _donorService.AddAddressByDonorIdAsync(id, value);
 
-            return NoContent();
+            return Created($"/api/donors/{id}/address", value);
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<LoginResponseModel>> Login([FromBody] LoginModel value)
+        {
+            var result = await _loginService.LoginAsync(value);
+
+            return Ok(result);
         }
     }
 }

@@ -64,7 +64,7 @@ namespace BloodFlow.PresentaionLayer.Controllers
         {
             await _sessionService.AddAsync(model);
 
-            return Ok();
+            return Created($"/api/sessions/{model.Id}", model);
         }
     }
 }

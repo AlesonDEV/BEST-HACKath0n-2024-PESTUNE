@@ -26,7 +26,8 @@ namespace BloodFlow.DataLayer.Entities
         public Donor() : base(0) { }
 
         public Donor(int id,
-            int bloodTypeId) : base(id)
+            int bloodTypeId,
+            string password) : base(id)
         {
             BloodTypeId = bloodTypeId;
         }

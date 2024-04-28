@@ -34,6 +34,7 @@ namespace BloodFlow.DataLayer.Entities
 
         public Donor Donor { get; set; }
 
+        public Session() : base(0) { }
         public Session(int id,
             int donorCenterId,
             int bloodVolume,

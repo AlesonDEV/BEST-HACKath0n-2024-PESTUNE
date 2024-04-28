@@ -82,7 +82,8 @@ namespace BloodFlow.DataLayer.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    blood_type_id = table.Column<int>(type: "int", nullable: true)
+                    blood_type_id = table.Column<int>(type: "int", nullable: true),
+                    password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -123,7 +124,8 @@ namespace BloodFlow.DataLayer.Migrations
                     street_id = table.Column<int>(type: "int", nullable: true),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     house_number = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    contact_id = table.Column<int>(type: "int", nullable: true)
+                    contact_id = table.Column<int>(type: "int", nullable: true),
+                    password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -183,6 +185,7 @@ namespace BloodFlow.DataLayer.Migrations
                     title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     blood_volume = table.Column<int>(type: "int", nullable: false),
+                    current_blood_volume = table.Column<int>(type: "int", nullable: false),
                     donor_center_id = table.Column<int>(type: "int", nullable: false),
                     importance_id = table.Column<int>(type: "int", nullable: false),
                     blood_type_id = table.Column<int>(type: "int", nullable: true)

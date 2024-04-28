@@ -1,6 +1,7 @@
 ﻿using BloodFlow.DataLayer.Data;
 using BloodFlow.DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BloodFlow.PresentaionLayer.Middleware
 {
@@ -10,9 +11,6 @@ namespace BloodFlow.PresentaionLayer.Middleware
         {
             BloodFlowDbContext _context = app.ApplicationServices
                 .CreateScope().ServiceProvider.GetService<BloodFlowDbContext>();
-
-            if (_context!.Database.GetPendingMigrations().Any())
-                _context.Database.Migrate();
 
             if (!_context.BloodTypes.Any())
             {
@@ -31,6 +29,8 @@ namespace BloodFlow.PresentaionLayer.Middleware
                 _context.AddRange(bloodTypes);
             }
 
+            _context.SaveChanges();
+
             if (!_context.States.Any())
             {
                 var states = new List<State>()
@@ -41,6 +41,8 @@ namespace BloodFlow.PresentaionLayer.Middleware
 
                 _context.AddRange(states);
             }
+
+            _context.SaveChanges();
 
             if (!_context.Importances.Any())
             {
@@ -53,6 +55,8 @@ namespace BloodFlow.PresentaionLayer.Middleware
 
                 _context.AddRange(importances);
             }
+
+            _context.SaveChanges();
 
             if (!_context.Cities.Any())
             {
@@ -395,6 +399,452 @@ namespace BloodFlow.PresentaionLayer.Middleware
 
                 _context.AddRange(cities);
             }
+
+            _context.SaveChanges();
+
+            if (!_context.DonorsCenter.Any())
+            {
+                var donorCenters = new List<DonorCenter>()
+                {
+                    new DonorCenter()
+                    {
+                        Name = "Saint Donor Center",
+                        StreetId = 52,
+                        HouseNumber = "23",
+                        Contact = new Contact()
+                        {
+                            Name = "saintdonorcenter@gmail.com"
+                        },
+                        Orders = new List<Order>()
+                        {
+                            new Order()
+                            {
+                                BloodTypeId = 3,
+                                Title = "Need blood fro army!",
+                                Description = "Our donor center need blood for army!",
+                                BloodVolume = 10000,
+                                ImportanceId = 1,
+                            },
+                            new Order()
+                            {
+                              BloodTypeId = 3,
+                              Title = "Urgent blood needed for the military!",
+                              Description = "Our donation center is in urgent need of blood for the military!",
+                              BloodVolume = 10000,
+                              ImportanceId = 1,
+                            },
+                            new Order()
+                            {
+                              BloodTypeId = 1,
+                              Title = "Replenish universal blood type supplies",
+                              Description = "Blood donors with universal blood type (1) are needed to maintain blood supplies!",
+                              BloodVolume = 5000,
+                              ImportanceId = 2,
+                            },
+                            new Order()
+                            {
+                              BloodTypeId = 2,
+                              Title = "Blood donation drive! Be a hero!",
+                              Description = "Join our blood donation drive and save lives! Details at...",
+                              BloodVolume = 8000,
+                              ImportanceId = 1,
+                            },
+                            new Order()
+                            {
+                              BloodTypeId = 4,
+                              Title = "Blood needed for a child",
+                              Description = "Blood type 4 is urgently needed for a child's treatment. Please respond!",
+                              BloodVolume = 2000,
+                              ImportanceId = 3,
+                            },
+                            new Order()
+                            {
+                              BloodTypeId = 2,
+                              Title = "Regular blood donation saves lives",
+                              Description = "Become a regular blood donor and help those in need!",
+                              BloodVolume = 0,
+                              ImportanceId = 2,
+                            }
+                        }
+                    },
+                    new DonorCenter()
+                    {
+                          Name = "Citywide Blood Services",
+                          StreetId = 73,
+                          HouseNumber = "14",
+                          Contact = new Contact()
+                          {
+                               Name = "citywidebloodservices@clinic.org"
+                          },
+                          Orders = new List<Order>()
+                          {
+                                new Order()
+                                {
+                                  BloodTypeId = 1,
+                                  Title = "Replenish universal blood type supplies",
+                                  Description = "Blood donors with universal blood type (1) are needed to maintain blood supplies!",
+                                  BloodVolume = 5000,
+                                  ImportanceId = 2,
+                                },
+                                new Order()
+                                {
+                                  BloodTypeId = 4,
+                                  Title = "Blood needed for a child",
+                                  Description = "Blood type 4 is urgently needed for a child's treatment. Please respond!",
+                                  BloodVolume = 2000,
+                                  ImportanceId = 3,
+                                },
+                                new Order()
+                                {
+                                  BloodTypeId = 2,
+                                  Title = "Regular blood donation saves lives",
+                                  Description = "Become a regular blood donor and help those in need!",
+                                  BloodVolume = 8000,
+                                  ImportanceId = 2,
+                                },
+                          }
+                    },
+                    new DonorCenter()
+                    {
+                          Name = "Hope Haven Donation Center",
+                          StreetId = 37,
+                          HouseNumber = "12B",
+                          Contact = new Contact()
+                          {
+                            Name = "hopehaven@donations.org"
+                          },
+                          Orders = new List<Order>()
+                          {
+                                new Order()
+                                {
+                                  BloodTypeId = 3,
+                                  Title = "Urgent blood needed for the military!",
+                                  Description = "Our donation center is in urgent need of blood for the military!",
+                                  BloodVolume = 10000,
+                                  ImportanceId = 1,
+                                },
+                                new Order()
+                                {
+                                  BloodTypeId = 1,
+                                  Title = "Blood drive this weekend - all types needed!",
+                                  Description = "Join our blood drive this weekend and help save lives! All blood types are welcome.",
+                                  BloodVolume = 0,
+                                  ImportanceId = 2,
+                                },
+                                new Order()
+                                {
+                                  BloodTypeId = 2,
+                                  Title = "Blood donation appointment available!",
+                                  Description = "Schedule your blood donation appointment today and make a difference!",
+                                  BloodVolume = 0,
+                                  ImportanceId = 2,
+                                },
+                          }
+                    },
+                };
+
+                _context.AddRange(donorCenters);
+            }
+
+            _context.SaveChanges();
+
+            //if (!_context.Donors.Any())
+            //{
+            //    var donors = new List<Donor>()
+            //    {
+            //        new Donor(){
+            //            BloodTypeId = 1,
+            //            Person = new Person()
+            //            {
+            //                Name = "Viktor",
+            //                Surname = "Vashchuk",
+            //                DateOfBirthday = new DateTime(2005, 10, 20),
+            //                PhotoLink = "null",
+            //                StreetId = 2,
+            //                HouseNumber = "21",
+            //                Contact = new Contact()
+            //                {
+            //                    Name = "viktor@gmail.com"
+            //                }
+            //            }
+            //        },
+            //        new Donor()
+            //        {
+            //            BloodTypeId = 1,
+            //            Person = new Person()
+            //            {
+            //                Name = "Іван",
+            //                Surname = "Петренко",
+            //                DateOfBirthday = new DateTime(2002, 03, 15),
+            //                PhotoLink = "null",
+            //                StreetId = 1,
+            //                HouseNumber = "11",
+            //                Contact = new Contact()
+            //                {
+            //                    Name = "ivan@ukr.net"
+            //                }
+            //            },
+            //            //Sessions = new List<Session>()
+            //            //{
+            //            //    new Session()
+            //            //    {
+            //            //        DonorCenterId = 1,
+            //            //        BloodVolume = 500,
+            //            //        Date = new DateTime(2024, 02, 14),
+            //            //        StateId = 1,
+            //            //    },
+            //            //    new Session() { DonorCenterId = 1, BloodVolume = 300, Date = new DateTime(2024, 03, 15), StateId = 2 },
+            //            //    new Session() { DonorCenterId = 23, BloodVolume = 650, Date = new DateTime(2024, 04, 19), StateId = 2 },
+            //            //    new Session() { DonorCenterId = 24, BloodVolume = 400, Date = new DateTime(2024, 02, 29), StateId = 1 },
+            //            //}
+            //        },
+            //        new Donor()
+            //        {
+            //            BloodTypeId = 2,
+            //            Person = new Person()
+            //            {
+            //                Name = "Олена",
+            //                Surname = "Сидоренко",
+            //                DateOfBirthday = new DateTime(2004, 11, 27),
+            //                PhotoLink = "null",
+            //                StreetId = 3,
+            //                HouseNumber = "12",
+            //                Contact = new Contact()
+            //                {
+            //                    Name = "olena@gmail.com"
+            //                }
+            //            },
+            //            //Sessions = new List<Session>()
+            //            //{
+            //            //    new Session()
+            //            //    {
+            //            //        DonorCenterId = 24,
+            //            //        BloodVolume = 500,
+            //            //        Date = new DateTime(2024, 02, 14),
+            //            //        StateId = 1,
+            //            //    },
+            //            //    new Session() { DonorCenterId = 22, BloodVolume = 300, Date = new DateTime(2024, 03, 15), StateId = 2 },
+            //            //    new Session() { DonorCenterId = 23, BloodVolume = 650, Date = new DateTime(2024, 04, 19), StateId = 2 },
+            //            //    new Session() { DonorCenterId = 24, BloodVolume = 400, Date = new DateTime(2024, 02, 29), StateId = 1 },
+            //            //}
+            //        },
+            //        new Donor()
+            //        {
+            //            BloodTypeId = 3,
+            //            Person = new Person()
+            //            {
+            //                Name = "Тарас",
+            //                Surname = "Іващенко",
+            //                DateOfBirthday = new DateTime(2001, 07, 09),
+            //                PhotoLink = "null",
+            //                StreetId = 2,
+            //                HouseNumber = "19",
+            //                Contact = new Contact()
+            //                {
+            //                    Name = "taras@i.ua"
+            //                }
+            //            }
+            //        },
+            //        new Donor()
+            //        {
+            //            BloodTypeId = 4,
+            //            Person = new Person()
+            //            {
+            //                Name = "Марія",
+            //                Surname = "Попова",
+            //                DateOfBirthday = new DateTime(2003, 05, 18),
+            //                PhotoLink = "null",
+            //                StreetId = 1,
+            //                HouseNumber = "3",
+            //                Contact = new Contact()
+            //                {
+            //                    Name = "maria@ukr.net"
+            //                }
+            //            },
+            //            //Sessions = new List<Session>()
+            //            //{
+            //            //    new Session()
+            //            //    {
+            //            //        DonorCenterId = 24,
+            //            //        BloodVolume = 500,
+            //            //        Date = new DateTime(2024, 02, 14),
+            //            //        StateId = 1,
+            //            //    },
+            //            //    new Session() { DonorCenterId = 22, BloodVolume = 200, Date = new DateTime(2024, 03, 22), StateId = 2 },
+            //            //    new Session() { DonorCenterId = 23, BloodVolume = 800, Date = new DateTime(2024, 04, 26), StateId = 2 },
+            //            //    new Session() { DonorCenterId = 24, BloodVolume = 600, Date = new DateTime(2024, 02, 10), StateId = 1 },
+            //            //}
+            //        },
+            //        new Donor()
+            //        {
+            //            BloodTypeId = 1,
+            //            Person = new Person()
+            //            {
+            //                Name = "Андрій",
+            //                Surname = "Новак",
+            //                DateOfBirthday = new DateTime(2000, 12, 24),
+            //                PhotoLink = "null",
+            //                StreetId = 3,
+            //                HouseNumber = "54",
+            //                Contact = new Contact()
+            //                {
+            //                    Name = "andrii@gmail.com"
+            //                }
+            //            }
+            //        },
+            //        new Donor()
+            //        {
+            //            BloodTypeId = 2,
+            //            Person = new Person()
+            //            {
+            //                Name = "Анна",
+            //                Surname = "Ковальчук",
+            //                DateOfBirthday = new DateTime(2005, 04, 06),
+            //                PhotoLink = "null",
+            //                StreetId = 2,
+            //                HouseNumber = "34",
+            //                Contact = new Contact()
+            //                {
+            //                    Name = "anna@i.ua"
+            //                }
+            //            }
+            //        },
+            //        new Donor()
+            //        {
+            //            BloodTypeId = 3,
+            //            Person = new Person()
+            //            {
+            //                Name = "Сергій",
+            //                Surname = "Петров",
+            //                DateOfBirthday = new DateTime(2002, 08, 11),
+            //                PhotoLink = "null",
+            //                StreetId = 1,
+            //                HouseNumber = "13",
+            //                Contact = new Contact()
+            //                {
+            //                    Name = "serhii@ukr.net"
+            //                }
+            //            }
+            //        },
+            //        new Donor()
+            //        {
+            //            BloodTypeId = 4,
+            //            Person = new Person()
+            //            {
+            //                Name = "Оксана",
+            //                Surname = "Васильєва",
+            //                DateOfBirthday = new DateTime(2004, 02, 03),
+            //                PhotoLink = "null",
+            //                HouseNumber = "23",
+            //                StreetId = 3,
+            //                Contact = new Contact()
+            //                {
+            //                    Name = "oksana@gmail.com"
+            //                }
+            //            },
+            //            //Sessions = new List<Session>()
+            //            //{
+            //            //    new Session()
+            //            //    {
+            //            //        DonorCenterId = 22,
+            //            //        BloodVolume = 500,
+            //            //        Date = new DateTime(2024, 02, 14),
+            //            //        StateId = 1,
+            //            //    },
+            //            //    new Session() { DonorCenterId = 22, BloodVolume = 500, Date = new DateTime(2024, 02, 14), StateId = 1 },
+            //            //    new Session() { DonorCenterId = 23, BloodVolume = 250, Date = new DateTime(2024, 03, 08), StateId = 2 },
+            //            //    new Session() { DonorCenterId = 24, BloodVolume = 700, Date = new DateTime(2024, 04, 22), StateId = 2 },
+            //            //    new Session() { DonorCenterId = 22, BloodVolume = 550, Date = new DateTime(2024, 02, 01), StateId = 1 },
+            //            //}
+            //        },
+            //    };
+
+            //    _context.AddRange(donors);
+            //}
+
+            //if (!_context.DonorOrders.Any())
+            //{
+            //    var donorsOeders = new List<DonorOrder>
+            //    {
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 4,
+            //            DonorId = 1,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 7,
+            //            DonorId = 3,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 10,
+            //            DonorId = 2,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 1,
+            //            DonorId = 6,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 8,
+            //            DonorId = 4,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 1,
+            //            DonorId = 9,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 5,
+            //            DonorId = 2,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 4,
+            //            DonorId = 5,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 3,
+            //            DonorId = 1,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 6,
+            //            DonorId = 3,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 4,
+            //            DonorId = 4,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 7,
+            //            DonorId = 3,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 8,
+            //            DonorId = 3,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 6,
+            //            DonorId = 2,
+            //        },
+            //        new DonorOrder()
+            //        {
+            //            OrderId = 2,
+            //            DonorId = 5,
+            //        },
+            //    };
+
+            //    _context.AddRange(donorsOeders);
+            //}
 
             _context.SaveChanges();
         }

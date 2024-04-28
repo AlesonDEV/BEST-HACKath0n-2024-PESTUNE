@@ -43,6 +43,7 @@ namespace BloodFlow
             builder.Services.AddScoped<IBloodTypeServices, BloodTypeServices>();
             builder.Services.AddScoped<IImportanceService, ImportanceService>();
             builder.Services.AddScoped<IDonorCenterService, DonorCenterService>();
+            builder.Services.AddScoped<ILoginService, LoginService>();
 
             // Cors
             builder.Services.AddCors(options =>
@@ -78,7 +79,7 @@ namespace BloodFlow
 
             app.UseCors("policy");
 
-            //SeedDataMiddleware.EnsurePopulated(app);
+            SeedDataMiddleware.EnsurePopulated(app);
 
             app.Run();
         }

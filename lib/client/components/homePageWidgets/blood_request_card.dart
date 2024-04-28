@@ -40,14 +40,20 @@ class BloodRequestCard extends StatelessWidget {
               borderColor: SecondaryColor,
               borderWidth: 1.0,
               direction: Axis.vertical,
-              center: Text("A+"),
+              center: Text(
+                'A+',
+                style: TextStyle(
+                  fontSize: 24, // Increase font size
+                  color: Colors.black, // Set a nice color
+                  fontWeight: FontWeight.bold, // Make it bold
                 ),
+              ),
+            ),
+
           ),
           Column(
             children: [
               SizedBox(height: 10),
-
-
               Text(
                 hospitalName,
                 style: GoogleFonts.ubuntu(

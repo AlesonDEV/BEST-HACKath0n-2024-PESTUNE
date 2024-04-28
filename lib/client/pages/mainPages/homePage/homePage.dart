@@ -52,8 +52,13 @@ class Order {
 Future<List<Order>> fetchOrdersByBloodType(int bloodTypeId) async {
   final response = await http.get(Uri.parse(Config.baseUrl + "/Orders?BloodTypeId=$bloodTypeId"));
 
+
+
   if (response.statusCode == 200) {
+    print('Status code: ${response.statusCode}');
+    print('Response body: ${response.body}');
     final List<dynamic> jsonResponse = jsonDecode(response.body);
+    print(jsonDecode(response.body));
     final List<Order> orders = jsonResponse.map((data) => Order.fromJson(data)).toList();
     return orders;
   } else {
@@ -61,11 +66,12 @@ Future<List<Order>> fetchOrdersByBloodType(int bloodTypeId) async {
   }
 }
 
+
 List<BloodRequest> bloodRequests = [
-  BloodRequest(hospitalName: 'Skarzhyntsi', bloodDonated: 500, totalBloodRequired: 1000.0),
-  BloodRequest(hospitalName: 'Yablunivka', bloodDonated: 700, totalBloodRequired: 1000),
-  BloodRequest(hospitalName: 'Biber', bloodDonated: 1200, totalBloodRequired: 2000),
-  BloodRequest(hospitalName: 'Ginger', bloodDonated: 200, totalBloodRequired: 500),
+  BloodRequest(hospitalName: 'Hospital 11', bloodDonated: 500, totalBloodRequired: 1000.0),
+  BloodRequest(hospitalName: 'Ambulance 15', bloodDonated: 700, totalBloodRequired: 1000),
+  BloodRequest(hospitalName: 'Hospital 14', bloodDonated: 1200, totalBloodRequired: 2000),
+  BloodRequest(hospitalName: 'Hospital 1', bloodDonated: 200, totalBloodRequired: 500),
 ];
 
 class HomePageWidget extends StatelessWidget {
@@ -76,7 +82,7 @@ class HomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Order>>(
-      future: fetchOrdersByBloodType(2), // Assuming bloodTypeId is 2
+      future: fetchOrdersByBloodType(0), // Assuming bloodTypeId is 2
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Show a loading indicator while waiting for data

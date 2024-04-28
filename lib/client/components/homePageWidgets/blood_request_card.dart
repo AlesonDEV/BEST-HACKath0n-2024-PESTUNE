@@ -25,7 +25,7 @@ class BloodRequestCard extends StatelessWidget {
             width: 110.0,
             height: 110.0,
             child: LiquidCircularProgressIndicator(
-              value: 0.5, // Defaults to 0.5.
+              value: 0.5,
               valueColor: AlwaysStoppedAnimation(SecondaryColor),
               backgroundColor: Colors.white,
               borderColor: SecondaryColor,

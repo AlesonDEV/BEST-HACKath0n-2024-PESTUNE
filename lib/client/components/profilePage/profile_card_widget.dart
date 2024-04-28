@@ -3,6 +3,8 @@ import 'package:blood_flow/client/pages/mainPages/profilePage/historyPage.dart';
 import 'package:blood_flow/client/pages/mainPages/profilePage/medicalIdPage.dart';
 import 'package:flutter/material.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class ProfileCard extends StatelessWidget {
   const ProfileCard({
     super.key,
@@ -31,18 +33,24 @@ class ProfileCard extends StatelessWidget {
 
                   Text(
                     'Franchuk Ivan',
-                    style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold, color: MainColor),
+                    style: GoogleFonts.ubuntu(
+                      textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 24),
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
 
                   Container(
                     decoration: BoxDecoration(
-                      color: SecondaryCardColor, // Колір фону
-                      borderRadius: BorderRadius.circular(30.0), // Радіус заокруглення
+                      color: SecondaryCardColor,
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
-                    padding: EdgeInsets.all(8.0), // Відступ для всіх сторін
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       'ID: 12412',
-                      style: TextStyle(fontSize: 12.0, color: MainColor),
+                      style: GoogleFonts.cabin(
+                        textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 12),
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
 
@@ -51,7 +59,7 @@ class ProfileCard extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(60.0), // збільшений radius для кола
+                      borderRadius: BorderRadius.circular(60.0),
                       color: ImportantCardColor,
                     ),
                     child: Row(
@@ -81,7 +89,11 @@ class ProfileCard extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                             ),
-                          child: Text('View'),
+                          child: Text('View',
+                              style: GoogleFonts.cabin(
+                              textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 14),
+                          fontWeight: FontWeight.w700,
+                        ),),
                         ),
                       ],
                     ),
@@ -101,19 +113,25 @@ class ProfileCard extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(
                                   'B+',
-                                  style: TextStyle(fontSize: 48.0, color: Colors.white),
+                                  style: GoogleFonts.cabin(
+                                    textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 40),
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                               ),
                               Text(
                                 'Blood type',
-                                style: TextStyle(fontSize: 12.0, color: Colors.white),
+                                style: GoogleFonts.cabin(
+                                  textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 12),
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),
                         ),
                         Container(
                           width: 1.0,
-                          color: Colors.grey, // змінено на колір лінії
+                          color: Colors.grey,
                           height: 40.0,
                         ),
                         Expanded(
@@ -124,12 +142,18 @@ class ProfileCard extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(
                                   '18',
-                                  style: TextStyle(fontSize: 48.0, color: Colors.white),
+                                  style: GoogleFonts.cabin(
+                                    textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 40),
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                               ),
                               Text(
                                 'Years old',
-                                style: TextStyle(fontSize: 12.0, color: Colors.white),
+                                style: GoogleFonts.cabin(
+                                  textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 12),
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),

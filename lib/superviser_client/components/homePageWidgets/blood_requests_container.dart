@@ -2,8 +2,12 @@ import 'dart:convert';
 
 import 'package:blood_flow/config/config.dart';
 import 'package:blood_flow/superviser_client/components/homePageWidgets/blood_request_card.dart';
+import 'package:blood_flow/superviser_client/pages/requestInfo.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import '../../model/BloodType.dart';
 
 
 class BloodRequestContainer extends StatefulWidget {
@@ -74,6 +78,22 @@ class BloodRequestContainerState extends State<BloodRequestContainer> {
   void initState() {
     super.initState();
     _fetchData(); // Call the function to fetch data on state initialization
+  }
+
+  BloodRequestCard fetchCards(BloodInfo info){
+    final bloodType = BloodType.bloodTypes[info.bloodTypeId]; // Map blood type ID to BloodTypeOld enum
+
+    // Assuming a logic to determine progress based on information in BloodInfo (e.g., bloodVolume)
+    final progress = 0; // Replace with your logic to calculate progress
+
+    // Assuming a goal property exists in BloodInfo or a way to determine a goal
+    final goal = info.bloodVolume; // Use goal if available, otherwise calculate it
+
+    return BloodRequestCard.progress(info.id ,goal, bloodType, 0, onTap: (type, progress, goal) {
+      Navigator.push(MaterialPageRoute(builder: (context) => BloodRequestInfoScreen(bloodType: BloodType.bloodTypes[bloodType.id].name, progress: 0, goal: goal, donors: [] )));
+    }, onDelete: (){
+      print("object");
+    });
   }
 
   Future<void> _fetchData() async {

@@ -24,7 +24,7 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageState extends State<HomePageWidget>{
   final GlobalKey<BloodRequestContainerState> _key = GlobalKey();
 
-  void onRequestCardTaped(BloodTypeOld bloodType, double progress, double goal, int? id){
+  void onRequestCardTaped(BloodTypeOld bloodType, double progress, int goal, int? id){
     Navigator.push(
       context,
       MaterialPageRoute(

@@ -8,7 +8,7 @@ import '../model/Donor.dart';
 class BloodRequestInfoScreen extends StatefulWidget {
   final String bloodType;
   final double progress;
-  final double goal;
+  final int goal;
   final List<Donor> donors;
 
   BloodRequestInfoScreen({

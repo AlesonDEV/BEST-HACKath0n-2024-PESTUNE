@@ -92,6 +92,10 @@ namespace BloodFlow.DataLayer.Migrations
                         .HasColumnType("int")
                         .HasColumnName("blood_type_id");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("password");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BloodTypeId");
@@ -120,6 +124,10 @@ namespace BloodFlow.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("name");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("password");
 
                     b.Property<int?>("StreetId")
                         .HasColumnType("int")
@@ -186,6 +194,10 @@ namespace BloodFlow.DataLayer.Migrations
                     b.Property<int>("BloodVolume")
                         .HasColumnType("int")
                         .HasColumnName("blood_volume");
+
+                    b.Property<int>("CurrentBloodVolume")
+                        .HasColumnType("int")
+                        .HasColumnName("current_blood_volume");
 
                     b.Property<string>("Description")
                         .IsRequired()

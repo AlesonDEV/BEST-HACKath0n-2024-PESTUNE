@@ -18,7 +18,7 @@ namespace BloodFlow.PresentaionLayer.Controllers
 
         // GET: api/cities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DonorModel>>> Get()
+        public async Task<ActionResult<IEnumerable<AddressModel>>> Get()
         {
             IEnumerable<CityModel> cityModels = await _cityService.GetAllAsync();
 
@@ -32,7 +32,7 @@ namespace BloodFlow.PresentaionLayer.Controllers
 
         // GET: api/cities/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<DonorModel>>> GetById(int id)
+        public async Task<ActionResult<IEnumerable<AddressModel>>> GetById(int id)
         {
             CityModel cityModel = await _cityService.GetByIdAsync(id);
 
@@ -46,7 +46,7 @@ namespace BloodFlow.PresentaionLayer.Controllers
 
         // GET: api/cities/1/streets
         [HttpGet("{id}/streets")]
-        public async Task<ActionResult<IEnumerable<DonorModel>>> GetStreetsByCityId(int id)
+        public async Task<ActionResult<IEnumerable<AddressModel>>> GetStreetsByCityId(int id)
         {
             IEnumerable<StreetModel> streetModels = await _cityService.GetStreetsByCityIdAsync(id);
 

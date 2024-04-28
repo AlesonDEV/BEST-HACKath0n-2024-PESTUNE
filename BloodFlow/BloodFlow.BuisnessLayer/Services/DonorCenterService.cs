@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using BloodFlow.BuisnessLayer.Validation;
 using BloodFlow.DataLayer.Entities;
 using BloodFlow.DataLayer.Repositories;
+using BloodFlow.BuisnessLayer.Infrastructure;
 
 namespace BloodFlow.BuisnessLayer.Services
 {
@@ -28,6 +29,7 @@ namespace BloodFlow.BuisnessLayer.Services
             _mapper = mapper;
             _donorCenterRepository = _unitOfWork.DonorCenterRepository;
             _contactRepository = _unitOfWork.ContactRepository;
+            _streetRepository = _unitOfWork.StreetRepository;
         }
 
         public async Task AddAddressByDonorCenterIdAsync(int donorCenterId, AddressModel addressModel)
@@ -86,7 +88,7 @@ namespace BloodFlow.BuisnessLayer.Services
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<AddressModel> GetAddressModelByDonorCenterIdAsync(int donorCenterId)
+        public async Task<AddressWithCoordinatesModel> GetAddressModelByDonorCenterIdAsync(int donorCenterId)
         {
             var donorCenterEntity = await _donorCenterRepository.GetByIdWithDetailsAsync(donorCenterId);
             BaseValidation.IsObjectNull(donorCenterEntity, nameof(donorCenterEntity));
@@ -94,7 +96,22 @@ namespace BloodFlow.BuisnessLayer.Services
             var streetEntity = await _streetRepository.GetByIdWithDetailsAsync(donorCenterEntity.StreetId ?? 0);
             BaseValidation.IsObjectNull(streetEntity, nameof(streetEntity));
 
-            return _mapper.Map<AddressModel>(streetEntity);
+            var addressModel = _mapper.Map<AddressModel>(streetEntity);
+
+            var geocoderAdress = await GeocoderHelper.GeocodeAddress(addressModel);
+
+            var adreessWithCoordinatesModel = new AddressWithCoordinatesModel()
+            {
+                CityId = streetEntity.CityId,
+                CityName = streetEntity.City.Name,
+                StreetId = streetEntity.Id,
+                StreetName = streetEntity.Name,
+                HouseNumber = addressModel.HouseNumber,
+                LatValue = (geocoderAdress["Latitude"]).ToString(),
+                LngValue = (geocoderAdress["Longitude"]).ToString()
+            };
+
+            return adreessWithCoordinatesModel;
         }
 
         public async Task<IEnumerable<DonorCenterModel>> GetAllAsync()

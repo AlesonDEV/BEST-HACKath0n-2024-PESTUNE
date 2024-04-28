@@ -13,7 +13,7 @@ namespace BloodFlow.BuisnessLayer.Interfaces
 
         Task AddContactByDonorCenterIdAsync(int donorCenterId, ContactModel contactModel);
 
-        Task<AddressModel> GetAddressModelByDonorCenterIdAsync(int donorCenterId);
+        Task<AddressWithCoordinatesModel> GetAddressModelByDonorCenterIdAsync(int donorCenterId);
 
         Task AddAddressByDonorCenterIdAsync(int donorCenterId, AddressModel addressModel);
     }

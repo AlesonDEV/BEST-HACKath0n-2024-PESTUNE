@@ -1,6 +1,7 @@
 ﻿using BloodFlow.BuisnessLayer.Interfaces;
 using BloodFlow.BuisnessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace BloodFlow.PresentaionLayer.Controllers
 {
@@ -29,13 +30,13 @@ namespace BloodFlow.PresentaionLayer.Controllers
             return Ok(orderModel);
         }
 
-        // POST: api/orders/1
+        // POST: api/orders
         [HttpPost]
         public async Task<ActionResult> Add([FromBody] OrderModel orderModel)
         {
             await _orderService.AddAsync(orderModel);
 
-            return NoContent();
+            return Created($"/api/orders/{orderModel.Id}", orderModel);
         }
 
         // PUT: api/orders/1

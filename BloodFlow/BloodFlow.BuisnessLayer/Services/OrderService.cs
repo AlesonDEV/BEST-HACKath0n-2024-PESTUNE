@@ -36,6 +36,7 @@ namespace BloodFlow.BuisnessLayer.Services
             var orderEntity = _mapper.Map<Order>(model);
 
             await _orderRepository.AddAsync(orderEntity);
+            model.Id = orderEntity.Id;
             await _unitOfWork.SaveAsync();
         }
 

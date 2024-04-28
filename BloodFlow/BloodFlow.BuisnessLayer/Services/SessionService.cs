@@ -33,6 +33,7 @@ namespace BloodFlow.BuisnessLayer.Services
             var sessionEntity = _mapper.Map<Session>(model);
 
             await _unitOfWork.SessionRepository.AddAsync(sessionEntity);
+            model.Id = sessionEntity.Id;
             await _unitOfWork.SaveAsync();
         }
 

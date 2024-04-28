@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.BuisnessLayer.Models
 {
-    public class CoordinatesModel
+    public class LoginResponseModel : LoginModel
     {
+        public int UserId { get; set; }
 
+        public string Role { get; set; }
     }
 }

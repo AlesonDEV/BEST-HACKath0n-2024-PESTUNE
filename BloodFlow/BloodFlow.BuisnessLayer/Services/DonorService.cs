@@ -55,6 +55,7 @@ namespace BloodFlow.BuisnessLayer.Services
             var donorEntity = _mapper.Map<Donor>(model);
 
             await _donorRepository.AddAsync(donorEntity);
+            model.Id = donorEntity.Id;
             await _unitOfWork.SaveAsync();
         }
 
@@ -72,6 +73,7 @@ namespace BloodFlow.BuisnessLayer.Services
             donorEntity.Person.Contact = contactEntity;
 
             await _contactRepository.AddAsync(contactEntity);
+            contactModel.ContactId = contactEntity.Id;
             await _unitOfWork.SaveAsync();
         }
 

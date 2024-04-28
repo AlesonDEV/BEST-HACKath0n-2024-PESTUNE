@@ -122,11 +122,11 @@ class _HomeScreenState extends State<SingUpPage> {
           currentStep: currentStep, //0, 1, 2
           steps: [
             Step(
-              title: const Text(' '),
+              title: const Text(''),
               content: Column(
                 children: [
                   const Text(
-                    'This is the First step.',
+                    'Personal info',
                     style: TextStyle(color: MainTextColor),
                   ),
                   const SizedBox(height: 20),
@@ -194,10 +194,10 @@ class _HomeScreenState extends State<SingUpPage> {
             ),
 
             Step(
-              title: const Text(' '),
+              title: const Text(''),
               content: Column(
                 children: [
-                  const Text('This is the Second step.'),
+                  const Text('Authentication data'),
                   SizedBox(height: 20),
                   TextField(
                     decoration: InputDecoration(
@@ -227,6 +227,17 @@ class _HomeScreenState extends State<SingUpPage> {
                     ),
                   ),
                   SizedBox(height: 20),
+
+                ],
+              ),
+              isActive: currentStep >= 0,
+              state: currentStep >= 1 ? StepState.complete : StepState.disabled,
+            ),
+            Step(
+              title: const Text(' '),
+              content: Column(
+                children: [
+                  const Text('Adress Information'),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'City Name',
@@ -270,12 +281,6 @@ class _HomeScreenState extends State<SingUpPage> {
                   ),
                 ],
               ),
-              isActive: currentStep >= 0,
-              state: currentStep >= 1 ? StepState.complete : StepState.disabled,
-            ),
-            Step(
-              title: const Text(' '),
-              content: const Text('This is the Third step.'),
               isActive: currentStep >= 0,
               state: currentStep >= 2 ? StepState.complete : StepState.disabled,
             ),

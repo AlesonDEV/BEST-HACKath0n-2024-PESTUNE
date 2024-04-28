@@ -1,6 +1,6 @@
-# blood_flow
+# BloodFlow
 
-A new Flutter project. This project is hosted on Azure and can be accessed at [Blood Flow Presentation Layer](https://bloodflowpresentaionlayer20240428063721.azurewebsites.net/).
+A new moder Flutter and ASP.NET project. This project is hosted on Azure and can be accessed at [Blood Flow Presentation Layer](https://bloodflowpresentaionlayer20240428063721.azurewebsites.net/).
 
 ## Getting Started
 

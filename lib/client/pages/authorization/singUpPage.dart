@@ -1,3 +1,4 @@
+import 'package:blood_flow/client/config/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../mainpage.dart';
@@ -57,92 +58,111 @@ class _HomeScreenState extends State<SingUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stepper(
-        elevation: 0, //Horizontal Impact
-        // margin: const EdgeInsets.all(20), //vertical impact
-        controlsBuilder: controlBuilders,
-        type: StepperType.horizontal,
-        physics: const ScrollPhysics(),
-        onStepTapped: onStepTapped,
-        onStepContinue: () {
-          final isLastStep = currentStep == 2;
+      body: Theme(
+        data: ThemeData(
+          primaryColor: SecondaryColor,
+          colorScheme: ColorScheme.light(primary: SecondaryColor),
+        ),
+        child: Stepper(
+          elevation: 0, //Horizontal Impact
+          // margin: const EdgeInsets.all(20), //vertical impact
+          controlsBuilder: controlBuilders,
+          type: StepperType.horizontal,
+          physics: const ScrollPhysics(),
+          onStepTapped: onStepTapped,
 
-          if (isLastStep) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('Congratulations!'),
-                  content: const Text('You have completed the sign-up process.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Закриваємо діалогове вікно
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => MainPage(),
-                        ));
-                      },
+          onStepContinue: () {
+            final isLastStep = currentStep == 2;
 
-                      child: const Text('OK'),
-                    ),
-                  ],
-                );
-              },
-            );
-          } else {
-            continueStep();
-          }
-        },
+            if (isLastStep) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Congratulations!'),
+                    content: const Text('You have completed the sign-up process.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (BuildContext context) => MainPage(),
+                          ));
+                        },
 
-        onStepCancel: cancelStep,
-        currentStep: currentStep, //0, 1, 2
-        steps: [
-          Step(
-            title: const Text('Account'),
-            content: Column(
-              children: const [
-                Text('This is the First step.'),
-                SizedBox(height: 20),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30.0), // Заокруглення кутиків
+                        child: const Text('OK'),
                       ),
+                    ],
+                  );
+                },
+              );
+            } else {
+              continueStep();
+            }
+          },
+
+          onStepCancel: cancelStep,
+          currentStep: currentStep, //0, 1, 2
+          steps: [
+            Step(
+              title: const Text(' '),
+              content: Column(
+                children: const [
+                  Text(
+                    'This is the First step.',
+                    style: TextStyle(color: MainTextColor),
+                  ),
+                  SizedBox(height: 20),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: MainTextColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                        borderSide: BorderSide(color: MainTextColor),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0), // Встановлює відступи
                     ),
                   ),
-                ),
-                SizedBox(height: 20),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30.0), // Заокруглення кутиків
+
+
+                  SizedBox(height: 20),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      labelStyle: TextStyle(color: MainTextColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                        borderSide: BorderSide(color: MainTextColor),
                       ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     ),
                   ),
-                ),
-              ],
+
+                ],
+              ),
+              isActive: currentStep >= 0,
+              state: currentStep >= 0 ? StepState.complete : StepState.disabled,
             ),
-            isActive: currentStep >= 0,
-            state: currentStep >= 0 ? StepState.complete : StepState.disabled,
-          ),
 
-          Step(
-            title: const Text('Address'),
-            content: const Text('This is the Second step.'),
-            isActive: currentStep >= 0,
-            state: currentStep >= 1 ? StepState.complete : StepState.disabled,
-          ),
-          Step(
-            title: const Text('Complete'),
-            content: const Text('This is the Third step.'),
-            isActive: currentStep >= 0,
-            state: currentStep >= 2 ? StepState.complete : StepState.disabled,
-          ),
-        ],
+            Step(
+              title: const Text(' '),
+              content: const Text('This is the Second step.'),
+              isActive: currentStep >= 0,
+              state: currentStep >= 1 ? StepState.complete : StepState.disabled,
+            ),
+            Step(
+              title: const Text(' '),
+              content: const Text('This is the Third step.'),
+              isActive: currentStep >= 0,
+              state: currentStep >= 2 ? StepState.complete : StepState.disabled,
+            ),
+          ],
+        ),
       ),
     );
   }

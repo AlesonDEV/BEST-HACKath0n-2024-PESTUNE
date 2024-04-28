@@ -1,19 +1,61 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:blood_flow/superviser_client/model/BloodType.dart';
 import 'package:blood_flow/superviser_client/components/homePageWidgets/blood_checkbox.dart';
+import 'package:http/http.dart' as http;
 
+import '../../../config/config.dart';
 import '../../model/blood_types.dart';
 
 class BloodDonationForm extends StatefulWidget {
   final VoidCallback closeForm;
-  final Function(double goal, BloodTypeOld types) addRequest;
 
-  const BloodDonationForm({Key? key, required this.closeForm, required this.addRequest}) : super(key: key);
+  const BloodDonationForm({Key? key, required this.closeForm}) : super(key: key);
 
   @override
   _BloodDonationFormState createState() => _BloodDonationFormState();
 }
+
+Future<http.Response> createBloodRequest(
+    String title,
+    String description,
+    int bloodVolume,
+    int bloodTypeId,
+    int importanceId,
+    String importanceName,
+    int donorCenterId,
+    String donorCenterName,
+    ) async {
+  final url = Uri.parse(Config.baseUrl + "/Orders"); // Replace with your actual API endpoint
+
+  final body = jsonEncode({
+    "title": title,
+    "description": description,
+    "bloodVolume": bloodVolume,
+    "bloodTypeId": bloodTypeId,
+    "bloodTypeName": 0, // Might require clarification on data type (assuming not used)
+    "importanceId": importanceId,
+    "importanceName": importanceName,
+    "donorCenterId": donorCenterId,
+    "donorCenterName": donorCenterName,
+  });
+
+  final response = await http.post(
+    url,
+    headers: {"Content-Type": "application/json"},
+    body: body,
+  );
+
+  if(response.statusCode > 200 && response.statusCode < 300){
+    print("Created");
+  }else{
+    print("Error on creating request ${response.statusCode}");
+  }
+  return response;
+}
+
 
 class _BloodDonationFormState extends State<BloodDonationForm> {
   final _formKey = GlobalKey<FormState>();
@@ -94,11 +136,10 @@ class _BloodDonationFormState extends State<BloodDonationForm> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  if (_validateAndSave()) {
-                    widget.addRequest(_selectedAmount, BloodTypeOld.O0); // TODO rewrite
-                  }
-                },
+                onPressed: () async {
+                    await createBloodRequest("", "", _selectedAmount as int, _selectedBloodType.id, 1, "", Config.donorCenterId, "");
+                    widget.closeForm;
+                    },
                 child: Text('Submit'),
               ),
               TextButton(

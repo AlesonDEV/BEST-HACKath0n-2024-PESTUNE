@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:blood_flow/superviser_client/components/homePageWidgets/blood_requests_container.dart';
+import 'package:blood_flow/superviser_client/model/BloodType.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 
@@ -12,12 +14,12 @@ const TextColor = const Color(0xff1f2c4b);
 
 class BloodRequestCard extends StatefulWidget {
   double progress = 0;
-  double goal;
-  BloodTypeOld bloodType;
-  Function(BloodTypeOld type, double progress, double goal, int?) onTap;
+  int goal;
+  BloodType bloodType;
+  Function(BloodType type, double progress, int goal) onTap;
 
   void handleTap(){
-    onTap(this.bloodType, this.progress, this.goal, 0);
+    onTap(this.bloodType, this.progress, this.goal);
   }
 
   BloodRequestCard(this.goal, this.bloodType, {required this.onTap});
@@ -25,6 +27,22 @@ class BloodRequestCard extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _BloodRequestState();
+
+  static BloodRequestCard fromBloodInfo(BloodInfo info) {
+    // Assuming BloodTypeOld has a method fromInt or similar to convert integer to BloodTypeOld
+    final bloodType = BloodType.bloodTypes[info.bloodTypeId]; // Map blood type ID to BloodTypeOld enum
+
+    // Assuming a logic to determine progress based on information in BloodInfo (e.g., bloodVolume)
+    final progress = 0; // Replace with your logic to calculate progress
+
+    // Assuming a goal property exists in BloodInfo or a way to determine a goal
+    final goal = info.bloodVolume; // Use goal if available, otherwise calculate it
+
+    return BloodRequestCard.progress(goal, bloodType, 0, onTap: (type, progress, goal) {
+      // Handle card tap event with information from the BloodInfo object
+      print('Blood Information: $info'); // Replace with your desired tap handling logic
+    });
+  }
 }
 
 class _BloodRequestState extends State<BloodRequestCard> {
@@ -49,7 +67,7 @@ class _BloodRequestState extends State<BloodRequestCard> {
             children: [
               SizedBox(height: 10),
               Text(
-                'Blood Type: ${widget.bloodType.toShortString()}', // Assuming BloodTypes is a string enum or similar
+                'Blood Type: ${widget.bloodType.name}', // Assuming BloodTypes is a string enum or similar
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
@@ -88,12 +106,7 @@ class _BloodRequestState extends State<BloodRequestCard> {
                                     closeForm: () {
                                       // Implement the logic to close the form
                                       Navigator.of(context).pop();
-                                    },
-                                    addRequest: (double donation, BloodTypeOld type) {
-                                      // Implement the logic to handle the donation request
-                                      // For example, you might want to update the state or send the data to a server
-                                      Navigator.of(context).pop();
-                                    },
+                                    }
                                   ),
                                   ]
                               ),

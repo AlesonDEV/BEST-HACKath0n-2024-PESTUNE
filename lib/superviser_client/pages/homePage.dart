@@ -57,12 +57,7 @@ class _HomePageState extends State<HomePageWidget>{
                             children: <Widget>[
                               BloodDonationForm(closeForm: (){
                                 Navigator.of(context).pop();
-                              }, addRequest: (double goal, BloodTypeOld type){
-                                _key.currentState!.AddRequestCard(BloodRequestCard(goal, type, onTap: onRequestCardTaped,));
-                                setState(() {
-                                });
-                                Navigator.of(context).pop();
-                              },), // Your custom form widget
+                              }), // Your custom form widget
                             ],
                           ),
                         ),

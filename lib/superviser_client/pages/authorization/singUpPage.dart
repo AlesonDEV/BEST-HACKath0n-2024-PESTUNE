@@ -16,7 +16,7 @@ class SingUpPage extends StatefulWidget {
   State<SingUpPage> createState() => _HomeScreenState();
 }
 
-Future<void> sendDonorCenterData(String donorCenterName) async {
+Future<int> sendDonorCenterData(String donorCenterName) async {
   // Define the JSON data
   Map<String, dynamic> jsonData = {
     "donorCenterId": 0,
@@ -28,6 +28,8 @@ Future<void> sendDonorCenterData(String donorCenterName) async {
 
   // Define the URL
   String url = '${Config.baseUrl}/DonorCenters';
+
+  try {
     // Make the POST request
     var response = await http.post(
       Uri.parse(url),
@@ -39,13 +41,56 @@ Future<void> sendDonorCenterData(String donorCenterName) async {
 
     // Check if the request was successful (status code 2xx)
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      //print('Data sent successfully');
-      // You can handle the response here if needed
+      // Parse response JSON
+      Map<String, dynamic> responseData = json.decode(response.body);
+      // Extract donorCenterId
+      int donorCenterId = responseData['donorCenterId'];
+      return donorCenterId;
     } else {
-      print('Failed to send data. Status code: ${response.statusCode}');
+      throw Exception("Bad request");
     }
+  } catch (e) {
+    print('Error sending data: $e');
+    throw Exception("Failed to send data");
+  }
 }
 
+Future<http.Response> createContact(int id,String contactValue) async {
+  final url = Uri.parse(Config.baseUrl + "/Donors/${id}/contacts"); // Replace with your actual API endpoint
+
+  final body = jsonEncode({
+    "contactId": id,
+    "contactValue": contactValue,
+  });
+
+  final response = await http.post(
+    url,
+    headers: {"Content-Type": "application/json"},
+    body: body,
+  );
+
+  return response;
+}
+
+Future<http.Response> createAddress(int donorCenterId,int cityId, int streetId, String houseNumber) async {
+  final url = Uri.parse('Config.baseUrl + "/Cities/${cityId}/streets"'); // Replace with your actual API endpoint
+
+  final body = jsonEncode({
+    "cityId": cityId,
+    "cityName": "cityName",
+    "streetId": streetId,
+    "streetName": "streetName",
+    "houseNumber": houseNumber,
+  });
+
+  final response = await http.post(
+    url,
+    headers: {"Content-Type": "application/json"},
+    body: body,
+  );
+
+  return response;
+}
 
 class _HomeScreenState extends State<SingUpPage> {
   int currentStep = 0;
@@ -55,36 +100,89 @@ class _HomeScreenState extends State<SingUpPage> {
   final _emailPasswordFormKey = GlobalKey<FormState>();
   final _adressFormKey = GlobalKey<FormState>();
 
+  int id = 0;
+  String email = "";
+  String password = "";
+  int cityId = 0;
+  String buildingNumber = "";
+  int streetId = 0;
   String name = "";
+
+  void setEmail(String newEmail) {
+    setState(() {
+      email = newEmail;
+    });
+  }
+
+  void setPassword(String newPassword) {
+    setState(() {
+      password = newPassword;
+    });
+  }
+
+  void setCity(int newCity) {
+    setState(() {
+      cityId = newCity;
+    });
+  }
+
+  void setBuildingNumber(String newBuildingNumber) {
+    setState(() {
+      buildingNumber = newBuildingNumber;
+    });
+  }
+
+  void setStreet(int newStreet) {
+    setState(() {
+      streetId = newStreet;
+    });
+  }
+
+  void setName(String newName) {
+    setState(() {
+      name = newName;
+    });
+  }
+
 
   continueStep() async {
     if (currentStep == 0) { // Assuming the name form is at step 0
       if (_nameFormKey.currentState!.validate()) {
         // If the form is valid, move to the next step
         try{
-          await sendDonorCenterData(name);
+          id = await sendDonorCenterData(name);
+          Config.donorCenterId = id;
+          setState(() {
+            currentStep++;
+          });
         }catch(e){
           throw e;
         }
-        setState(() {
-          currentStep++;
-        });
-
       }
     } else if(currentStep == 1){
       if (_adressFormKey.currentState!.validate()) {
         // If the form is valid, move to the next step
-        setState(() {
-          currentStep++;
-        });
+        try{
+          await createAddress(id, cityId, streetId, buildingNumber);
+          setState(() {
+            currentStep++;
+          });
+        }catch(e){
+          throw e;
+        }
       }
     }
     else{
       if (_emailPasswordFormKey.currentState!.validate()) {
         // If the form is valid, move to the next step
-        setState(() {
-          currentStep++;
-        });
+        try{
+          await createContact(id, email);
+          setState(() {
+            currentStep++;
+          });
+        }catch(e){
+          throw e;
+        }
       }
       // For other steps, just move to the next ste
     }
@@ -185,13 +283,13 @@ class _HomeScreenState extends State<SingUpPage> {
 
           Step(
             title: const Text('Address'),
-            content: AddressForm(formKey: _adressFormKey,),
+            content: AddressForm(formKey: _adressFormKey, onBuildingNumberChanged: setBuildingNumber, onCityIdChanged: setCity, onStretIdChanged: setStreet,),
             isActive: currentStep >= 0,
             state: currentStep >= 1 ? StepState.complete : StepState.disabled,
           ),
           Step(
             title: const Text('Complete'),
-            content: LoginNPasswordForm(formKey: _emailPasswordFormKey),
+            content: LoginNPasswordForm(formKey: _emailPasswordFormKey, onLoginChanged: setEmail, onPasswordChanged: setPassword,),
             isActive: currentStep >= 0,
             state: currentStep >= 2 ? StepState.complete : StepState.disabled,
           ),

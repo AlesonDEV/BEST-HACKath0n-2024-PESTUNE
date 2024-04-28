@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class LoginNPasswordForm extends StatefulWidget {
   final GlobalKey<FormState> formKey; // Pass the GlobalKey from the parent widget
   final Function(String, String)? onFormSubmit; // Callback for form submission
+  final Function(String) onPasswordChanged;
+  final Function(String) onLoginChanged;
 
-  const LoginNPasswordForm({Key? key, required this.formKey, this.onFormSubmit}) : super(key: key);
+  const LoginNPasswordForm({Key? key, required this.formKey, this.onFormSubmit, required this.onPasswordChanged, required this.onLoginChanged}) : super(key: key);
 
   @override
   _LoginNPasswordFormState createState() => _LoginNPasswordFormState();

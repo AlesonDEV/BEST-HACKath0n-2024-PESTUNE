@@ -1,6 +1,8 @@
 
 import 'dart:html' as html;
 
+import 'package:blood_flow/client/mainpage.dart';
+import 'package:blood_flow/superviser_client/mainpage.dart';
 import 'package:blood_flow/superviser_client/pages/authorization/singUpPage.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SingUpPage(),
+      home: MainPage(),
     );
   }
 }

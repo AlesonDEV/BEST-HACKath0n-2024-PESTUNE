@@ -60,21 +60,17 @@ namespace BloodFlow.DataLayer.Repositories
 
         public async Task<IEnumerable<Session>> GetAllWithDetailsAsync()
         {
-            return await _dbSet.Include(session => session.DonorSessions)
-                    .ThenInclude(dor => dor.Donor)
-                .Include(session => session.SessionDonorCenters)
-                    .ThenInclude(dor => dor.Session)
-                .Include(session => session.StateSession)
+            return await _dbSet.Include(session => session.Donor)
+                .Include(session => session.DonorCenter)
+                .Include(session => session.State)
                 .ToListAsync();
         }
 
         public async Task<Session?> GetByIdWithDetailsAsync(int sessionId)
         {
-            return await _dbSet.Include(session => session.DonorSessions)
-                    .ThenInclude(dor => dor.Donor)
-                .Include(session => session.SessionDonorCenters)
-                    .ThenInclude(dor => dor.Session)
-                .Include(session => session.StateSession)
+            return await _dbSet.Include(session => session.Donor)
+                .Include(session => session.DonorCenter)
+                .Include(session => session.State)
                 .FirstOrDefaultAsync(session => session.Id == sessionId);
         }
     }

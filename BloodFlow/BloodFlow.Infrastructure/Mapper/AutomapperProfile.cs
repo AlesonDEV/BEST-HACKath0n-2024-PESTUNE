@@ -46,7 +46,6 @@ namespace BloodFlow.Infrastructure.Mapper
             CreateMap<Street, AddressModel>()
                 .ForMember(am => am.StreetId, s => s.MapFrom(x => x.Id))
                 .ForMember(am => am.StreetName, s => s.MapFrom(x => x.Name))
-                .ForMember(am => am.CityId, s => s.MapFrom(x => x.CityId))
                 .ForMember(am => am.CityName, s => s.MapFrom(x => x.City.Name))
                 .ForPath(am => am.HouseNumber, s =>
                     s.MapFrom(x => string.Join("", x.People!.Where(s => s.StreetId == x.Id).Select(s => s.HouseNumber!.ToString()))));
@@ -62,12 +61,61 @@ namespace BloodFlow.Infrastructure.Mapper
 
             CreateMap<StreetModel, Street>();
 
+            // Session mapper profiles
+            CreateMap<Session, SessionModel>()
+                .ForMember(sm => sm.DonorId, s => s.MapFrom(x => x.Donor.Id))
+                .ForMember(sm => sm.DonorCenterId, s => s.MapFrom(x => x.DonorCenter.Id))
+                .ForMember(sm => sm.DonorCenterName, s => s.MapFrom(x => x.DonorCenter.Name))
+                .ForMember(sm => sm.BloodVolume, s => s.MapFrom(x => x.BloodVolume))
+                .ForMember(sm => sm.Date, s => s.MapFrom(x => x.Date))
+                .ForMember(sm => sm.StateId, s => s.MapFrom(x => x.State.Id))
+                .ForMember(sm => sm.StateName, s => s.MapFrom(x => x.State.Name));
+
+            CreateMap<SessionModel, Session>();
+                
+
+            // BloodType mapper profiles
+            CreateMap<BloodType, BloodTypeModel>()
+                .ForMember(btm => btm.BloodTypeId, bt => bt.MapFrom(x => x.Id))
+                .ForMember(btm => btm.BloodTypeName, bt => bt.MapFrom(x => x.Name));
+
+            CreateMap<BloodTypeModel, BloodType>();
+
             // City mapper profiles
             CreateMap<City, CityModel>()
                 .ForMember(cm => cm.CityName, s => s.MapFrom(x => x.Name))
                 .ForMember(cm => cm.CityId, s => s.MapFrom(x => x.Id));
 
             CreateMap<CityModel, City>();
+
+            // Importance mapper profiles
+            CreateMap<Importance, ImportanceModel>()
+                .ForMember(im => im.ImportanceId, i => i.MapFrom(x => x.Id))
+                .ForMember(im => im.ImportanceName, i => i.MapFrom(x => x.Name));
+
+            CreateMap<ImportanceModel, Importance>();
+
+            // State mapper profiles
+            CreateMap<State, StateModel>()
+                .ReverseMap();
+
+            // DonorCenter mapper profiles
+            CreateMap<DonorCenter, DonorCenterModel>()
+                .ForMember(dcm => dcm.DonorCenterId, dc => dc.MapFrom(x => x.Id))
+                .ForMember(dcm => dcm.DonorCenterName, dc => dc.MapFrom(x => x.Name));
+
+            CreateMap<DonorCenterModel, DonorCenter>()
+                .ForMember(dc => dc.Name, dcm => dcm.MapFrom(x => x.DonorCenterName))
+                .ForMember(dc => dc.Id, dcm => dcm.MapFrom(x => x.DonorCenterId));
+
+            // States mapper profiles
+            CreateMap<State, StateModel>()
+                .ForMember(sm => sm.StateId, s => s.MapFrom(x => x.Id))
+                .ForMember(sm => sm.StateName, s => s.MapFrom(x => x.Name));
+
+            CreateMap<StateModel, State>()
+                .ForMember(s => s.Id, sm => sm.MapFrom(x => x.StateId))
+                .ForMember(s => s.Name, sm => sm.MapFrom(x => x.StateName));
         }
     }
 }

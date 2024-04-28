@@ -15,7 +15,7 @@ namespace BloodFlow.BuisnessLayer.Validation
             BaseValidation.IsObjectNull(session, nameof(session));
             BaseValidation.IsWhiteSpaceOrNullOrEmpty(session.DonorCenterName);
             ValidateBloodVolume(session.BloodVolume);
-            ValidateDate(session.Date);
+            //ValidateDate(session.Date);
         }
 
         private static void ValidateBloodVolume(int bloodVolume)

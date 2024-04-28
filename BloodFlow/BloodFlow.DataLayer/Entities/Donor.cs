@@ -19,7 +19,7 @@ namespace BloodFlow.DataLayer.Entities
 
         public ICollection<DonorOrder>? DonorOrders { get; set; }
 
-        public ICollection<DonorSession>? DonorSessions { get; set; }
+        public ICollection<Session>? Sessions { get; set; }
 
         public Person Person { get; set; } = null!;
 

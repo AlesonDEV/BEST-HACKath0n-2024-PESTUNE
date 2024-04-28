@@ -18,14 +18,14 @@ namespace BloodFlow.BuisnessLayer.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ISessionRepository _sessionRepository;
-        private readonly IDonorRepository _donorRepository;
+        private readonly IStateRepository _stateRepository;
 
         public SessionService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _sessionRepository = _unitOfWork.SessionRepository;
-            _donorRepository = _unitOfWork.DonorRepository;
+            _stateRepository = _unitOfWork.StateRepository;
         }
 
         public async Task AddAsync(SessionModel model)
@@ -44,14 +44,21 @@ namespace BloodFlow.BuisnessLayer.Services
 
         public async Task<IEnumerable<SessionModel>> GetAllAsync()
         {
-            var sessionEntities = await _sessionRepository.GetAllAsync();
+            var sessionEntities = await _sessionRepository.GetAllWithDetailsAsync();
 
             return _mapper.Map<IEnumerable<SessionModel>>(sessionEntities);
         }
 
+        public async Task<IEnumerable<StateModel>> GetAllStates()
+        {
+            var stateEntities = await _stateRepository.GetAllAsync();
+
+            return _mapper.Map<IEnumerable<StateModel>>(stateEntities);
+        }
+
         public async Task<SessionModel> GetByIdAsync(int sessionId)
         {
-            var sessionEntity = await _sessionRepository.GetByIdAsync(sessionId);
+            var sessionEntity = await _sessionRepository.GetByIdWithDetailsAsync(sessionId);
 
             return _mapper.Map<SessionModel>(sessionEntity);
         }
@@ -61,9 +68,7 @@ namespace BloodFlow.BuisnessLayer.Services
             var sessionsEntities = await _sessionRepository.GetAllWithDetailsAsync();
 
             var sessionsByDonorId = sessionsEntities
-                .Where(c => c.DonorSessions!
-                    .Any(r => r.DonorId == donorId))
-                .ToList();
+                    .Where(r => r.DonorId == donorId).ToList();
 
             return _mapper.Map<IEnumerable<SessionModel>>(sessionsByDonorId);
         }
@@ -75,6 +80,5 @@ namespace BloodFlow.BuisnessLayer.Services
             _sessionRepository.Update(sessionEntity);
             await _unitOfWork.SaveAsync();
         }
-
     }
 }

@@ -19,13 +19,23 @@ namespace BloodFlow.DataLayer.Data
         private IOrderRepository _orderRepository;
         private IPersonRepository _personRepository;
         private ISessionRepository _sessionRepository;
-        private IStateSessionRepository _stateSessionRepository;
+        private IStateRepository _stateRepository;
         private IStreetRepository _streetRepository;
         private IContactRepository _contactRepository;
+        private IImportanceRepository _importanceRepository;
 
         public UnitOfWork(BloodFlowDbContext context)
         {
             _context = context;
+        }
+
+        public IImportanceRepository ImportanceRepository
+        {
+            get
+            {
+                this._importanceRepository ??= new ImportanceRepository(_context);
+                return this._importanceRepository;
+            }
         }
 
         public IContactRepository ContactRepository
@@ -101,12 +111,12 @@ namespace BloodFlow.DataLayer.Data
             }
         }
 
-        public IStateSessionRepository StateSessionRepository
+        public IStateRepository StateRepository
         {
             get
             {
-                this._stateSessionRepository ??= new StateSessionRepository(_context);
-                return this._stateSessionRepository;
+                this._stateRepository ??= new StateRepository(_context);
+                return this._stateRepository;
             }
         }
 

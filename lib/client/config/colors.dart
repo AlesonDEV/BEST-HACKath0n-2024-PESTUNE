@@ -7,10 +7,15 @@ const ElementColor = const Color(0xff16697a);
 const MainTextColor = const Color(0xff1f2c4b);
 
 const ButtonColor = const Color(0xffeaeff2);
+const CardColor = const Color(0xffff284d);
+const SecondaryCardColor = const Color(0xffaa1c37);
+const ImportantCardColor = const Color(0xfff7b1be);
 
 
-
-
+const ButtonColor1 = const Color(0xffeaeff2);
+const CardColor1 = const Color(0xffa9b8ff);
+const SecondaryCardColor1 = const Color(0xff8690fc);
+const ImportantCardColor1 = const Color(0xffcfd8ff);
 
 
 

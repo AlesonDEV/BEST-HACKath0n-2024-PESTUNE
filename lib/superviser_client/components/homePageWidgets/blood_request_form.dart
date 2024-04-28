@@ -11,14 +11,9 @@ class BloodDonationForm extends StatefulWidget {
 
   BloodDonationForm({Key? key, required this.CloseForm, required this.AddRequest}) : super(key: key);
 
-
-
-
   @override
   _BloodDonationFormState createState() => _BloodDonationFormState();
 }
-
-
 
 class _BloodDonationFormState extends State<BloodDonationForm> {
 

@@ -1,4 +1,4 @@
-import 'package:blood_flow/client/components/homePageWidgets/blood_request_details.dart';
+import 'package:blood_flow/client/pages/mainPages/homePage/blood_request_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import '../../config/colors.dart';
@@ -6,6 +6,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 class BloodRequestCard extends StatelessWidget {
+  final String hospitalName;
+  final double bloodDonated;
+  final double totalBloodRequired;
+
+  BloodRequestCard({
+    required this.hospitalName,
+    required this.bloodDonated,
+    required this.totalBloodRequired,
+  });
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -25,7 +34,7 @@ class BloodRequestCard extends StatelessWidget {
             width: 110.0,
             height: 110.0,
             child: LiquidCircularProgressIndicator(
-              value: 0.5,
+              value: bloodDonated / totalBloodRequired,
               valueColor: AlwaysStoppedAnimation(SecondaryColor),
               backgroundColor: Colors.white,
               borderColor: SecondaryColor,
@@ -40,7 +49,7 @@ class BloodRequestCard extends StatelessWidget {
 
 
               Text(
-                'Hospital Name',
+                hospitalName,
                 style: GoogleFonts.ubuntu(
                   textStyle: TextStyle(color: MainTextColor, letterSpacing: 0.5, fontSize: 24),
                   fontWeight: FontWeight.w700,
@@ -49,7 +58,7 @@ class BloodRequestCard extends StatelessWidget {
               ),
               SizedBox(height: 5),
               Text(
-                '1 liter',
+                totalBloodRequired.toString() + ' ml',
                 style: TextStyle(fontSize: 16, color: MainTextColor),
                 textAlign: TextAlign.center,
               ),

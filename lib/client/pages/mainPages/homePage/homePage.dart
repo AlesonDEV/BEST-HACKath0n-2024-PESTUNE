@@ -1,5 +1,6 @@
 import 'package:blood_flow/client/components/homePageWidgets/blood_request_card.dart';
 import 'package:blood_flow/client/components/homePageWidgets/info_slider_widget/info_slider_widget.dart';
+import 'package:blood_flow/client/models/BloodRequest.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,13 @@ class HomePageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<BloodRequest> bloodRequests = [
+      BloodRequest(hospitalName: 'Skarzhyntsi', bloodDonated: 500, totalBloodRequired: 1000.0),
+      BloodRequest(hospitalName: 'Yablunivka', bloodDonated: 700, totalBloodRequired: 1000),
+      BloodRequest(hospitalName: 'Biber', bloodDonated: 1200, totalBloodRequired: 2000),
+      BloodRequest(hospitalName: 'Ginger', bloodDonated: 200, totalBloodRequired: 500),
+    ];
+
     return Container(
       child: Center(
         child: Column(
@@ -23,22 +31,14 @@ class HomePageWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 20),
-                    Padding(
+                    ...bloodRequests.map((request) => Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: BloodRequestCard(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: BloodRequestCard(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: BloodRequestCard(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: BloodRequestCard(),
-                    ),
+                      child: BloodRequestCard(
+                        hospitalName: request.hospitalName,
+                        bloodDonated: request.bloodDonated,
+                        totalBloodRequired: request.totalBloodRequired,
+                      ),
+                    )).toList(),
                     SizedBox(height: 100),
                   ],
                 ),

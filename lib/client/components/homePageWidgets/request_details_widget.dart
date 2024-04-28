@@ -8,11 +8,19 @@ import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 class MapSample extends StatefulWidget {
   final CameraPosition kGooglePlex;
   final CameraPosition kLake;
+  final String ambulanceName;
+  final String streetName;
+  final String bloodAmount;
+  final String email;
 
   const MapSample({
     Key? key,
     required this.kGooglePlex,
     required this.kLake,
+    required this.ambulanceName,
+    required this.streetName,
+    required this.bloodAmount,
+    required this.email,
   }) : super(key: key);
 
   @override
@@ -31,7 +39,6 @@ class MapSampleState extends State<MapSample> {
       body: Center(
         child: Column(
           children: [
-
             SizedBox(height: 70),
             Row(
               children: [
@@ -52,25 +59,25 @@ class MapSampleState extends State<MapSample> {
                 Column(
                   children: [
                     Text(
-                      'Ambulance 12',
+                      widget.ambulanceName,
                       style: TextStyle(fontSize: 24, color: MainTextColor),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 5),
                     Text(
-                      'Shevchenko street',
+                      widget.streetName,
                       style: TextStyle(fontSize: 16, color: MainTextColor),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 5),
                     Text(
-                      '10000 ml',
+                      widget.bloodAmount,
                       style: TextStyle(fontSize: 16, color: MainTextColor),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 5),
                     Text(
-                      'example@example.com',
+                      widget.email,
                       style: TextStyle(fontSize: 16, color: MainTextColor),
                       textAlign: TextAlign.center,
                     ),

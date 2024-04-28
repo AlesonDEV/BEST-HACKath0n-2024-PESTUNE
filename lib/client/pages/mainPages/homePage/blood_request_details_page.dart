@@ -1,9 +1,9 @@
-import 'package:blood_flow/client/pages/mainPages/mapPage/singleObjectMap.dart';
+import 'package:blood_flow/client/components/homePageWidgets/request_details_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 
-import '../../config/colors.dart';
+import '../../../config/colors.dart';
 
 class DetailedBloodRequestCard extends StatelessWidget {
   @override
@@ -36,6 +36,10 @@ class DetailedBloodRequestCard extends StatelessWidget {
               tilt: 59.440717697143555,
               zoom: 19.151926040649414,
             ),
+            ambulanceName: 'Ambulance 12',
+            streetName: 'Shevchenko street',
+            bloodAmount: '10000 ml',
+            email: 'example@example.com',
           ),
         ),
       ),

@@ -1,4 +1,6 @@
 import 'package:blood_flow/client/config/colors.dart';
+import 'package:blood_flow/client/models/BloodType.dart';
+import 'package:blood_flow/client/pages/authorization/blood_dropdown.dart';
 import 'package:flutter/material.dart';
 
 import '../../mainpage.dart';
@@ -11,6 +13,8 @@ class SingUpPage extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<SingUpPage> {
+  BloodType? _selectedBloodType;
+
   int currentStep = 0;
   bool isComplete = false;
   continueStep() {
@@ -141,6 +145,19 @@ class _HomeScreenState extends State<SingUpPage> {
                     ),
                   ),
 
+
+
+                ],
+              ),
+              isActive: currentStep >= 0,
+              state: currentStep >= 0 ? StepState.complete : StepState.disabled,
+            ),
+
+            Step(
+              title: const Text(' '),
+              content: Column(
+                children: [
+                  const Text('This is the Second step.'),
                   SizedBox(height: 20),
                   TextField(
                     decoration: InputDecoration(
@@ -171,16 +188,8 @@ class _HomeScreenState extends State<SingUpPage> {
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     ),
                   ),
-
                 ],
               ),
-              isActive: currentStep >= 0,
-              state: currentStep >= 0 ? StepState.complete : StepState.disabled,
-            ),
-
-            Step(
-              title: const Text(' '),
-              content: const Text('This is the Second step.'),
               isActive: currentStep >= 0,
               state: currentStep >= 1 ? StepState.complete : StepState.disabled,
             ),

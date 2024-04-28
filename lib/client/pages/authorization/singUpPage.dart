@@ -64,8 +64,7 @@ class _HomeScreenState extends State<SingUpPage> {
           colorScheme: ColorScheme.light(primary: SecondaryColor),
         ),
         child: Stepper(
-          elevation: 0, //Horizontal Impact
-          // margin: const EdgeInsets.all(20), //vertical impact
+          elevation: 0,
           controlsBuilder: controlBuilders,
           type: StepperType.horizontal,
           physics: const ScrollPhysics(),
@@ -112,6 +111,36 @@ class _HomeScreenState extends State<SingUpPage> {
                     'This is the First step.',
                     style: TextStyle(color: MainTextColor),
                   ),
+                  SizedBox(height: 20),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      labelStyle: TextStyle(color: MainTextColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                        borderSide: BorderSide(color: MainTextColor),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0), // Встановлює відступи
+                    ),
+                  ),
+
+                  SizedBox(height: 20),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Surname',
+                      labelStyle: TextStyle(color: MainTextColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                        borderSide: BorderSide(color: MainTextColor),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0), // Встановлює відступи
+                    ),
+                  ),
+
                   SizedBox(height: 20),
                   TextField(
                     decoration: InputDecoration(

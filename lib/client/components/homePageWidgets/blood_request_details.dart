@@ -1,4 +1,6 @@
+import 'package:blood_flow/client/pages/mainPages/mapPage/singleObjectMap.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 
 import '../../config/colors.dart';
@@ -19,68 +21,25 @@ class DetailedBloodRequestCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            width: 200.0,
-            height: 200.0,
-            child: LiquidCircularProgressIndicator(
-              value: 0.5,
-              valueColor: AlwaysStoppedAnimation(SecondaryColor),
-              backgroundColor: Colors.white,
-              borderColor: SecondaryColor,
-              borderWidth: 1.0,
-              direction: Axis.vertical,
-              center: Text("A+"),
+      Container(
+        height: MediaQuery.of(context).size.height * 0.9,
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: Center(
+          child: MapSample(
+            kGooglePlex: CameraPosition(
+              target: LatLng(37.42796133580664, -122.085749655962),
+              zoom: 14.4746,
+            ),
+            kLake: CameraPosition(
+              bearing: 192.8334901395799,
+              target: LatLng(37.43296265331129, -122.08832357078792),
+              tilt: 59.440717697143555,
+              zoom: 19.151926040649414,
             ),
           ),
-          SizedBox(height: 10),
-          Text(
-            'Запит на кров',
-            style: TextStyle(fontSize: 24, color: MainTextColor),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 5),
-          Text(
-            'Адреса: вул. Перша, 1',
-            style: TextStyle(fontSize: 16, color: MainTextColor),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 5),
-          Text(
-            'Кількість: 1 літр',
-            style: TextStyle(fontSize: 16, color: MainTextColor),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 5),
-          Text(
-            'Електрона пошта: example@example.com',
-            style: TextStyle(fontSize: 16, color: MainTextColor),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 5),
-          Text(
-            'Контактна інформація: +1234567890',
-            style: TextStyle(fontSize: 16, color: MainTextColor),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Скасувати'),
-              ),
+        ),
+      ),
 
-              ElevatedButton(
-                onPressed: () {
-                  // Записатися
-                },
-                child: Text('Записатися'),
-              ),
-            ],
-          ),
         ],
       ),
     );

@@ -10,21 +10,9 @@ class MapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.8, // 80% висоти екрану
-      child: Center(
-        child: MapSample(
-          kGooglePlex: CameraPosition(
-            target: LatLng(37.42796133580664, -122.085749655962),
-            zoom: 14.4746,
-          ),
-          kLake: CameraPosition(
-            bearing: 192.8334901395799,
-            target: LatLng(37.43296265331129, -122.08832357078792),
-            tilt: 59.440717697143555,
-            zoom: 19.151926040649414,
-          ),
-        ),
-      ),
+      child: WidgetMarkersScreen(), // Використовуємо клас WidgetMarkersScreen для відображення маркерів на карті
     );
   }
 }
+
 

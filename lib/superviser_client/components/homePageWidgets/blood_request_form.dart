@@ -1,123 +1,114 @@
-import 'package:blood_flow/superviser_client/components/homePageWidgets/blood_checkbox.dart';
-import 'package:blood_flow/superviser_client/model/BloodType.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:blood_flow/superviser_client/model/BloodType.dart';
+import 'package:blood_flow/superviser_client/components/homePageWidgets/blood_checkbox.dart';
 
 import '../../model/blood_types.dart';
 
 class BloodDonationForm extends StatefulWidget {
-  final Function() CloseForm;
-  final Function(double goal, BloodTypeOld types) AddRequest;
+  final VoidCallback closeForm;
+  final Function(double goal, BloodTypeOld types) addRequest;
 
-  BloodDonationForm({Key? key, required this.CloseForm, required this.AddRequest}) : super(key: key);
-
-
-
+  const BloodDonationForm({Key? key, required this.closeForm, required this.addRequest}) : super(key: key);
 
   @override
   _BloodDonationFormState createState() => _BloodDonationFormState();
 }
 
-
-
 class _BloodDonationFormState extends State<BloodDonationForm> {
-
   final _formKey = GlobalKey<FormState>();
   late BloodType _selectedBloodType;
   double _selectedAmount = 0; // in liters
+  final _amountController = TextEditingController();
 
-  final _controller = TextEditingController();
-
-  // dispose it when the widget is unmounted
   @override
   void dispose() {
-    _controller.dispose();
+    _amountController.dispose();
     super.dispose();
   }
 
-  String? get _errorText {
-    // at any time, we can get the text from _controller.value.text
-    final text = _controller.value.text;
-    // Note: you can do your own custom validation here
-    // Move this logic this outside the widget for more testable code
-    if (text.isEmpty) {
+  bool _validateAndSave() {
+    final form = _formKey.currentState;
+    if (form != null && form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  String? _amountValidator(String? value) {
+    if (value == null || value.isEmpty) {
       return 'Can\'t be empty';
     }
-    if (int.parse(text) < 1000) {
+    final amount = int.tryParse(value);
+    if (amount == null) {
+      return 'Invalid number';
+    } else if (amount < 1000) {
       return 'Too small amount';
-    }
-
-    if (int.parse(text) < 1000) {
-      return 'Too small amount';
-    }
-    if(int.parse(text) > 15000){
+    } else if (amount > 15000) {
       return 'Too big amount';
     }
-    // return null if the text is valid
     return null;
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    return
-      Column(
-        children: [
+    return Column(
+      children: [
         Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            BloodTypeDropdownFormField(onChanged: (BloodType? selectedBloodType) {
-              _selectedBloodType = _selectedBloodType;
-            },),
-            SizedBox(height: 20),
-            TextField(
-              decoration: InputDecoration(
-                labelText: "Volume in ml",
-                errorText: _errorText,
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              BloodTypeDropdownFormField(
+                onChanged: (BloodType? selectedBloodType) {
+                  if (selectedBloodType != null) {
+                    _selectedBloodType = selectedBloodType;
+                  }
+                },
               ),
-              controller: _controller,
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
-              // Only numbers can be entered
-              onChanged: (value) {
-                setState(() {
-                  if(!value.isEmpty) _selectedAmount = double.parse(value);
-                });
-              },
-
-            ),
-          ],
-        ),
-      ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    if(_errorText == null && _formKey.currentState!.validate()){
-                      widget.AddRequest(_selectedAmount, bloodTypeFromString("O-"));
-                    }
-                  },
-                  child: Text('Submit'),
+              SizedBox(height: 20),
+              TextFormField(
+                controller: _amountController,
+                decoration: InputDecoration(
+                  labelText: "Volume in ml",
                 ),
-                TextButton(
-                  onPressed: () {
-                    widget.CloseForm(); // Call the CloseForm function
-                  },
-                  child: Text('Cancel'),
-                ),
-              ],
-            ),
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                validator: _amountValidator,
+                onSaved: (value) {
+                  if (value != null) {
+                    _selectedAmount = double.parse(value);
+                  }
+                },
+              ),
+            ],
           ),
-        ],
-      );
+        ),
+        SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  if (_validateAndSave()) {
+                    widget.addRequest(_selectedAmount, BloodTypeOld.O0); // TODO rewrite
+                  }
+                },
+                child: Text('Submit'),
+              ),
+              TextButton(
+                onPressed: widget.closeForm,
+                child: Text('Cancel'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

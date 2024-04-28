@@ -1,6 +1,13 @@
+import 'dart:convert';
+
+import 'package:blood_flow/config/config.dart';
+import 'package:blood_flow/superviser_client/components/sign_up_widgets/email_password_form.dart';
+import 'package:blood_flow/superviser_client/components/sign_up_widgets/name_form.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/sign_up_widgets/address_form.dart';
 import '../../mainpage.dart';
+import 'package:http/http.dart' as http;
 
 class SingUpPage extends StatefulWidget {
   const SingUpPage({super.key});
@@ -9,14 +16,77 @@ class SingUpPage extends StatefulWidget {
   State<SingUpPage> createState() => _HomeScreenState();
 }
 
+Future<void> sendDonorCenterData(String donorCenterName) async {
+  // Define the JSON data
+  Map<String, dynamic> jsonData = {
+    "donorCenterId": 0,
+    "donorCenterName": donorCenterName,
+  };
+
+  // Encode the JSON data
+  String requestBody = json.encode(jsonData);
+
+  // Define the URL
+  String url = '${Config.baseUrl}/DonorCenters';
+    // Make the POST request
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json', // Set the content type
+      },
+      body: requestBody, // Pass the encoded JSON data as the body
+    );
+
+    // Check if the request was successful (status code 2xx)
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      //print('Data sent successfully');
+      // You can handle the response here if needed
+    } else {
+      print('Failed to send data. Status code: ${response.statusCode}');
+    }
+}
+
+
 class _HomeScreenState extends State<SingUpPage> {
   int currentStep = 0;
   bool isComplete = false;
-  continueStep() {
-    if (currentStep < 2) {
-      setState(() {
-        currentStep = currentStep + 1;
-      });
+
+  final _nameFormKey = GlobalKey<FormState>();
+  final _emailPasswordFormKey = GlobalKey<FormState>();
+  final _adressFormKey = GlobalKey<FormState>();
+
+  String name = "";
+
+  continueStep() async {
+    if (currentStep == 0) { // Assuming the name form is at step 0
+      if (_nameFormKey.currentState!.validate()) {
+        // If the form is valid, move to the next step
+        try{
+          await sendDonorCenterData(name);
+        }catch(e){
+          throw e;
+        }
+        setState(() {
+          currentStep++;
+        });
+
+      }
+    } else if(currentStep == 1){
+      if (_adressFormKey.currentState!.validate()) {
+        // If the form is valid, move to the next step
+        setState(() {
+          currentStep++;
+        });
+      }
+    }
+    else{
+      if (_emailPasswordFormKey.currentState!.validate()) {
+        // If the form is valid, move to the next step
+        setState(() {
+          currentStep++;
+        });
+      }
+      // For other steps, just move to the next ste
     }
   }
 
@@ -67,7 +137,7 @@ class _HomeScreenState extends State<SingUpPage> {
         onStepContinue: () {
           final isLastStep = currentStep == 2;
 
-          if (isLastStep) {
+          if (isLastStep && _emailPasswordFormKey.currentState!.validate()) {
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -100,30 +170,13 @@ class _HomeScreenState extends State<SingUpPage> {
           Step(
             title: const Text('Account'),
             content: Column(
-              children: const [
-                Text('.This is the First step'),
+              children:  [
+                Text('Its time to set your name'),
                 SizedBox(height: 20),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30.0), // Заокруглення кутиків
-                      ),
-                    ),
-                  ),
-                ),
+                NameFormWidget(formKey: _nameFormKey, onSavedName: (String name) {
+                  this.name = name;
+                }, ),
                 SizedBox(height: 20),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30.0), // Заокруглення кутиків
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
             isActive: currentStep >= 0,
@@ -132,13 +185,13 @@ class _HomeScreenState extends State<SingUpPage> {
 
           Step(
             title: const Text('Address'),
-            content: const Text('Enter your address'),
+            content: AddressForm(formKey: _adressFormKey,),
             isActive: currentStep >= 0,
             state: currentStep >= 1 ? StepState.complete : StepState.disabled,
           ),
           Step(
             title: const Text('Complete'),
-            content: const Text('Enter your email and password'),
+            content: LoginNPasswordForm(formKey: _emailPasswordFormKey),
             isActive: currentStep >= 0,
             state: currentStep >= 2 ? StepState.complete : StepState.disabled,
           ),

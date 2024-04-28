@@ -55,9 +55,9 @@ class _HomePageState extends State<HomePageWidget>{
                         content: SingleChildScrollView(
                           child: ListBody(
                             children: <Widget>[
-                              BloodDonationForm(CloseForm: (){
+                              BloodDonationForm(closeForm: (){
                                 Navigator.of(context).pop();
-                              }, AddRequest: (double goal, BloodTypeOld type){
+                              }, addRequest: (double goal, BloodTypeOld type){
                                 _key.currentState!.AddRequestCard(BloodRequestCard(goal, type, onTap: onRequestCardTaped,));
                                 setState(() {
                                 });

@@ -85,11 +85,11 @@ class _BloodRequestState extends State<BloodRequestCard> {
                             content: SingleChildScrollView(
                               child: ListBody(
                                   children: <Widget>[BloodDonationForm(
-                                    CloseForm: () {
+                                    closeForm: () {
                                       // Implement the logic to close the form
                                       Navigator.of(context).pop();
                                     },
-                                    AddRequest: (double donation, BloodTypeOld type) {
+                                    addRequest: (double donation, BloodTypeOld type) {
                                       // Implement the logic to handle the donation request
                                       // For example, you might want to update the state or send the data to a server
                                       Navigator.of(context).pop();

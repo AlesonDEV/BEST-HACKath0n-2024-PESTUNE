@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.BuisnessLayer.Interfaces
 {
-    public interface ISessionService : ICrud<SessionModel>
+    public interface IBloodTypeServices : ICrud<BloodTypeModel>
     {
-        Task<IEnumerable<SessionModel>> GetSessionsByDonorIdAsync(int donorId);
-
-        Task<IEnumerable<StateModel>> GetAllStates();
     }
 }

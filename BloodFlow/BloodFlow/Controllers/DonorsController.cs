@@ -16,20 +16,6 @@ namespace BloodFlow.PresentaionLayer.Controllers
             _donorService = donorService;
         }
 
-        // GET: api/donors
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DonorModel>>> Get()
-        {
-            IEnumerable<DonorModel> donorModels = await _donorService.GetAllAsync();
-
-            if (donorModels == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(donorModels);
-        }
-
         // GET: api/donors/1
         [HttpGet("{id}")]
         public async Task<ActionResult<DonorModel>> GetById(int id)
@@ -58,30 +44,11 @@ namespace BloodFlow.PresentaionLayer.Controllers
             return Ok(donorModels);
         }
 
-        // POST: api/donors/1
+        // POST: api/donors
         [HttpPost]
         public async Task<ActionResult> Add([FromBody] DonorModel donorModel)
         {
             await _donorService.AddAsync(donorModel);
-
-            return NoContent();
-        }
-
-        // PUT: api/donors/1
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, [FromBody] DonorModel donorModel)
-        {
-            donorModel.Id = id;
-            await _donorService.UpdateAsync(donorModel);
-
-            return NoContent();
-        }
-
-        // DELETE: api/donors/1
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            await _donorService.DeleteAsync(id);
 
             return NoContent();
         }

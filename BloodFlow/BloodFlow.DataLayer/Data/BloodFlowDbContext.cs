@@ -33,9 +33,11 @@ namespace BloodFlow.DataLayer.Data
 
         public DbSet<Session> Sessions { get; set; }
 
-        public DbSet<StateSession> States { get; set; }
+        public DbSet<State> States { get; set; }
 
         public DbSet<Street> Streets { get; set; }
+
+        public DbSet<Importance> Importances { get; set; }
 
         // FluentApi
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,34 +55,6 @@ namespace BloodFlow.DataLayer.Data
                 .HasOne(dor => dor.Order)
                 .WithMany(o => o.DonorOrders)
                 .HasForeignKey(dor => dor.OrderId);
-
-            // donor_session - ManyToMany
-            modelBuilder.Entity<DonorSession>()
-                 .HasKey(ds => new { ds.DonorId, ds.SessionId });
-
-            modelBuilder.Entity<DonorSession>()
-                .HasOne(ds => ds.Donor)
-                .WithMany(d => d.DonorSessions)
-                .HasForeignKey(ds => ds.DonorId);
-
-            modelBuilder.Entity<DonorSession>()
-                .HasOne(ds => ds.Session)
-                .WithMany(s => s.DonorSessions)
-                .HasForeignKey(ds => ds.SessionId);
-
-            // session_donor_center - ManyToMany
-            modelBuilder.Entity<SessionDonorCenter>()
-                .HasKey(sdc => new { sdc.SessionId, sdc.DonorCenterId });
-
-            modelBuilder.Entity<SessionDonorCenter>()
-                .HasOne(sdc => sdc.Session)
-                .WithMany(s => s.SessionDonorCenters)
-                .HasForeignKey(sdc => sdc.SessionId);
-
-            modelBuilder.Entity<SessionDonorCenter>()
-                .HasOne(sdc => sdc.DonorCenter)
-                .WithMany(dc => dc.SessionDonorCenters)
-                .HasForeignKey(sdc => sdc.DonorCenterId);
 
             // person - OneToOne
             modelBuilder.Entity<Person>()

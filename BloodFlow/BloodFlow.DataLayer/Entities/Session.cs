@@ -11,10 +11,8 @@ namespace BloodFlow.DataLayer.Entities
     public class Session : BaseEntity
     {
         [Column("donor_center_id")]
+        [ForeignKey(nameof(DonorCenter))]
         public int DonorCenterId { get; set; }
-
-        [Column("blood_type_id")]
-        public int BloodTypeId { get; set; }
 
         [Column("blood_volume")]
         public int BloodVolume { get; set; }
@@ -23,27 +21,31 @@ namespace BloodFlow.DataLayer.Entities
         public DateTime Date { get; set; }
 
         [Column("state_id")]
-        [ForeignKey(nameof(StateSession))]
+        [ForeignKey(nameof(State))]
         public int StateId { get; set; }
 
-        public StateSession StateSession { get; set; }
+        [Column("donor_id")]
+        [ForeignKey(nameof(Donor))]
+        public int DonorId { get; set; }
 
-        public ICollection<DonorSession>? DonorSessions { get; set; } 
+        public State State { get; set; }
 
-        public ICollection<SessionDonorCenter>? SessionDonorCenters { get; set; }
+        public DonorCenter DonorCenter { get; set; }
+
+        public Donor Donor { get; set; }
 
         public Session(int id,
             int donorCenterId,
-            int bloodTypeId,
             int bloodVolume,
             DateTime date,
-            int stateId) : base(id)
+            int stateId,
+            int donorId) : base(id)
         {
             DonorCenterId = donorCenterId;
-            BloodTypeId = bloodTypeId;
             BloodVolume = bloodVolume;
             Date = date;
             StateId = stateId;
+            DonorId = donorId;
         }
     }
 }

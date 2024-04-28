@@ -7,7 +7,7 @@ using BloodFlow.DataLayer.Entities;
 
 namespace BloodFlow.DataLayer.Interfaces.RepositoryInterfaces
 {
-    public interface IStateSessionRepository : IRepository<StateSession>
+    public interface IStateRepository : IRepository<State>
     {
 
     }

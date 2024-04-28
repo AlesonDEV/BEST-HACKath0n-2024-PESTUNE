@@ -16,34 +16,37 @@ namespace BloodFlow.PresentaionLayer.Controllers
             _sessionService = sessionService;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    var sessions = await _sessionService.GetAllAsync();
+        // GET: api/sessions/states
+        [HttpGet("states")]
+        public async Task<ActionResult<IEnumerable<StateModel>>> GetAllStates()
+        {
+            var statesModels = await _sessionService.GetAllStates();
 
-        //    if (sessions == null || !sessions.Any())
-        //    {
-        //        return NotFound();
-        //    }
+            if (statesModels == null || !statesModels.Any())
+            {
+                return NotFound();
+            }
 
-        //    return Ok(sessions);
-        //}
+            return Ok(statesModels);
+        }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetById(int id)
-        //{
-        //    var session = await _sessionService.GetByIdAsync(id);
+        // GET: api/sessions/1
+        [HttpGet("{id}")]
+        public async Task<ActionResult<SessionModel>> GetById(int id)
+        {
+            var session = await _sessionService.GetByIdAsync(id);
 
-        //    if (session == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (session == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(session);
-        //}
+            return Ok(session);
+        }
 
+        // GET: api/sessions/donors/1
         [HttpGet("donors/{id}")]
-        public async Task<IActionResult> GetByDonorId(int id)
+        public async Task<ActionResult<IEnumerable<SessionModel>>> GetByDonorId(int id)
         {
             var sessions = await _sessionService.GetSessionsByDonorIdAsync(id);
 
@@ -55,28 +58,13 @@ namespace BloodFlow.PresentaionLayer.Controllers
             return Ok(sessions);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Add(SessionModel model)
-        //{
-        //    await _sessionService.AddAsync(model);
+        // POST: api/sessions
+        [HttpPost]
+        public async Task<ActionResult> Add(SessionModel model)
+        {
+            await _sessionService.AddAsync(model);
 
-        //    return Ok();
-        //}
-
-        //[HttpPut]
-        //public async Task<IActionResult> Update(SessionModel model)
-        //{
-        //    await _sessionService.UpdateAsync(model);
-
-        //    return Ok();
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    await _sessionService.DeleteAsync(id);
-
-        //    return Ok();
-        //}
+            return Ok();
+        }
     }
 }

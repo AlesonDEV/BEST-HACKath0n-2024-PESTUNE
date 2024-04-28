@@ -9,34 +9,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BloodFlow.DataLayer.Repositories
 {
-    public class StreetRepository : IStreetRepository
+    internal class StateRepository : IStateRepository
     {
         private readonly DbContext _context;
-        private readonly DbSet<Street> _dbSet;
+        private readonly DbSet<State> _dbSet;
 
-        public StreetRepository(DbContext context)
+        public StateRepository(DbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _dbSet = context.Set<Street>();
+            _dbSet = context.Set<State>();
         }
 
-        public async Task<IEnumerable<Street>> GetAllAsync()
+        public async Task<IEnumerable<State>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<Street?> GetByIdAsync(int id)
+        public async Task<State?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task AddAsync(Street entity)
+        public async Task AddAsync(State entity)
         {
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public void Delete(Street entity)
+        public void Delete(State entity)
         {
             _dbSet.Remove(entity);
             _context.SaveChanges();
@@ -52,24 +52,10 @@ namespace BloodFlow.DataLayer.Repositories
             }
         }
 
-        public void Update(Street entity)
+        public void Update(State entity)
         {
             _dbSet.Update(entity);
             _context.SaveChanges();
-        }
-
-        public async Task<Street?> GetByIdWithDetailsAsync(int streetId)
-        {
-            return await _dbSet.Include(s => s.City)
-                .Include(s => s.People)
-                .FirstOrDefaultAsync(street => street.Id == streetId);
-        }
-
-        public async Task<IEnumerable<Street?>> GetAllWithDetailsAsync()
-        {
-            return await _dbSet.Include(s => s.City)
-                .Include(s => s.People)
-                .ToListAsync();
         }
     }
 }

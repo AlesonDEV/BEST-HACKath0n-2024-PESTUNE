@@ -14,6 +14,7 @@ class SingUpPage extends StatefulWidget {
 
 class _HomeScreenState extends State<SingUpPage> {
   BloodType? _selectedBloodType;
+  DateTime? _dateOfBirth;
 
   int currentStep = 0;
   bool isComplete = false;
@@ -37,6 +38,19 @@ class _HomeScreenState extends State<SingUpPage> {
     setState(() {
       currentStep = value;
     });
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null && picked != _dateOfBirth)
+      setState(() {
+        _dateOfBirth = picked;
+      });
   }
 
   Widget controlBuilders(context, details) {
@@ -110,12 +124,12 @@ class _HomeScreenState extends State<SingUpPage> {
             Step(
               title: const Text(' '),
               content: Column(
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'This is the First step.',
                     style: TextStyle(color: MainTextColor),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Name',
@@ -126,11 +140,10 @@ class _HomeScreenState extends State<SingUpPage> {
                         ),
                         borderSide: BorderSide(color: MainTextColor),
                       ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0), // Встановлює відступи
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     ),
                   ),
-
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Surname',
@@ -141,12 +154,39 @@ class _HomeScreenState extends State<SingUpPage> {
                         ),
                         borderSide: BorderSide(color: MainTextColor),
                       ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0), // Встановлює відступи
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     ),
                   ),
-
-
-
+                  const SizedBox(height: 20),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Date of Birth',
+                      labelStyle: TextStyle(color: MainTextColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                        borderSide: BorderSide(color: MainTextColor),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    ),
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(new FocusNode()); // to remove the keyboard if shown
+                      _selectDate(context);
+                    },
+                    controller: TextEditingController(text: _dateOfBirth != null ? _dateOfBirth!.toIso8601String() : ''),
+                  ),
+                  const SizedBox(height: 20),
+                  BloodTypeDropdownFormField(
+                    onChanged: (BloodType? newBloodType) {
+                      // This function will be called whenever the selected blood type changes.
+                      // 'newBloodType' is the newly selected blood type.
+                      // You can add your code here to handle the change.
+                      setState(() {
+                        _selectedBloodType = newBloodType;
+                      });
+                    },
+                  ),
                 ],
               ),
               isActive: currentStep >= 0,
@@ -169,15 +209,55 @@ class _HomeScreenState extends State<SingUpPage> {
                         ),
                         borderSide: BorderSide(color: MainTextColor),
                       ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0), // Встановлює відступи
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     ),
                   ),
-
-
                   SizedBox(height: 20),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Password',
+                      labelStyle: TextStyle(color: MainTextColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                        borderSide: BorderSide(color: MainTextColor),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'City Name',
+                      labelStyle: TextStyle(color: MainTextColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                        borderSide: BorderSide(color: MainTextColor),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Street Name',
+                      labelStyle: TextStyle(color: MainTextColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                        borderSide: BorderSide(color: MainTextColor),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'House Number',
                       labelStyle: TextStyle(color: MainTextColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(

@@ -1,17 +1,26 @@
 import 'package:blood_flow/client/config/colors.dart';
+import 'package:blood_flow/client/models/User.dart';
 import 'package:blood_flow/client/pages/mainPages/profilePage/historyPage.dart';
 import 'package:blood_flow/client/pages/mainPages/profilePage/medicalIdPage.dart';
+import 'package:blood_flow/client/pages/mainPages/profilePage/supportPage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-class ProfileCard extends StatelessWidget {
-  const ProfileCard({
-    super.key,
-    required this.screenSize,
-  });
+import '../../pages/mainPages/profilePage/settingsPage.dart';
 
+class ProfileCard extends StatelessWidget {
   final Size screenSize;
+  final User user;
+
+
+  const ProfileCard({
+    Key? key,
+    required this.screenSize,
+    required this.user,
+  }) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +37,34 @@ class ProfileCard extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.settings, color: Colors.white),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SettingsPage()),
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.chat, color: Colors.white),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SupportPage()),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
 
-                  SizedBox(height: 60.0),
+                  SizedBox(height: 20.0),
 
                   Text(
-                    'Franchuk Ivan',
+                    user.name,
                     style: GoogleFonts.ubuntu(
                       textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 24),
                       fontWeight: FontWeight.w700,
@@ -46,7 +78,7 @@ class ProfileCard extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      'ID: 12412',
+                      'ID: ${user.id}' ,
                       style: GoogleFonts.cabin(
                         textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 12),
                         fontWeight: FontWeight.w700,
@@ -72,7 +104,7 @@ class ProfileCard extends StatelessWidget {
                         SizedBox(width: 16.0),
                         Expanded(
                           child: Text(
-                            'Treatment History',
+                            'History',
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                           ),
@@ -112,7 +144,7 @@ class ProfileCard extends StatelessWidget {
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(
-                                  'B+',
+                                  user.bloodType,
                                   style: GoogleFonts.cabin(
                                     textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 40),
                                     fontWeight: FontWeight.w700,
@@ -141,7 +173,7 @@ class ProfileCard extends StatelessWidget {
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(
-                                  '18',
+                                  user.age.toString(),
                                   style: GoogleFonts.cabin(
                                     textStyle: TextStyle(color: MainColor, letterSpacing: 0.5, fontSize: 40),
                                     fontWeight: FontWeight.w700,
@@ -161,6 +193,7 @@ class ProfileCard extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(height: 40.0),
                 ],
               ),
             ),

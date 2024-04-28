@@ -98,7 +98,23 @@ class MapSampleState extends State<MapSample> {
 
                 ElevatedButton(
                   onPressed: () {
-                    // Записатися
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Confirm'),
+                          content: Text('Yours request has been confirmed.'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Close'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   child: Text('Confirm'),
                 ),
@@ -125,7 +141,6 @@ class MapSampleState extends State<MapSample> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _toggleView,
         label: const Text('Scale'),
-        icon: const Icon(Icons.directions_boat),
       ),
     );
   }

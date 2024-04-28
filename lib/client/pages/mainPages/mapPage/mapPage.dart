@@ -9,7 +9,7 @@ class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.8, // 80% висоти екрану
+      height: MediaQuery.of(context).size.height * 1,
       child: WidgetMarkersScreen(), // Використовуємо клас WidgetMarkersScreen для відображення маркерів на карті
     );
   }

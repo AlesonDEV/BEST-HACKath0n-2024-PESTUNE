@@ -59,7 +59,7 @@ class _WidgetMarkersScreenState extends State<WidgetMarkersScreen>{
   Widget build(BuildContext context){
     return Scaffold(
       body:
-      _isLoaded ?
+      /*_isLoaded ?*/
       GoogleMap(
         myLocationButtonEnabled: false,
         initialCameraPosition: _cameraPosition,
@@ -67,7 +67,7 @@ class _WidgetMarkersScreenState extends State<WidgetMarkersScreen>{
           _controller.complete(controller);
         },
         markers: _markers.values.toSet(),
-      ) :
+      ) /*:
           ListView(children: [
             for (final item in data)
               Transform.translate(
@@ -80,7 +80,7 @@ class _WidgetMarkersScreenState extends State<WidgetMarkersScreen>{
                   child: item['widget'],
                 ),
               ),
-          ],),
+          ],),*/
     );
   }
 

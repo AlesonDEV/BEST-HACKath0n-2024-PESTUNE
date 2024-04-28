@@ -1,6 +1,6 @@
 # BloodFlow
 
-A new moder Flutter and ASP.NET project. This project is hosted on Azure and can be accessed at [Blood Flow Presentation Layer](https://bloodflowpresentaionlayer20240428063721.azurewebsites.net/).
+A new modern Flutter and ASP.NET project. This project is hosted on Azure and can be accessed at [Blood Flow Presentation Layer](https://bloodflowpresentaionlayer20240428063721.azurewebsites.net/).
 
 ## Getting Started
 
@@ -19,11 +19,13 @@ BloodFlow employs a monolithic architecture that integrates various layers for r
 - **Search and selection of blood collection points**: An interactive map allows donors to locate centers in need, displaying detailed information about each.
 
 ### Running the Application
-Since the API and database are hosted on Azure, no local server setup is required. To run the application in Visual Studio:
+If the API and database are hosted on Azure, no local server setup is required. To run the application in Visual Studio:
 1. Clone the repository.
 2. Open the solution in Visual Studio.
 3. Ensure the connection strings in `appsettings.json` are set to point to the Azure-hosted database.
 4. Build and run the solution using the built-in Visual Studio tools like IIS or Kestrel.
+
+Alternatively, if an APK file is available, simply download and install it on your Android device to start using the application without any setup.
 
 ### Running Flutter Application
 To run the Flutter application:

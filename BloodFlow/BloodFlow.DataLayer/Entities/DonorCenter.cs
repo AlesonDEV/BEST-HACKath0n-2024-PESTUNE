@@ -13,28 +13,30 @@ namespace BloodFlow.DataLayer.Entities
     {
         [Column("street_id")]
         [ForeignKey(nameof(Street))]
-        public int StreetId { get; set; }
+        public int? StreetId { get; set; }
 
         [Column("name")]
         public string Name { get; set; }
 
         [Column("house_number")]
-        public int HouseNumber { get; set; }
+        public string? HouseNumber { get; set; }
+
+        [Column("contact_id")]
+        [ForeignKey(nameof(Contact))]
+        public int? ContactId { get; set; }
 
         public Street Street { get; set; } = null!;
 
+        public Contact Contact { get; set; } = null!;
+
         public ICollection<Order>? Orders { get; set; }
-
-        public ICollection<SessionDonorCenter>? SessionDonorCenters { get; set; }
-
-        public ICollection<DonorCenterContact> DonorCenterContacts { get; set; } = null!;
 
         public DonorCenter() : base(0) { }
 
         public DonorCenter(int id,
             int streetId, 
-            string name, 
-            int houseNumber) : base(id)
+            string name,
+            string houseNumber) : base(id)
         {
             StreetId = streetId;
             Name = name;

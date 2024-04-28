@@ -1,4 +1,5 @@
 ﻿using BloodFlow.BuisnessLayer.Models;
+using BloodFlow.DataLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace BloodFlow.BuisnessLayer.Interfaces
 {
     public interface ISessionService : ICrud<SessionModel>
     {
+        Task<IEnumerable<SessionModel>> GetSessionsByDonorIdAsync(int donorId);
 
+        Task<IEnumerable<StateModel>> GetAllStates();
     }
 }

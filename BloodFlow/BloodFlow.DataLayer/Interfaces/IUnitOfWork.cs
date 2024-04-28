@@ -13,23 +13,23 @@ namespace BloodFlow.DataLayer.Interfaces
 
         ICityRepository CityRepository { get; }
 
-        IDonorCenterContactRepository DonorCenterContactRepository { get; }
-
         IDonorCenterRepository DonorCenterRepository { get; }
 
         IDonorRepository DonorRepository { get; }
 
         IOrderRepository OrderRepository { get; }
 
-        IPersonContactRepository PersonContactRepository { get; }
-
         IPersonRepository PersonRepository { get; }
 
         ISessionRepository SessionRepository { get; }
 
-        IStateSessionRepository StateSessionRepository { get; }
+        IStateRepository StateRepository { get; }
 
         IStreetRepository StreetRepository { get; }
+
+        IContactRepository ContactRepository { get; }
+
+        IImportanceRepository ImportanceRepository { get; }
 
         Task SaveAsync();
     }

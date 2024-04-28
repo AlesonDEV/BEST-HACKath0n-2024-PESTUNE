@@ -10,6 +10,10 @@ namespace BloodFlow.BuisnessLayer.Models
     {
         public int Id { get; set; }
 
+        public int DonorId { get; set; }
+
+        public int DonorCenterId { get; set; }
+
         public string DonorCenterName { get; set; }
 
         public int BloodVolume { get; set; }

@@ -12,5 +12,7 @@ namespace BloodFlow.BuisnessLayer.Interfaces
         Task AddDonorAsync(int donorId, int orderId, int bloodVolume);
 
         Task RemoveDonorAsync(int donorId, int orderId);
+
+        Task<IEnumerable<OrderModel>> GetByFilterAsync(FilterSearchModel filterSearch);
     }
 }

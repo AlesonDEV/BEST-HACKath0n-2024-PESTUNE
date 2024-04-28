@@ -16,6 +16,6 @@ namespace BloodFlow.BuisnessLayer.Models
 
         public string StreetName { get; set; }
 
-        public int HouseNumber { get; set; }
+        public string? HouseNumber { get; set; }
     }
 }

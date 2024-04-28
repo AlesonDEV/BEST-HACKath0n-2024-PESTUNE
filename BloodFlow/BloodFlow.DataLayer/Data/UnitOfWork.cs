@@ -14,19 +14,37 @@ namespace BloodFlow.DataLayer.Data
         private readonly BloodFlowDbContext _context;
         private IBloodTypeRepository _bloodTypeRepository;
         private ICityRepository _cityRepository;
-        private IDonorCenterContactRepository _donorCenterContactRepository;
         private IDonorCenterRepository _donorCenterRepository;
         private IDonorRepository _donorRepository;
         private IOrderRepository _orderRepository;
-        private IPersonContactRepository _personContactRepository;
         private IPersonRepository _personRepository;
         private ISessionRepository _sessionRepository;
-        private IStateSessionRepository _stateSessionRepository;
+        private IStateRepository _stateRepository;
         private IStreetRepository _streetRepository;
+        private IContactRepository _contactRepository;
+        private IImportanceRepository _importanceRepository;
 
         public UnitOfWork(BloodFlowDbContext context)
         {
             _context = context;
+        }
+
+        public IImportanceRepository ImportanceRepository
+        {
+            get
+            {
+                this._importanceRepository ??= new ImportanceRepository(_context);
+                return this._importanceRepository;
+            }
+        }
+
+        public IContactRepository ContactRepository
+        {
+            get
+            {
+                this._contactRepository ??= new ContactRepository(_context);
+                return this._contactRepository;
+            }
         }
 
         public IBloodTypeRepository BloodTypeRepository
@@ -44,15 +62,6 @@ namespace BloodFlow.DataLayer.Data
             {
                 this._cityRepository ??= new CityRepository(_context);
                 return this._cityRepository;
-            }
-        }
-
-        public IDonorCenterContactRepository DonorCenterContactRepository
-        {
-            get
-            {
-                this._donorCenterContactRepository ??= new DonorCenterContactRepository(_context);
-                return this._donorCenterContactRepository;
             }
         }
 
@@ -84,15 +93,6 @@ namespace BloodFlow.DataLayer.Data
             }
         }
 
-        public IPersonContactRepository PersonContactRepository
-        {
-            get
-            {
-                this._personContactRepository ??= new PersonContactRepository(_context);
-                return this._personContactRepository;
-            }
-        }
-
         public IPersonRepository PersonRepository
         {
             get
@@ -111,12 +111,12 @@ namespace BloodFlow.DataLayer.Data
             }
         }
 
-        public IStateSessionRepository StateSessionRepository
+        public IStateRepository StateRepository
         {
             get
             {
-                this._stateSessionRepository ??= new StateSessionRepository(_context);
-                return this._stateSessionRepository;
+                this._stateRepository ??= new StateRepository(_context);
+                return this._stateRepository;
             }
         }
 

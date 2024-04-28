@@ -9,6 +9,8 @@ namespace BloodFlow.DataLayer.Interfaces.RepositoryInterfaces
 {
     public interface IStreetRepository : IRepository<Street>
     {
+        Task<Street?> GetByIdWithDetailsAsync(int streetId);
 
+        Task<IEnumerable<Street?>> GetAllWithDetailsAsync();
     }
 }

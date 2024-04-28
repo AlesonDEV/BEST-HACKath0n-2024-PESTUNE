@@ -57,5 +57,21 @@ namespace BloodFlow.DataLayer.Repositories
             _dbSet.Update(entity);
             _context.SaveChanges();
         }
+
+        public async Task<DonorCenter?> GetByIdWithDetailsAsync(int donorCenterId)
+        {
+            return await _dbSet.Include(donorCenter => donorCenter.Contact)
+                .Include(donorCenter => donorCenter.Street)
+                .Include(donorCenter => donorCenter.Orders)
+                .FirstOrDefaultAsync(donorCenter => donorCenter.Id == donorCenterId);
+        }
+
+        public async Task<IEnumerable<DonorCenter?>> GetAllWithDetailsAsync()
+        {
+            return await _dbSet.Include(donorCenter => donorCenter.Contact)
+                .Include(donorCenter => donorCenter.Street)
+                .Include(donorCenter => donorCenter.Orders)
+                .ToListAsync();
+        }
     }
 }

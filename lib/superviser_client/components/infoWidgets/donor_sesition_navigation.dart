@@ -48,15 +48,15 @@ class DonnorNavigation extends StatelessWidget{
                     gap: 3,
                     onTabChange: onItemTapped,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    padding: EdgeInsets.only(left: 40.0, top: 10.0, right: 40.0, bottom: 10.0),
+                    padding: EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0, bottom: 10.0),
                     tabs: const [
                       GButton(
                         icon: Icons.verified,
-                        text: 'Completed donators',
+                        text: 'Completed',
                       ),
                       GButton(
                         icon: Icons.question_mark,
-                        text: 'Possible donators',
+                        text: 'Possible',
                       ),
                     ],
                   ),

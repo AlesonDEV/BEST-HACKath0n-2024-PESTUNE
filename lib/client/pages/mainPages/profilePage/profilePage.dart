@@ -3,6 +3,7 @@ import 'package:blood_flow/client/pages/mainPages/profilePage/medicalIdPage.dart
 import 'package:blood_flow/client/pages/mainPages/profilePage/settingsPage.dart';
 import 'package:blood_flow/client/pages/mainPages/profilePage/supportPage.dart';
 import 'package:flutter/material.dart';
+import '../../../config/colors.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -22,7 +23,7 @@ class ProfilePage extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    // Дії для редагування профілю
+                    
                   },
                   icon: Icon(Icons.edit),
                 ),
@@ -52,12 +53,11 @@ class ProfilePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => MedicalIdPage()),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                minimumSize: Size(double.infinity, 0),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(ButtonColor),
+                foregroundColor: MaterialStateProperty.all<Color>(MainTextColor),
+                minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)), // Встановлення висоти
+                fixedSize: MaterialStateProperty.all(Size(double.infinity, 50)), // Фіксування висоти
               ),
               child: Text('Medical ID'),
             ),
@@ -69,15 +69,16 @@ class ProfilePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => HistoryPage()),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                minimumSize: Size(double.infinity, 0),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(ButtonColor),
+                foregroundColor: MaterialStateProperty.all<Color>(MainTextColor),
+                minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)), // Встановлення висоти
+                fixedSize: MaterialStateProperty.all(Size(double.infinity, 50)), // Фіксування висоти
               ),
               child: Text('History'),
             ),
+
+
             SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
@@ -86,12 +87,11 @@ class ProfilePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => SettingsPage()),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                minimumSize: Size(double.infinity, 0),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(ButtonColor),
+                foregroundColor: MaterialStateProperty.all<Color>(MainTextColor),
+                minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)), // Встановлення висоти
+                fixedSize: MaterialStateProperty.all(Size(double.infinity, 50)), // Фіксування висоти
               ),
               child: Text('Settings'),
             ),
@@ -103,12 +103,11 @@ class ProfilePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => SupportPage()),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                minimumSize: Size(double.infinity, 0),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(ButtonColor),
+                foregroundColor: MaterialStateProperty.all<Color>(MainTextColor),
+                minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)), // Встановлення висоти
+                fixedSize: MaterialStateProperty.all(Size(double.infinity, 50)), // Фіксування висоти
               ),
               child: Text('Support'),
             ),
@@ -117,12 +116,9 @@ class ProfilePage extends StatelessWidget {
               onPressed: () {
                 // Дії для виходу з профілю
               },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                minimumSize: Size(double.infinity, 0),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(SecondaryColor),
+                foregroundColor: MaterialStateProperty.all<Color>(MainColor),
               ),
               child: Text('Exit'),
             ),

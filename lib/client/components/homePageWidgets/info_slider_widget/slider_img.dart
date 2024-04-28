@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../config/colors.dart';
 
 
@@ -17,7 +19,9 @@ class SliderImg extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         'img_slider',
-        style: TextStyle(fontSize: 24, color: MainColor), // Зміна кольору тексту
+        style: GoogleFonts.nabla(
+            textStyle: TextStyle(color: MainTextColor, letterSpacing: 0.5, fontSize: 24)
+        ),
         textAlign: TextAlign.center,
       ),
     );

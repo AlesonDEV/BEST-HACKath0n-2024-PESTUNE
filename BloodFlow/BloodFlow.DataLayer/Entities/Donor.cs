@@ -15,7 +15,7 @@ namespace BloodFlow.DataLayer.Entities
         [ForeignKey(nameof(BloodType))]
         public int BloodTypeId { get; set; }
 
-        public BloodType BloodType { get; set; } = null!;
+        public BloodType BloodType { get; set; }
 
         public ICollection<DonorOrder>? DonorOrders { get; set; }
 

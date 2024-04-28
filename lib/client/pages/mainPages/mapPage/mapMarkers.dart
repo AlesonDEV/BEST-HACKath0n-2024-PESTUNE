@@ -12,21 +12,21 @@ List<Map<String, dynamic>> data = [
     'id': '1',
     'name': 'Franchuk Ivan',
     'globalKey': GlobalKey(),
-    'position': LatLng(1.32, 103.80),
+    'position': LatLng(49.8281008176169, 24.016234715611397),
     'widget': CustomMarkerWidget(price: 200),
   },
   {
     'id': '2',
     'name': 'Bebe bebe',
     'globalKey': GlobalKey(),
-    'position': LatLng(1.323, 103.82),
+    'position': LatLng(49.8275319548568, 24.015525148459542),
     'widget': CustomMarkerWidget(price: 200),
   },
   {
     'id': '3',
     'name': 'Ohoh hoho',
     'globalKey': GlobalKey(),
-    'position': LatLng(1.325, 103.78),
+    'position': LatLng(49.843558094896636, 24.044563139186426),
     'widget': CustomMarkerWidget(price: 200),
   },
 ];
@@ -43,7 +43,7 @@ class _WidgetMarkersScreenState extends State<WidgetMarkersScreen>{
   final Map<String, Marker> _markers = {};
 
   static const CameraPosition _cameraPosition = CameraPosition(
-    target: LatLng(1.35, 103.80),
+    target: LatLng(49.8, 24.0),
     zoom: 12,
   );
 
@@ -57,17 +57,40 @@ class _WidgetMarkersScreenState extends State<WidgetMarkersScreen>{
 
   @override
   Widget build(BuildContext context){
+    var markers = {
+      const Marker(
+        markerId: MarkerId('1'),
+        position: LatLng(49.838756183047714, 24.011238125952502),
+      ),
+      const Marker(
+        markerId: MarkerId('2'),
+        position: LatLng(49.8281008176169, 24.016234715611397),
+      ),
+      const Marker(
+        markerId: MarkerId('3'),
+        position: LatLng(49.8275319548568, 24.015525148459542),
+      ),
+      const Marker(
+        markerId: MarkerId('4'),
+        position: LatLng(49.843558094896636, 24.044563139186426),
+      ),
+      const Marker(
+        markerId: MarkerId('5'),
+        position: LatLng(49.87418748101075, 24.03965523254601),
+      ),
+    };
+
     return Scaffold(
       body:
-      _isLoaded ?
+      /*_isLoaded ?*/
       GoogleMap(
         myLocationButtonEnabled: false,
         initialCameraPosition: _cameraPosition,
         onMapCreated: (GoogleMapController controller){
           _controller.complete(controller);
         },
-        markers: _markers.values.toSet(),
-      ) :
+        markers: markers,
+      ) /*:
           ListView(children: [
             for (final item in data)
               Transform.translate(
@@ -80,7 +103,7 @@ class _WidgetMarkersScreenState extends State<WidgetMarkersScreen>{
                   child: item['widget'],
                 ),
               ),
-          ],),
+          ],),*/
     );
   }
 

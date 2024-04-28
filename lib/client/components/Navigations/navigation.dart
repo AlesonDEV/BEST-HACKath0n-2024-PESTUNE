@@ -62,7 +62,7 @@ class Navigation extends StatelessWidget{
                     tabs: const [
                       GButton(
                         icon: Icons.map_rounded ,
-                        text: 'Home',
+                        text: 'Map',
                       ),
                       GButton(
                         icon: Icons.home,

@@ -44,7 +44,6 @@ dependencies:
   flutter_native_splash: ^2.4.0
   google_fonts: ^6.2.1
   google_maps_flutter: ^2.6.1
-  flutter_config: ^2.0.2
 
 dev_dependencies:
   flutter_test:

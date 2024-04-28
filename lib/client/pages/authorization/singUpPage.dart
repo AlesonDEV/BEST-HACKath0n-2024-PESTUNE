@@ -1,3 +1,4 @@
+import 'package:blood_flow/client/components/sign_up_widgets/address_form.dart';
 import 'package:blood_flow/client/config/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -109,13 +110,13 @@ class _HomeScreenState extends State<SingUpPage> {
               content: Column(
                 children: const [
                   Text(
-                    'This is the First step.',
+                    'Enter your organization name',
                     style: TextStyle(color: MainTextColor),
                   ),
                   SizedBox(height: 20),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'Email',
+                      labelText: 'Name',
                       labelStyle: TextStyle(color: MainTextColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(
@@ -126,23 +127,6 @@ class _HomeScreenState extends State<SingUpPage> {
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0), // Встановлює відступи
                     ),
                   ),
-
-
-                  SizedBox(height: 20),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      labelStyle: TextStyle(color: MainTextColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30.0),
-                        ),
-                        borderSide: BorderSide(color: MainTextColor),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                    ),
-                  ),
-
                 ],
               ),
               isActive: currentStep >= 0,
@@ -151,7 +135,7 @@ class _HomeScreenState extends State<SingUpPage> {
 
             Step(
               title: const Text(' '),
-              content: const Text('This is the Second step.'),
+              content: AddressForm(),
               isActive: currentStep >= 0,
               state: currentStep >= 1 ? StepState.complete : StepState.disabled,
             ),

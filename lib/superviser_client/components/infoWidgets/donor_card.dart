@@ -17,13 +17,13 @@ class DonorCard extends StatelessWidget {
         color: Colors.grey[300], // Changed IdleIconColor to a placeholder color
         borderRadius: BorderRadius.circular(15),
       ),
-      width: screenSize.width * 0.9,
+      width: screenSize.width * 0.8,
       padding: EdgeInsets.all(10), // Added padding for better spacing
       child: Row(
         children: [
           Container(
-            width: screenSize.width * 0.2,
-            height: screenSize.height * 0.2,
+            width: screenSize.width * 0.18,
+            height: screenSize.height * 0.18,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.blue, // Placeholder color, replace with actual image
@@ -35,7 +35,14 @@ class DonorCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${donor.name} ${donor.surname}',
+                    '${donor.name}',
+                    style: TextStyle(fontSize: 16, color: Colors.black), // Changed to fixed font size
+                    textAlign: TextAlign.start,
+                ),
+                Text(
+                  '${donor.surname}',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                   style: TextStyle(fontSize: 16, color: Colors.black), // Changed to fixed font size
                   textAlign: TextAlign.start,
                 ),
@@ -76,7 +83,7 @@ class DonorCard extends StatelessWidget {
                 },
               );
             },
-            icon: Icon(Icons.list_alt, size: 32, color: Colors.black),
+            icon: Icon(Icons.list_alt, size: 28, color: Colors.black),
           ),
           // Added spacing between action buttons
           IconButton(
@@ -106,7 +113,7 @@ class DonorCard extends StatelessWidget {
                 },
               );
             },
-            icon: Icon(Icons.delete_outline, size: 32, color: Colors.black),
+            icon: Icon(Icons.delete_outline, size: 28, color: Colors.black),
           ),
           SizedBox(width: screenSize.width * 0.05),
         ],

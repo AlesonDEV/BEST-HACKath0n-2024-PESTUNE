@@ -1,7 +1,7 @@
 import 'package:blood_flow/client/pages/authorization/singUpPage.dart';
+import 'package:blood_flow/superviser_client/pages/authorization/loginPage.dart';
 import 'package:flutter/material.dart';
-
-import 'mainpage.dart';
+import 'superviser_client/mainpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SingUpPage(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Login'),
+        ),
+        body: LoginForm(),
+      ),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:blood_flow/superviser_client/components/homePageWidgets/blood_checkbox.dart';
+import 'package:blood_flow/superviser_client/model/BloodType.dart';
 import 'package:blood_flow/superviser_client/pages/homePage.dart';
 import 'package:blood_flow/superviser_client/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,16 @@ class _MainPageState extends State<MainPage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+    });
+  }
+
+  @override
+  initState() {
+    super.initState();
+    fetchBloodTypes().then((bloodTypes) {
+      setState(() {
+        BloodType.bloodTypes = bloodTypes;
+      });
     });
   }
 

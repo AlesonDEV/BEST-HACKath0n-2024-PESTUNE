@@ -24,14 +24,14 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageState extends State<HomePageWidget>{
   final GlobalKey<BloodRequestContainerState> _key = GlobalKey();
 
-  void onRequestCardTaped(BloodType bloodType, double progress, double goal, int? id){
+  void onRequestCardTaped(BloodTypeOld bloodType, double progress, double goal, int? id){
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BloodRequestInfoScreen(
           bloodType: bloodType.toShortString(),
           progress: progress,
-          goal: goal, donors: [Donor("Yura", "Debeluak", 0.3)],
+          goal: goal, donors: [Donor("Yura", "Debelyak", 0.3)],
         ),
       ),
     );
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePageWidget>{
                             children: <Widget>[
                               BloodDonationForm(CloseForm: (){
                                 Navigator.of(context).pop();
-                              }, AddRequest: (double goal, BloodType type){
+                              }, AddRequest: (double goal, BloodTypeOld type){
                                 _key.currentState!.AddRequestCard(BloodRequestCard(goal, type, onTap: onRequestCardTaped,));
                                 setState(() {
                                 });

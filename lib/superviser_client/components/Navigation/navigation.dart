@@ -11,7 +11,7 @@ class Navigation extends StatelessWidget{
   Navigation(this.onItemTapped, {super.key});
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     var screenSize = MediaQuery.of(context).size;
 
     return(
@@ -77,5 +77,4 @@ class Navigation extends StatelessWidget{
         )
     );
   }
-
 }

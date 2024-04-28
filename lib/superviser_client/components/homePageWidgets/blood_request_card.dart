@@ -13,8 +13,8 @@ const TextColor = const Color(0xff1f2c4b);
 class BloodRequestCard extends StatefulWidget {
   double progress = 0;
   double goal;
-  BloodType bloodType;
-  Function(BloodType type, double progress, double goal, int?) onTap;
+  BloodTypeOld bloodType;
+  Function(BloodTypeOld type, double progress, double goal, int?) onTap;
 
   void handleTap(){
     onTap(this.bloodType, this.progress, this.goal, 0);
@@ -89,7 +89,7 @@ class _BloodRequestState extends State<BloodRequestCard> {
                                       // Implement the logic to close the form
                                       Navigator.of(context).pop();
                                     },
-                                    AddRequest: (double donation, BloodType type) {
+                                    AddRequest: (double donation, BloodTypeOld type) {
                                       // Implement the logic to handle the donation request
                                       // For example, you might want to update the state or send the data to a server
                                       Navigator.of(context).pop();

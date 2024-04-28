@@ -30,17 +30,19 @@ Future<http.Response> createBloodRequest(
     ) async {
   final url = Uri.parse(Config.baseUrl + "/Orders"); // Replace with your actual API endpoint
 
-  final body = jsonEncode({
-    "title": title,
-    "description": description,
-    "bloodVolume": bloodVolume,
-    "bloodTypeId": bloodTypeId,
-    "bloodTypeName": 0, // Might require clarification on data type (assuming not used)
-    "importanceId": importanceId,
-    "importanceName": importanceName,
-    "donorCenterId": donorCenterId,
-    "donorCenterName": donorCenterName,
-  });
+  final body = jsonEncode(
+    {
+      "id": 0,
+      "title": "string",
+      "description": "string",
+      "bloodVolume": bloodVolume,
+      "bloodTypeId": bloodTypeId,
+      "bloodTypeName": 0,
+      "importanceId": 1,
+      "importanceName": "string",
+      "donorCenterId": Config.donorCenterId,
+      "donorCenterName": "string"
+    });
 
   final response = await http.post(
     url,
@@ -61,7 +63,7 @@ Future<http.Response> createBloodRequest(
 class _BloodDonationFormState extends State<BloodDonationForm> {
   final _formKey = GlobalKey<FormState>();
   late BloodType _selectedBloodType;
-  double _selectedAmount = 0; // in liters
+  int _selectedAmount = 0; // in liters
   final _amountController = TextEditingController();
 
   @override
@@ -80,6 +82,7 @@ class _BloodDonationFormState extends State<BloodDonationForm> {
   }
 
   String? _amountValidator(String? value) {
+
     if (value == null || value.isEmpty) {
       return 'Can\'t be empty';
     }
@@ -91,6 +94,7 @@ class _BloodDonationFormState extends State<BloodDonationForm> {
     } else if (amount > 15000) {
       return 'Too big amount';
     }
+    _selectedAmount = int.tryParse(value)!;
     return null;
   }
 
@@ -123,7 +127,7 @@ class _BloodDonationFormState extends State<BloodDonationForm> {
                 validator: _amountValidator,
                 onSaved: (value) {
                   if (value != null) {
-                    _selectedAmount = double.parse(value);
+                    _selectedAmount = int.parse(value);
                   }
                 },
               ),
@@ -138,7 +142,8 @@ class _BloodDonationFormState extends State<BloodDonationForm> {
             children: [
               ElevatedButton(
                 onPressed: () async {
-                    await createBloodRequest("", "", _selectedAmount as int, _selectedBloodType.id, 1, "", Config.donorCenterId, "");
+                    _formKey.currentState!.validate();
+                    await createBloodRequest("", "", _selectedAmount, _selectedBloodType.id, 1, "", Config.donorCenterId, "");
                     widget.closeForm;
                     },
                 child: Text('Submit'),

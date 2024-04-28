@@ -1,3 +1,4 @@
+import 'package:blood_flow/superviser_client/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -54,7 +55,7 @@ class Navigation extends StatelessWidget{
                     backgroundColor: navbarColor,
                     color: IdleIconColor,
                     activeColor: ActiveIconColor,
-                    tabBackgroundColor: choosenButtonColor,
+                    tabBackgroundColor: SecondaryColor,
                     gap: 3,
                     onTabChange: onItemTapped,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

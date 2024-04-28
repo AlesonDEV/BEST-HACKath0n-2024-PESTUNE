@@ -11,7 +11,8 @@ import '../../model/BloodType.dart';
 
 
 class BloodRequestContainer extends StatefulWidget {
-  const BloodRequestContainer({Key? key}) : super(key: key);
+  Function onUpdate;
+  BloodRequestContainer({Key? key, required this.onUpdate}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => BloodRequestContainerState();
@@ -101,7 +102,9 @@ class BloodRequestContainerState extends State<BloodRequestContainer> {
         ),
       );
     }, onDelete: (){
-      print("object");
+      setState(() {
+        _fetchData();
+      });
     });
   }
 

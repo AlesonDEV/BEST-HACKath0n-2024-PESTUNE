@@ -1,3 +1,4 @@
+import 'package:blood_flow/superviser_client/config.dart';
 import 'package:blood_flow/superviser_client/pages/requestInfo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,18 @@ class _HomePageState extends State<HomePageWidget>{
       ),
     );
   }
+  void onUpdate(){
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return(
         Stack(
           children: [
-            BloodRequestContainer(key: _key),
+            BloodRequestContainer(key: _key, onUpdate: onUpdate),
             Positioned(
               bottom: 100,
               right: 20,
@@ -70,7 +77,7 @@ class _HomePageState extends State<HomePageWidget>{
                 },
                 child: Icon(Icons.add), // Replace with your desired icon
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: ActiveIconColor, backgroundColor: , // Icon color
+                  foregroundColor: ActiveIconColor, backgroundColor: ElementColor, // Icon color
                   shape: CircleBorder(), // Make the button round
                   padding: EdgeInsets.all(24), // Button size
                 ),

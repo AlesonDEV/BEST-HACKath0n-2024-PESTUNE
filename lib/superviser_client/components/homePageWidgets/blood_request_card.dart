@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:blood_flow/superviser_client/components/homePageWidgets/blood_requests_container.dart';
+import 'package:blood_flow/superviser_client/config.dart';
 import 'package:blood_flow/superviser_client/model/BloodType.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
@@ -84,7 +85,7 @@ class _BloodRequestState extends State<BloodRequestCard> {
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: LiquidLinearProgressIndicator(
                     value: widget.progress < 0.06 ? 0.06 : widget.progress / widget.goal,
-                    valueColor: AlwaysStoppedAnimation(choosenButtonColor),
+                    valueColor: AlwaysStoppedAnimation(SecondaryColor),
                     backgroundColor: Colors.white,
                     borderRadius: 12.0,
                     direction: Axis.horizontal,
@@ -138,6 +139,7 @@ class _BloodRequestState extends State<BloodRequestCard> {
                               TextButton(
                                 onPressed: () {
                                   deleteBloodRequest(widget.id);
+                                  widget.onDelete();
                                   Navigator.of(context).pop(); // Dismiss the dialog after performing the action
                                 },
                                 child: Text('Delete'),

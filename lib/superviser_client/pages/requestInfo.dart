@@ -10,8 +10,10 @@ class BloodRequestInfoScreen extends StatefulWidget {
   final double progress;
   final int goal;
   final List<Donor> donors;
+  int id;
 
   BloodRequestInfoScreen({
+    required this.id,
     required this.bloodType,
     required this.progress,
     required this.goal,

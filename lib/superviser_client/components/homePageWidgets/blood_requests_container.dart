@@ -90,7 +90,16 @@ class BloodRequestContainerState extends State<BloodRequestContainer> {
     final goal = info.bloodVolume; // Use goal if available, otherwise calculate it
 
     return BloodRequestCard.progress(info.id ,goal, bloodType, 0, onTap: (type, progress, goal) {
-      Navigator.push(MaterialPageRoute(builder: (context) => BloodRequestInfoScreen(bloodType: BloodType.bloodTypes[bloodType.id].name, progress: 0, goal: goal, donors: [] )));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => BloodRequestInfoScreen(
+            bloodType: BloodType.bloodTypes[bloodType.id].name,
+            progress: progress,
+            goal: goal, donors: [], id: info.id,
+          ),
+        ),
+      );
     }, onDelete: (){
       print("object");
     });
@@ -100,7 +109,7 @@ class BloodRequestContainerState extends State<BloodRequestContainer> {
     try {
       final bloodInfoList = await fetchBloodInfoList();
       // Assuming you have a method in BloodRequestCard to map BloodInfo to BloodRequestCard
-      bloodCards = bloodInfoList.map((info) => BloodRequestCard.fromBloodInfo(info)).toList();
+      bloodCards = bloodInfoList.map((info) => fetchCards(info)).toList();
       setState(() {}); // Update UI after data is loaded
     } catch (error) {
       print('Error fetching blood info: $error');

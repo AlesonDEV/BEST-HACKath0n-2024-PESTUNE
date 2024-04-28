@@ -21,17 +21,20 @@ class HomePageWidget extends StatefulWidget {
   State<StatefulWidget> createState() => _HomePageState();
 }
 
+
+
+
 class _HomePageState extends State<HomePageWidget>{
   final GlobalKey<BloodRequestContainerState> _key = GlobalKey();
 
-  void onRequestCardTaped(BloodTypeOld bloodType, double progress, int goal, int? id){
+  void onRequestCardTaped(BloodTypeOld bloodType, double progress, int goal, int id){
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BloodRequestInfoScreen(
           bloodType: bloodType.toShortString(),
           progress: progress,
-          goal: goal, donors: [Donor("Yura", "Debelyak", 0.3)],
+          goal: goal, donors: [Donor("Yura", "Debelyak", 0.3)], id: id,
         ),
       ),
     );
@@ -67,7 +70,7 @@ class _HomePageState extends State<HomePageWidget>{
                 },
                 child: Icon(Icons.add), // Replace with your desired icon
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: ActiveIconColor, backgroundColor: choosenButtonColor, // Icon color
+                  foregroundColor: ActiveIconColor, backgroundColor: , // Icon color
                   shape: CircleBorder(), // Make the button round
                   padding: EdgeInsets.all(24), // Button size
                 ),

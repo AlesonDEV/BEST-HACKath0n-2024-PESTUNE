@@ -51,6 +51,7 @@ Future<http.Response> createBloodRequest(
   if(response.statusCode > 200 && response.statusCode < 300){
     print("Created");
   }else{
+    print(utf8.decode(response.bodyBytes));
     print("Error on creating request ${response.statusCode}");
   }
   return response;

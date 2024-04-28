@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BloodFlow.BuisnessLayer.Validation
 {
-    public static class ContactTypeValidation
+    public static class ContactValidation
     {
         private static readonly Regex phoneRegex = new Regex(@"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$", RegexOptions.Compiled);
 
@@ -27,6 +27,5 @@ namespace BloodFlow.BuisnessLayer.Validation
                       new FormatException("Please provide a valid email address."));
             }
         }
-
     }
 }

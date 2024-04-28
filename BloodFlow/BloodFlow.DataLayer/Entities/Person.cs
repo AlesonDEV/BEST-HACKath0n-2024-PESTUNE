@@ -24,7 +24,7 @@ namespace BloodFlow.DataLayer.Entities
         public string PhotoLink { get; set; }
 
         [Column("house_number")]
-        public string HouseNumber { get; set; }
+        public string? HouseNumber { get; set; }
 
         [Column("street_id")]
         [ForeignKey(nameof(Street))]

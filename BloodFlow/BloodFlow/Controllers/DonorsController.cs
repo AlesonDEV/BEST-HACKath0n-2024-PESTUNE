@@ -44,6 +44,20 @@ namespace BloodFlow.PresentaionLayer.Controllers
             return Ok(donorModel);
         }
 
+        // GET: api/donors/orders/1
+        [HttpGet("orders/{id}")]
+        public async Task<ActionResult<IEnumerable<DonorModel>>> GetDonorsByOrderId(int id)
+        {
+            IEnumerable<DonorModel> donorModels = await _donorService.GetDonorsByOrderIdAsync(id);
+
+            if (donorModels == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(donorModels);
+        }
+
         // POST: api/donors/1
         [HttpPost]
         public async Task<ActionResult> Add([FromBody] DonorModel donorModel)
@@ -74,9 +88,9 @@ namespace BloodFlow.PresentaionLayer.Controllers
 
         // GET: api/donors/1/contacts
         [HttpGet("{id}/contacts")]
-        public async Task<ActionResult<DonorModel>> GetContactsById(int id)
+        public async Task<ActionResult<ContactModel>> GetContactById(int id)
         {
-            ContactModel contactModel = await _donorService.GetContactByDonorId(id);
+            ContactModel contactModel = await _donorService.GetContactByDonorIdAsync(id);
 
             if (contactModel == null)
             {
@@ -84,6 +98,38 @@ namespace BloodFlow.PresentaionLayer.Controllers
             }
 
             return Ok(contactModel);
+        }
+
+        // POST: api/donors/1/contacts
+        [HttpPost("{id}/contacts")]
+        public async Task<ActionResult<ContactModel>> AddContactById(int id, [FromBody] ContactModel value)
+        {
+            await _donorService.AddContactByDonorIdAsync(id, value);
+
+            return NoContent();
+        }
+
+        // GET: api/donors/1/address
+        [HttpGet("{id}/addresses")]
+        public async Task<ActionResult<DonorModel>> GetAddressById(int id)
+        {
+            AddressModel addressModel = await _donorService.GetAddressModelByDonorIdAsync(id);
+
+            if (addressModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(addressModel);
+        }
+
+        // POST: api/donors/1/address
+        [HttpPost("{id}/addresses")]
+        public async Task<ActionResult<AddressModel>> AddAddressById(int id, [FromBody] AddressModel value)
+        {
+            await _donorService.AddAddressByDonorIdAsync(id, value);
+
+            return NoContent();
         }
     }
 }

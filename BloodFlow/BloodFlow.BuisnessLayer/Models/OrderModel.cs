@@ -16,6 +16,10 @@ namespace BloodFlow.BuisnessLayer.Models
 
         public int BloodVolume { get; set; }
 
+        public int BloodTypeId { get; set; }
+
+        public int BloodTypeName { get; set; }
+
         public int ImportanceId { get; set; }
 
         public string ImportanceName { get; set; }

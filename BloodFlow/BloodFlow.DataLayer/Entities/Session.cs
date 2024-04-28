@@ -23,7 +23,10 @@ namespace BloodFlow.DataLayer.Entities
         public DateTime Date { get; set; }
 
         [Column("state_id")]
+        [ForeignKey(nameof(StateSession))]
         public int StateId { get; set; }
+
+        public StateSession StateSession { get; set; }
 
         public ICollection<DonorSession>? DonorSessions { get; set; } 
 

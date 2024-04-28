@@ -1,13 +1,24 @@
 # blood_flow
 
-A new Flutter project.
+A new Flutter project. This project is hosted on Azure and can be accessed at [Blood Flow Presentation Layer](https://bloodflowpresentaionlayer20240428063721.azurewebsites.net/).
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+### Overview of BloodFlow
+BloodFlow is designed to enhance the blood donation system, facilitating efficient connections between donors and blood collection points. It features an intuitive interface that helps donors easily find nearby centers in need and view current blood requests by type and volume. Blood collection points can post announcements for donor needs, ensuring timely responses to critical situations.
 
+### Architecture
+BloodFlow employs a monolithic architecture that integrates various layers for reliability and performance:
+- **Business Layer**: Equipped with services like `IDonorService` and `IOrderService`, this layer manages business logic including donor data and blood orders.
+- **Data Layer**: Utilizes Entity Framework for database interactions, ensuring efficient data handling.
+
+### Key Features
+- **Registration for donors and blood centers**: Users can create profiles containing all necessary information for participating in blood donation.
+- **Search and selection of blood collection points**: An interactive map allows donors to locate centers in need, displaying detailed information about each.
+
+A few resources to get you started if this is your first Flutter project:
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
